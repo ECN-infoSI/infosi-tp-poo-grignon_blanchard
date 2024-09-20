@@ -20,6 +20,17 @@ public class TestWoE{
        System.out.println();
        
        monde.bugs.affiche(); 
+       System.out.println();
+       
+       Point2D position = new Point2D(14,17); 
+       Lapin roger = new Lapin(50, 50, 50, 10, 10, position); 
+       
+       System.out.println("Roger le lapin");
+       roger.affiche(); 
+       
+       System.out.println("Roger se déplace d'une case en x");
+       roger.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
+       roger.affiche(); 
    }
    
 }
