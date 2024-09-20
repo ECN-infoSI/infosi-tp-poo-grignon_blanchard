@@ -45,6 +45,13 @@ public class TestWoE{
        monde.robin.affiche();
        
        
+       // test Objet
+       Objet objet = new Objet(); 
+       objet.affiche();
+       
+      
+       
+       
    }
    
 }

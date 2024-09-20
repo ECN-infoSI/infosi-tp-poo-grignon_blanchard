@@ -10,11 +10,22 @@ package org.centrale.objet.woe.tp;
  */
 public class Objet {
 
+    private Point2D pos; 
+    
     /**
      * Constructeur par défaut
      * @author grigm
      */
     public Objet(){
-        
+        pos = new Point2D(); 
+    }
+    
+    
+    /**
+     * méthode affiche la position de l'objet
+     * @author grigm
+     */
+    public void affiche(){ 
+        System.out.println("Objet(" + pos.getX() +","+pos.getY()+")");
     }
 }
