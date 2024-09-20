@@ -5,9 +5,10 @@
 package org.centrale.objet.woe.tp;
 
 import java.util.Random;
+import java.util.Date;
 
 /**
- *
+ * Super-classe représentant les monstres 
  * @author grigm
  */
 public class Monstre{
@@ -18,6 +19,16 @@ public class Monstre{
     private int pagePar; 
     private Point2D pos; 
     
+    
+    /**
+     * Constructeur
+     * @param pV Nombre de point de vie 
+     * @param dA Nombre de point d'attaque
+     * @param pPar Nombre de point de parade
+     * @param paAtt page attage
+     * @param paPar page parade 
+     * @param p Postion
+     */
     public Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){ 
         ptVie = pV; 
         degAtt = dA; 
@@ -28,7 +39,11 @@ public class Monstre{
        
     }
    
-    
+    /**
+     * Constructeur par copie d'un Monstre déjà existant
+     * @author grigm
+     * @param m Instance de Monstre à copier
+     */
     public Monstre(Monstre m){ 
         this.ptVie = m.getPtVie(); 
         this.degAtt = m.getDegAtt(); 
@@ -39,6 +54,11 @@ public class Monstre{
         
     }
     
+    
+    /**
+     * Constructeur par défaut
+     * @author grigm
+     */
     public Monstre() { 
         ptVie = 100; 
         degAtt = 100; 
@@ -47,7 +67,12 @@ public class Monstre{
         pagePar = 10; 
         pos = new Point2D(); 
     }
-
+    
+    
+    /**
+     * Accesseur du nombre de point de vie du Monstre
+     * @return ptVie Nombre de point de vie
+     */
     public int getPtVie() {
         return ptVie;
     }
@@ -96,12 +121,20 @@ public class Monstre{
         this.pos = pos;
     }
     
+    /**
+     * Déplace de manière aléatoire le Monstre dans les 8 directions possibles d'un cran
+     * @author grigm
+     */
     public void deplace (){ 
-        
-        Random rand = new Random(); 
+        Date date1= new Date();
+        Random rand = new Random(date1.getTime()); 
         this.pos.translate(rand.nextInt(2)-1, rand.nextInt(2)-1); //se déplace d'une case adjacente
     }
     
+    /**
+     * Affiche l'ensemble des statistiques du Monstre
+     * @author grigm
+     */
     public void affiche () {
         System.out.println("Monstre(" + pos.getX() + ", " + pos.getY() + ")");
         System.out.println("Att. : " + degAtt);
