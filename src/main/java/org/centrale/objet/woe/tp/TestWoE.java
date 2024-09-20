@@ -19,39 +19,13 @@ public class TestWoE{
        monde.peon.affiche(); 
        System.out.println();
        
-       monde.bugs.affiche(); 
+       monde.bugs1.affiche(); 
        System.out.println();
-       
-          
-      
-       
-       System.out.println("Robin se deplace 2 fois aleatoirement");
-       monde.robin.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
-       monde.robin.affiche(); 
-       monde.robin.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
-       monde.robin.affiche();
-       
-       System.out.println("Bugs se deplace 2 fois aleatoirement");
-       monde.bugs.deplace(); // utiliser une méthode de la super classe pour déplacer  d'une case de x (+1)
-       monde.bugs.affiche(); 
-       monde.bugs.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
-       monde.bugs.affiche();
-       
-       
-       System.out.println("Robin se deplace 2 fois aleatoirement de nouveau");
-       monde.robin.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
-       monde.robin.affiche(); 
-       monde.robin.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
-       monde.robin.affiche();
        
        
        // test Objet
        Objet objet = new Objet(); 
        objet.affiche();
-       
-      
-       
-       
    }
    
 }
