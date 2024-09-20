@@ -127,6 +127,7 @@ public class Monstre{
      */
     public void deplace (){ 
         Date date1= new Date();
+        /* on utilise getTime() pour avoir un seed différent dans le random*/
         Random rand = new Random(date1.getTime()); 
         this.pos.translate(rand.nextInt(2)-1, rand.nextInt(2)-1); //se déplace d'une case adjacente
     }
