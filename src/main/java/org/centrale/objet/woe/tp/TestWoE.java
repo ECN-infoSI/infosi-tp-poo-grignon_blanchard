@@ -28,9 +28,13 @@ public class TestWoE{
        System.out.println("Roger le lapin");
        roger.affiche(); 
        
-       System.out.println("Roger se déplace d'une case en x");
+       System.out.println("Roger se deplace d'une case en x");
        roger.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
        roger.affiche(); 
+       roger.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
+       roger.affiche();
+       roger.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
+       roger.affiche();
    }
    
 }

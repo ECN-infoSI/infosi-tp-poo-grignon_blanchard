@@ -4,6 +4,8 @@
 
 package org.centrale.objet.woe.tp;
 
+import java.util.Random;
+
 /**
  *
  * @author grigm
@@ -95,7 +97,9 @@ public class Monstre{
     }
     
     public void deplace (){ 
-        this.pos.translate(1, 0);
+        
+        Random rand = new Random(); 
+        this.pos.translate((-1)^(rand.nextInt(2))*rand.nextInt(2), (-1)^(rand.nextInt(2))*rand.nextInt(2));
     }
     
     public void affiche () {
