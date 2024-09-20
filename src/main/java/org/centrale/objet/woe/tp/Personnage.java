@@ -28,8 +28,8 @@ public class Personnage extends Creature{
      * @param pV    Nombre de points de vie
      * @param dA    Nombre de points d'attaque
      * @param pPar  Nombre de points de parade
-     * @param paAtt Page attaque
-     * @param paPar Page parade
+     * @param paAtt Pourcentage d'attaque
+     * @param paPar Pourcentage de parade
      * @param dMax  Distance d'attaque maximale
      * @param p     Position
      */
@@ -59,7 +59,7 @@ public class Personnage extends Creature{
      */
     @Override
     public void affiche() {
-        System.out.println(nom + " " + ptVie + "♥  " + pos.getX() + ", " + pos.getY() + ")");
+        System.out.println(nom + " " + ptVie + " (" + pos.getX() + ", " + pos.getY() + ")");
         System.out.println("Att. : " + degAtt);
         System.out.println("Par. : " + ptPar);
         System.out.println("Page Att. : " + pageAtt);
