@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.tp;
+
 import java.util.Random; 
+import java.util.Date;
 
 /**
  * Classe représentant le monde à utiliser lors d'une partie
@@ -12,34 +14,75 @@ import java.util.Random;
 public class World {
     public Archer robin; 
     public Paysan peon; 
-    public Lapin bugs; 
+    public Lapin bugs1;
+    public Lapin bugs2;
+    public Archer guillaumeT;
+    public Guerrier grosBill;
+    public Loup wolfie;
     
     /**
      * Constructeur par défaut
      */
     public World() { 
+        // On renomme les personnages pour pouvoir les distinguer
+        
         robin = new Archer(); 
+        robin.setNom("Robin");
+        
         peon = new Paysan(); 
-        bugs = new Lapin(); 
+        peon.setNom("Peon");
+        
+        guillaumeT = new Archer();
+        guillaumeT.setNom("Guillaume T.");
+        
+        grosBill = new Guerrier();
+        grosBill.setNom("Gros Bill");
+        
+        bugs1 = new Lapin(); 
+        bugs2 = new Lapin();
+        
+        wolfie = new Loup();
     }
     
     /**
-     * Constructeur aléatoire (évite que deux personnages apparaissent à la même position
+     * Constructeur aléatoire (évite que deux personnages apparaissent à la même position)
+     * @author simon
      */
-    public void creerMondeAlea(){ 
-        Random rand = new Random(); 
+    public void creerMondeAlea() {
+        Date date = new Date();
+        Random rand = new Random(date.getTime()); 
+        int[] listCoor = new int[14];
+        boolean flag;  // Utiliser pour verifier que le couple de coordonées n'existe pas déjà
         
-        this.robin.setPos(new Point2D(rand.nextInt(100),rand.nextInt(100)));
-        
-        this.peon.setPos(new Point2D(rand.nextInt(100),rand.nextInt(100)));
-        while (robin.getPos().getX()==peon.getPos().getX()|| robin.getPos().getY()==peon.getPos().getY()){
-            this.peon.setPos(new Point2D(rand.nextInt(100),rand.nextInt(100)));
+        for (int i = 0; i < 7; i++) {                      
+            do {
+                flag = true;
+                
+                listCoor[2*i] = rand.nextInt(10);
+                listCoor[2*i+1] = rand.nextInt(10);
+                
+                for (int j = 0; j < i && flag; j++) {
+                    flag = listCoor[2*i] != listCoor[2*j] && listCoor[2*i+1] != listCoor[2*j+1];
+                }
+            }
+            while (flag);
         }
         
-        this.bugs.setPos(new Point2D(rand.nextInt(100),rand.nextInt(100)));
+        robin.setPos(new Point2D(listCoor[0], listCoor[1]));
+        peon.setPos(new Point2D(listCoor[2], listCoor[3]));
+        guillaumeT.setPos(new Point2D(listCoor[4], listCoor[5]));
+        grosBill.setPos(new Point2D(listCoor[6], listCoor[7]));
+        bugs1.setPos(new Point2D(listCoor[8], listCoor[9]));
+        bugs2.setPos(new Point2D(listCoor[10], listCoor[11]));
+        wolfie.setPos(new Point2D(listCoor[12], listCoor[13]));
+    }
+    
+    
+    /**
+     * Effectue un tour de jeu
+     * @author simon
+     */
+    public void tourDeJeu() {
         
-        while ((robin.getPos().getX()==bugs.getPos().getX() && robin.getPos().getY()==bugs.getPos().getY()) || (peon.getPos().getX()==bugs.getPos().getX() && peon.getPos().getY()==bugs.getPos().getY())){
-            this.bugs.setPos(new Point2D(rand.nextInt(100),rand.nextInt(100)));
-        }        
     }
 }
