@@ -6,7 +6,7 @@ package org.centrale.objet.woe.tp;
 import java.util.Random; 
 
 /**
- *
+ * Classe représentant le monde à utiliser lors d'une partie
  * @author grigm
  */
 public class World {
@@ -14,13 +14,18 @@ public class World {
     public Paysan peon; 
     public Lapin bugs; 
     
+    /**
+     * Constructeur par défaut
+     */
     public World() { 
         robin = new Archer(); 
         peon = new Paysan(); 
         bugs = new Lapin(); 
-        
     }
     
+    /**
+     * Constructeur aléatoire (évite que deux personnages apparaissent à la même position
+     */
     public void creerMondeAlea(){ 
         Random rand = new Random(); 
         

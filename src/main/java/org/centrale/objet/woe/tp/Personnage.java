@@ -9,8 +9,8 @@ package org.centrale.objet.woe.tp;
  * @author simon
  */
 public class Personnage extends Creature{
-    private String nom;
-    private int distAttMax;
+    protected String nom;
+    protected int distAttMax;
  
     /**
      * Constructeur par défaut
@@ -59,13 +59,11 @@ public class Personnage extends Creature{
      */
     @Override
     public void affiche() {
-        System.out.println(nom);
-        System.out.println(this.getPos().getX() + ", " + this.getPos().getY() + ")");
-        System.out.println("Pt. Vie : " + this.getPtVie());
-        System.out.println("Att. : " + this.getDegAtt());
-        System.out.println("Par. : " + this.getPtPar());
-        System.out.println("Page Att. : " + this.getPageAtt());
-        System.out.println("Page Par. : " + this.getPagePar());
+        System.out.println(nom + " " + ptVie + "♥  " + pos.getX() + ", " + pos.getY() + ")");
+        System.out.println("Att. : " + degAtt);
+        System.out.println("Par. : " + ptPar);
+        System.out.println("Page Att. : " + pageAtt);
+        System.out.println("Page Par. : " + pagePar);
         System.out.println("Dist. Att. Max : " + distAttMax);
         
     }
