@@ -12,12 +12,12 @@ import java.util.Random;
  * @author grigm
  */
 public class Creature {
-    private int ptVie;
-    private int degAtt;
-    private int ptPar;
-    private int pageAtt;
-    private int pagePar;
-    private Point2D pos;
+    protected int ptVie;
+    protected int degAtt;
+    protected int ptPar;
+    protected int pageAtt;
+    protected int pagePar;
+    protected Point2D pos;
     
     /**
      * Constructeur par défaut
@@ -70,7 +70,7 @@ public class Creature {
      * @author simon
      */
      public void affiche() {
-        System.out.println("Creature(" + pos.getX() + ", " + pos.getY() + ")");
+        System.out.println("Creature " + ptVie + "♥ (" + pos.getX() + ", " + pos.getY() + ")");
         System.out.println("Att. : " + degAtt);
         System.out.println("Par. : " + ptPar);
         System.out.println("Page Att. : " + pageAtt);
