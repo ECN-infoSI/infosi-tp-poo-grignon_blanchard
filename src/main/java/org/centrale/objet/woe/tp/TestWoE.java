@@ -38,6 +38,13 @@ public class TestWoE{
        monde.bugs.affiche();
        
        
+       System.out.println("Robin se deplace 2 fois aleatoirement de nouveau");
+       monde.robin.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
+       monde.robin.affiche(); 
+       monde.robin.deplace(); // utiliser une méthode de la super classe pour déplacer roger d'une case de x (+1)
+       monde.robin.affiche();
+       
+       
    }
    
 }
