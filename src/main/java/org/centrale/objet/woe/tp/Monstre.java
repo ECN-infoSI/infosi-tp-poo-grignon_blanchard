@@ -4,8 +4,6 @@
 
 package org.centrale.objet.woe.tp;
 
-import java.util.Random;
-import java.util.Date;
 
 /**
  * Super-classe représentant les monstres 
