@@ -5,16 +5,17 @@
 package org.centrale.objet.woe.tp;
 
 /**
- * Super-classe représentant les objets
+ * sous-classe Objet représentant les épées 
  * @author grigm
  */
-public class Objet {
-
+public class Epee extends Objet{
+    
     /**
      * Constructeur par défaut
      * @author grigm
      */
-    public Objet(){
-        
+    public Epee(){
+        super(); 
     }
+    
 }

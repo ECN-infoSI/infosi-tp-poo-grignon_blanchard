@@ -5,16 +5,15 @@
 package org.centrale.objet.woe.tp;
 
 /**
- * Super-classe représentant les objets
+ * sous-classe d'Objet représentant les potions de soin
  * @author grigm
  */
-public class Objet {
-
+public class PotionSoin extends Objet{
     /**
      * Constructeur par défaut
      * @author grigm
      */
-    public Objet(){
-        
+    public PotionSoin(){
+        super();
     }
 }
