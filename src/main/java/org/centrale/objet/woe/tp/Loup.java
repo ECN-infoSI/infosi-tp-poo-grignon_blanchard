@@ -1,4 +1,6 @@
 package org.centrale.objet.woe.tp;
+import java.util.Date;
+import java.util.Random; 
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -35,8 +37,31 @@ public class Loup extends Monstre {
     
     /**
      * Constructeur par défaut
+     * @author simon
      */
     public Loup() {
         super();
+    }
+    
+    
+    /**
+     * methode combattre (mode de combat au corps à corps)
+     * @author simon
+     * @param c Creature attaqué
+     */
+    public void combattre(Creature c){ 
+        Date date1= new Date();
+        Random rand = new Random(date1.getTime()); 
+        
+        if (rand.nextInt(100) > this.pageAtt) { 
+            System.out.println("Attaque ratée");
+        }
+        else { 
+            System.out.println("Attaque réussie");
+        }
+        
+    }
+        
+        
     }
 }
