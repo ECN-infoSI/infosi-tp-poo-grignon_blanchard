@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.tp;
+import java.util.Date;
 import java.util.Random; 
 
 /**
@@ -79,7 +80,8 @@ public class Personnage {
      * @author grigm
      */
     public void deplace() {
-        Random rand = new Random(); 
+        Date date1= new Date();
+        Random rand = new Random(date1.getTime()); 
         this.pos.translate(rand.nextInt(2)-1, rand.nextInt(2)-1); // déplace d'une case adjacente
     }
     
