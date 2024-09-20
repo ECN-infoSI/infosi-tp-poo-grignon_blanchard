@@ -99,7 +99,7 @@ public class Monstre{
     public void deplace (){ 
         
         Random rand = new Random(); 
-        this.pos.translate((-1)^(rand.nextInt(2))*rand.nextInt(2), (-1)^(rand.nextInt(2))*rand.nextInt(2));
+        this.pos.translate(rand.nextInt(2)-1, rand.nextInt(2)-1); //se déplace d'une case adjacente
     }
     
     public void affiche () {
