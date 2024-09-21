@@ -42,7 +42,7 @@ public class Point2D {
      * Calcul la distance euclidienne entre deux instances de Point2D
      * @param p1 Instance de Point2D
      * @param p2 Instance de Point2D
-     * @return   Distance euclidienne entre this et p
+     * @return   Distance euclidienne entre les points p1 et p2
      */
     public static double distance(Point2D p1, Point2D p2) {
         return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
