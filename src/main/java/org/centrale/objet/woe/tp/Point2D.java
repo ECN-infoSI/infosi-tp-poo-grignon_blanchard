@@ -39,12 +39,13 @@ public class Point2D {
     }
     
     /**
-     * Calcul la distance euclidienne entre l'instance et une autre de Point2D
-     * @param p Autre instance de Point2D dont la distance doit être calculée par rapport à l'instance
-     * @return  Distance euclidienne entre this et p
+     * Calcul la distance euclidienne entre deux instances de Point2D
+     * @param p1 Instance de Point2D
+     * @param p2 Instance de Point2D
+     * @return   Distance euclidienne entre this et p
      */
-    public double distance(Point2D p) {
-        return Math.sqrt((this.x - p.getX()) * (this.x - p.getX()) + (this.y - p.getY()) * (this.y - p.getY()));
+    public static double distance(Point2D p1, Point2D p2) {
+        return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
     
     public void setPosition(int x, int y) {

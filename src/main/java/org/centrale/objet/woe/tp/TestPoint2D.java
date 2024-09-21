@@ -24,6 +24,6 @@ public class TestPoint2D {
         point1bis.affiche();
         
         System.out.println("Calcul de la distance entre point1 et point2");
-        System.out.println(point1.distance(point2));
+        System.out.println(Point2D.distance(point1, point2));
     }
 }
