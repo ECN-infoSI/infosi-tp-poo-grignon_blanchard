@@ -4,6 +4,8 @@
 
 package org.centrale.objet.woe.tp;
 
+import java.lang.Math;
+
 /**
  *
  * @author simon
@@ -34,6 +36,15 @@ public class Point2D {
     public void translate(int dx, int dy) {
         this.x += dx;
         this.y += dy;
+    }
+    
+    /**
+     * Calcul la distance euclidienne entre l'instance et une autre de Point2D
+     * @param p Autre instance de Point2D dont la distance doit être calculée par rapport à l'instance
+     * @return  Distance euclidienne entre this et p
+     */
+    public double distance(Point2D p) {
+        return Math.sqrt((this.x - p.getX()) * (this.x - p.getX()) + (this.y - p.getY()) * (this.y - p.getY()));
     }
     
     public void setPosition(int x, int y) {
