@@ -16,10 +16,25 @@ public class TestWoE{
        monde.robin.affiche(); 
        System.out.println();
        
+       monde.guillaumeT.affiche(); 
+       System.out.println();
+       
        monde.peon.affiche(); 
        System.out.println();
        
+       monde.grosBill.affiche(); 
+       System.out.println();
+       
+       System.out.println("Bugs 1 :");
        monde.bugs1.affiche(); 
+       System.out.println();
+       
+       System.out.println("Bugs 2 :");
+       monde.bugs2.affiche(); 
+       System.out.println();
+       
+       System.out.println("Wolfie :");
+       monde.wolfie.affiche(); 
        System.out.println();
        
        

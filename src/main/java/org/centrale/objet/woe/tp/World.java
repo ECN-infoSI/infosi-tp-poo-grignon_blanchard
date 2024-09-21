@@ -52,20 +52,20 @@ public class World {
         Date date = new Date();
         Random rand = new Random(date.getTime()); 
         int[] listCoor = new int[14];
-        boolean flag;  // Utiliser pour verifier que le couple de coordonées n'existe pas déjà
+        boolean flagAllUnique;  // Utiliser pour verifier que le couple de coordonées n'existe pas déjà
         
         for (int i = 0; i < 7; i++) {                      
             do {
-                flag = true;
+                flagAllUnique = true;
                 
                 listCoor[2*i] = rand.nextInt(10);
                 listCoor[2*i+1] = rand.nextInt(10);
                 
-                for (int j = 0; j < i && flag; j++) {
-                    flag = listCoor[2*i] != listCoor[2*j] && listCoor[2*i+1] != listCoor[2*j+1];
+                for (int j = 0; j < i && flagAllUnique; j++) {
+                    flagAllUnique = listCoor[2*i] != listCoor[2*j] && listCoor[2*i+1] != listCoor[2*j+1];
                 }
             }
-            while (flag);
+            while (!flagAllUnique);
         }
         
         robin.setPos(new Point2D(listCoor[0], listCoor[1]));
