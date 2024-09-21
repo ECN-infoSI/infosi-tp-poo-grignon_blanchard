@@ -19,7 +19,7 @@ public class Personnage extends Creature{
     public Personnage() {
         super(); 
         nom = "John Doe";
-        distAttMax = 2;
+        distAttMax = 10;
     }
     
     /**

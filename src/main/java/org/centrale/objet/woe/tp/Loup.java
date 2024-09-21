@@ -45,25 +45,36 @@ public class Loup extends Monstre {
     
     
     /**
-     * methode combattre (mode de combat au corps à corps)
-     * @author simon
-     * @param c Creature attaqué
+     * Attaque au corps à corps pour la classe Loup
+     * @param c Créature à attaquer
      */
-    public void combattre(Creature c){ 
-        Date date1= new Date();
-        Random rand = new Random(date1.getTime()); 
+    public void combattre(Creature c) {
+        Date date = new Date();
+        Random rand = new Random(date.getTime());
         
-        if (rand.nextInt(100) > this.pageAtt) { 
-            System.out.println("Attaque ratée");
+        // Vérification que l'adversaire est sur une case adhacente
+        // Comme sqrt(2) = 1.414, dist <= 1.4 permet de prendre en compte les erreurs dans le codage des flottants
+        if (Point2D.distance(pos, c.pos) <= 1.4) {
+            // Tirage pour décider si l'attaque réussi
+            if (rand.nextInt() <= pageAtt) {
+                // Tirage pour savoir si la créature adverse pare le coup
+                if (rand.nextInt() <= c.pagePar) {
+                    System.out.println("L'attaque réussi mais l'adversaire pare le coup !");
+                    
+                    c.prendreDegats(degAtt - c.ptPar);
+                }
+                else {
+                    System.out.println("L'attaque réussi !");
+                    
+                    c.prendreDegats(degAtt);
+                }
+            } 
+            else {
+                System.out.println("L'attaque a échoué");
+            }
         }
-        else { 
-            System.out.println("Attaque réussie");
+        else {
+            System.out.println("La créature est hors de portée");
         }
-        
     }
-        
-    
-        
-      
- 
 }

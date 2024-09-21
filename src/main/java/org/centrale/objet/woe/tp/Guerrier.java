@@ -4,6 +4,9 @@
  */
 package org.centrale.objet.woe.tp;
 
+import java.util.Date;
+import java.util.Random;
+
 /**
  * Sous-classe de Personnage représentant les guerriers
  * @author grigm
@@ -43,4 +46,37 @@ public class Guerrier extends Personnage {
         super((Personnage) g);
     }
     
+    /**
+     * Attaque au corps à corps pour la classe Guerrier
+     * @param c Créature à attaquer
+     */
+    public void combattre(Creature c) {
+        Date date = new Date();
+        Random rand = new Random(date.getTime());
+        
+        // Vérification que l'adversaire est sur une case adhacente
+        // Comme sqrt(2) = 1.414, dist <= 1.4 permet de prendre en compte les erreurs dans le codage des flottants
+        if (Point2D.distance(pos, c.pos) <= 1.4) {
+            // Tirage pour décider si l'attaque réussi
+            if (rand.nextInt() <= pageAtt) {
+                // Tirage pour savoir si la créature adverse pare le coup
+                if (rand.nextInt() <= c.pagePar) {
+                    System.out.println("L'attaque réussi mais l'adversaire pare le coup !");
+                    
+                    c.prendreDegats(degAtt - c.ptPar);
+                }
+                else {
+                    System.out.println("L'attaque réussi !");
+                    
+                    c.prendreDegats(degAtt);
+                }
+            } 
+            else {
+                System.out.println("L'attaque a échoué");
+            }
+        }
+        else {
+            System.out.println("La créature est hors de portée");
+        }
+    }
 }

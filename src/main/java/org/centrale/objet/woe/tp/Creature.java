@@ -27,8 +27,8 @@ public class Creature {
         ptVie = 100;
         degAtt = 5;
         ptPar = 10;
-        pageAtt = 5;
-        pagePar = 10;
+        pageAtt = 80;
+        pagePar = 25;
         pos = new Point2D();
     }
     
@@ -86,6 +86,21 @@ public class Creature {
         Date date1= new Date();
         Random rand = new Random(date1.getTime()); 
         this.pos.translate(rand.nextInt(2)-1, rand.nextInt(2)-1); // déplace d'une case adjacente
+    }
+    
+    /**
+     * Méthode permettant la gestion de la prise de dégats
+     * @param degats Nombre de dégats à infliger (si négatif, rien n'est fait)
+     */
+    public void prendreDegats(int degats) {
+        if (degats > 0) {
+            ptVie -= degats;
+
+            if (ptVie <= 0) {
+                ptVie = 0;
+                System.out.println("La créature est morte !");
+            }
+        }
     }
     
     
