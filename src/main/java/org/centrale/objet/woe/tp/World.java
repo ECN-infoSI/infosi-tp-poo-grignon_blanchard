@@ -58,13 +58,16 @@ public class World {
             do {
                 flagAllUnique = true;
                 
+                // Tirage de deux entiers
                 listCoor[2*i] = rand.nextInt(10);
                 listCoor[2*i+1] = rand.nextInt(10);
                 
+                // Vérification que la paire n'existe pas déjà parmis les couples générés precedemment
                 for (int j = 0; j < i && flagAllUnique; j++) {
                     flagAllUnique = listCoor[2*i] != listCoor[2*j] && listCoor[2*i+1] != listCoor[2*j+1];
                 }
             }
+            // On recommence l'opération tant que le couple existait déjà
             while (!flagAllUnique);
         }
         
