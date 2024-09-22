@@ -73,8 +73,8 @@ public class Creature {
         System.out.println("Creature " + ptVie + " (" + pos.getX() + ", " + pos.getY() + ")");
         System.out.println("Att. : " + degAtt);
         System.out.println("Par. : " + ptPar);
-        System.out.println("Page Att. : " + pageAtt);
-        System.out.println("Page Par. : " + pagePar);
+        System.out.println("Pourcentage Att. : " + pageAtt);
+        System.out.println("Pourcentage Par. : " + pagePar);
    
     }
      

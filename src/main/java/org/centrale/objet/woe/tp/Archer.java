@@ -55,6 +55,22 @@ public class Archer extends Personnage{
             System.out.println("La créature est hors de portée");
         }
     }
+    
+    /**
+     * Affiche l'ensemble des statistiques du Personnage
+     * @author simon
+     */
+    @Override
+    public void affiche() {
+        System.out.println(nom + " " + ptVie + " (" + pos.getX() + ", " + pos.getY() + ")");
+        System.out.println("Nombre de Flèches : " + nbFleches);
+        System.out.println("Att. : " + degAtt);
+        System.out.println("Par. : " + ptPar);
+        System.out.println("Pourcentage Att. : " + pageAtt);
+        System.out.println("Pourcentage Par. : " + pagePar);
+        System.out.println("Dist. Att. Max : " + distAttMax);
+        
+    }
 
     public int getNbFleches() {
         return nbFleches;
