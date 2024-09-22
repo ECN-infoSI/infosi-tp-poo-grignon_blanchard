@@ -45,7 +45,7 @@ public class Loup extends Monstre {
     
     
     /**
-     * Attaque au corps à corps pour la classe Loup
+     * Attaque au corps à corps pour la classe Guerrier
      * @param c Créature à attaquer
      */
     public void combattre(Creature c) {
@@ -56,21 +56,27 @@ public class Loup extends Monstre {
         // Comme sqrt(2) = 1.414, dist <= 1.4 permet de prendre en compte les erreurs dans le codage des flottants
         if (Point2D.distance(pos, c.pos) <= 1.4) {
             // Tirage pour décider si l'attaque réussi
-            if (rand.nextInt() <= pageAtt) {
+            int tirrageAtt = rand.nextInt(100);
+            
+            if (tirrageAtt <= pageAtt) {
+                System.out.println(tirrageAtt + " : L'attaque réussi !");
+                
                 // Tirage pour savoir si la créature adverse pare le coup
-                if (rand.nextInt() <= c.pagePar) {
-                    System.out.println("L'attaque réussi mais l'adversaire pare le coup !");
+                int tirragePar = rand.nextInt(100);
+                
+                if (tirragePar <= c.pagePar) {
+                    System.out.println(tirragePar + " : L'adversaire pare le coup !");
                     
                     c.prendreDegats(degAtt - c.ptPar);
                 }
-                else {
-                    System.out.println("L'attaque réussi !");
+                else {    
+                    System.out.println(tirragePar + " : L'adversaire ne pare pas le coup !");
                     
                     c.prendreDegats(degAtt);
                 }
             } 
             else {
-                System.out.println("L'attaque a échoué");
+                System.out.println(tirrageAtt + " : L'attaque a échoué");
             }
         }
         else {

@@ -65,6 +65,31 @@ public class TestWoE{
        
        System.out.println("# Attaque à distance hors de portée (trop loin)");
        monde.robin.combattre(monde.bugs2);
+       
+       // Affichage des statistiques des personnages après les combats
+       monde.robin.affiche(); 
+       System.out.println();
+       
+       monde.guillaumeT.affiche(); 
+       System.out.println();
+       
+       monde.peon.affiche(); 
+       System.out.println();
+       
+       monde.grosBill.affiche(); 
+       System.out.println();
+       
+       System.out.println("Bugs 1 :");
+       monde.bugs1.affiche(); 
+       System.out.println();
+       
+       System.out.println("Bugs 2 :");
+       monde.bugs2.affiche(); 
+       System.out.println();
+       
+       System.out.println("Wolfie :");
+       monde.wolfie.affiche(); 
+       System.out.println();
    }
    
 }

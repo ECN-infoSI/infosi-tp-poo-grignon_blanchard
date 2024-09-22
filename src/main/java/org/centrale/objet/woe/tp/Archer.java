@@ -41,14 +41,16 @@ public class Archer extends Personnage{
         // Vérification que l'adversaire n'est pas hors de portée
         if (dist > 1 && dist <= distAttMax) {
             // Tirage pour décider si l'attaque réussi
-            if (rand.nextInt() <= pageAtt && nbFleches > 0) {
-                System.out.println("L'attaque a réussi !");
+            int tirrageAtt = rand.nextInt(100);
+            
+            if (tirrageAtt <= pageAtt && nbFleches > 0) {
+                System.out.println(tirrageAtt + " : L'attaque a réussi !");
                 
                 c.prendreDegats(degAtt);
                 nbFleches --;  
             } 
             else {
-                System.out.println("L'attaque a échoué");
+                System.out.println(tirrageAtt + " : L'attaque a échoué");
             }
         }
         else {
