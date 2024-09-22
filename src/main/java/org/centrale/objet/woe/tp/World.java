@@ -6,6 +6,7 @@ package org.centrale.objet.woe.tp;
 
 import java.util.Random; 
 import java.util.Date;
+import java.util.ArrayList; 
 
 /**
  * Classe représentant le monde à utiliser lors d'une partie
@@ -19,7 +20,8 @@ public class World {
     public Archer guillaumeT;
     public Guerrier grosBill;
     public Loup wolfie;
-    
+    public ArrayList<PotionSoin> potion; 
+
     /**
      * Constructeur par défaut
      */
@@ -42,6 +44,11 @@ public class World {
         bugs2 = new Lapin();
         
         wolfie = new Loup();
+        
+        potion = new ArrayList(); 
+        potion.add(new PotionSoin()); 
+        potion.add(new PotionSoin()); 
+        
     }
     
     /**
@@ -87,5 +94,27 @@ public class World {
      */
     public void tourDeJeu() {
         
+    }
+    
+    /**
+     * Pour que le personnage utilise une potion de soin sur sa case
+     * @author grigm
+     * @param perso le Personnage qui vient de se déplacer
+     */
+    public void utilisePotion(Personnage perso) { 
+        // si le tableau potion est vide 
+        if (this.potion.isEmpty()){
+            System.out.println("il n'y a pas de potion de soin dans ce monde");   
+        }
+        for(int i=0; i< this.potion.size(); i++){
+            if (Point2D.distance(perso.pos, this.potion.get(i).getPos())==0){
+            //ajout des points de vie au personnage 
+            perso.setPtVie(perso.getPtVie()+this.potion.get(i).getValeurPV());
+            System.out.println("vous consommez la potion de soin, vous gagnez " +this.potion.get(i).getValeurPV() + "PV");
+            
+            // la potion de soin est utilisée, on la retire du tableau potion
+            this.potion.remove(i); 
+            }
+        }
     }
 }

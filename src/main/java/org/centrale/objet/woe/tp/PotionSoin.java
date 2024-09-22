@@ -9,11 +9,29 @@ package org.centrale.objet.woe.tp;
  * @author grigm
  */
 public class PotionSoin extends Objet{
+    private int valeurPV; 
+    
     /**
      * Constructeur par défaut
      * @author grigm
      */
     public PotionSoin(){
         super();
+        this.valeurPV = 3; 
     }
+    
+    /**
+     * Ascesseur pour récupérer le nombre de pv qu'apporte la potion de soin
+     * @author grigm
+     * @return valeurPV la valeur de la potion de soin en PV
+     */
+    public int getValeurPV() {
+        return valeurPV;
+    }
+
+    public void setValeurPV(int valeurPV) {
+        this.valeurPV = valeurPV;
+    }
+    
+    
 }

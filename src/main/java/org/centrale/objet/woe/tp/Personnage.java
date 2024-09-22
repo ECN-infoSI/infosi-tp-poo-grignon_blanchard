@@ -68,6 +68,9 @@ public class Personnage extends Creature{
         
     }
     
+    
+    
+    
     /**
      * Accesseur du nom de l'instance de Personnage
      * @return nom Nom de l'instance de Personnage

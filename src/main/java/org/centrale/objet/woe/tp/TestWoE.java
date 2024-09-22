@@ -40,8 +40,25 @@ public class TestWoE{
        
        
        // test Objet
-       Objet objet = new Objet(); 
-       objet.affiche();
+       System.out.println("Test Potion Soin");
+       monde.potion.get(0).setPos(new Point2D(0,1)); 
+       monde.potion.get(0).affiche(); 
+       monde.potion.get(1).setPos(new Point2D(0,2)); 
+       monde.potion.get(1).affiche(); 
+       
+       
+       monde.grosBill.setPos(new Point2D(0,1)); 
+       monde.grosBill.affiche();
+       monde.utilisePotion(monde.grosBill); 
+       monde.grosBill.affiche();
+       
+       
+       System.out.println("on essaye de consommer une nouvelle fois la potion");
+       monde.utilisePotion(monde.grosBill);
+       monde.grosBill.affiche();
+       monde.potion.get(0).affiche(); 
+       
+       System.out.println();
        
        // Test attaque entre créature
        monde.grosBill.setPos(new Point2D(0, 0));

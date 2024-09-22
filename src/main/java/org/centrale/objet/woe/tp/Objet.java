@@ -28,4 +28,14 @@ public class Objet {
     public void affiche(){ 
         System.out.println("Objet(" + pos.getX() +","+pos.getY()+")");
     }
+
+    public Point2D getPos() {
+        return pos;
+    }
+
+    public void setPos(Point2D pos) {
+        this.pos = pos;
+    }
+    
+    
 }
