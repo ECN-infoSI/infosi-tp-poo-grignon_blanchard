@@ -66,13 +66,38 @@ public class TestWoE{
        monde.wolfie.setPos(new Point2D(10, 1));
        
        monde.bugs1.setPos(new Point2D(1, 0));
-       monde.bugs2.setPos(new Point2D(0, 10));
+       monde.bugs2.setPos(new Point2D(11, 1));
+       
+       // Affichage des statistiques des personnages avant les combats
+       monde.robin.affiche(); 
+       System.out.println();
+       
+       monde.guillaumeT.affiche(); 
+       System.out.println();
+       
+       monde.peon.affiche(); 
+       System.out.println();
+       
+       monde.grosBill.affiche(); 
+       System.out.println();
+       
+       System.out.println("Bugs 1 :");
+       monde.bugs1.affiche(); 
+       System.out.println();
+       
+       System.out.println("Bugs 2 :");
+       monde.bugs2.affiche(); 
+       System.out.println();
+       
+       System.out.println("Wolfie :");
+       monde.wolfie.affiche(); 
+       System.out.println();
        
        System.out.println("# Attaque au corps à corps de deux créatures adjacentes");
        monde.wolfie.combattre(monde.robin);
        
        System.out.println("# Attaque au corps à corps hors de portée");
-       monde.grosBill.combattre(monde.robin);
+       monde.grosBill.combattre(monde.bugs2);
        
        System.out.println("# Attaque à distance dans la portée");
        monde.robin.combattre(monde.bugs1);

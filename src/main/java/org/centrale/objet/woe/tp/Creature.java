@@ -25,8 +25,8 @@ public class Creature {
      */
     public Creature() {
         ptVie = 100;
-        degAtt = 5;
-        ptPar = 10;
+        degAtt = 10;
+        ptPar = 5;
         pageAtt = 80;
         pagePar = 25;
         pos = new Point2D();

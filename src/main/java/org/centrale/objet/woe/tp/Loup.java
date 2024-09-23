@@ -56,13 +56,13 @@ public class Loup extends Monstre {
         // Comme sqrt(2) = 1.414, dist <= 1.4 permet de prendre en compte les erreurs dans le codage des flottants
         if (Point2D.distance(pos, c.pos) <= 1.4) {
             // Tirage pour décider si l'attaque réussi
-            int tirrageAtt = rand.nextInt(100);
+            int tirrageAtt = rand.nextInt(100) + 1;
             
             if (tirrageAtt <= pageAtt) {
                 System.out.println(tirrageAtt + " : L'attaque réussi !");
                 
                 // Tirage pour savoir si la créature adverse pare le coup
-                int tirragePar = rand.nextInt(100);
+                int tirragePar = rand.nextInt(100) + 1;
                 
                 if (tirragePar <= c.pagePar) {
                     System.out.println(tirragePar + " : L'adversaire pare le coup !");
