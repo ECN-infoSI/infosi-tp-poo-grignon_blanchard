@@ -179,4 +179,28 @@ public class World {
             }
         }
     }
+
+    public int getNbCreatures() {
+        return nbCreatures;
+    }
+
+    public void setNbCreatures(int nbCreatures) {
+        this.nbCreatures = nbCreatures;
+    }
+
+    public int getNbObjets() {
+        return nbObjets;
+    }
+
+    public void setNbObjets(int nbObjets) {
+        this.nbObjets = nbObjets;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
+    }
 }
