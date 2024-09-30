@@ -10,7 +10,7 @@ package org.centrale.objet.woe.tp;
  */
 public class TestWoE{
    public static void main(String[] args) {
-       World monde = new World(10, 7, 6, 2, 5, 4, 9);
+       World monde = new World(10, 7, 6, 2, 5, 4, 9, 50);
        
        for(Objet o : monde.listObjets) {
            o.affiche();

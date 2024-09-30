@@ -15,29 +15,43 @@ import java.util.ArrayList;
 public class World {
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
+    
+    private int nbCreatures;
+    private int nbObjets;
+    
+    private int dimension;
+    
 
     /**
      * Constructeur par défaut qui crée un monde sans créature ni objet (les arraylists sont créées mais elles sont vides)
      */
     public World() { 
+        dimension = 50;
+        
         listCreatures = new ArrayList(); //notre liste de créature vide
         listObjets = new ArrayList(); //notre liste d'objet vide
         
+        nbCreatures = 0;
+        nbObjets = 0;
     }
     
     
     /**
      * Constructeur par défaut avec une créature de chaque sous classe (2 archers et 2 lapins) et un objet de chaque sous classe
-     * @param nbArcher 
-     * @param nbPaysan 
-     * @param nbGuerrier
-     * @param nbLapin
-     * @param nbLoup
-     * @param nbEpee
-     * @param nbPotionSoin
+     * @param nbArcher      Nombre d'archers à placer
+     * @param nbPaysan      Nombre de paysans à placer
+     * @param nbGuerrier    Nombre de guerriers à placer
+     * @param nbLapin       Nombre de lapins à placer
+     * @param nbLoup        Nombre de loups à placer
+     * @param nbEpee        Nombre d'épées à placer
+     * @param nbPotionSoin  Nombre de potions de soin à placer
+     * @param dimension     Taille du monde carré
      */
-    public World(int nbArcher, int nbPaysan, int nbGuerrier,int nbLapin, int nbLoup, int nbEpee, int nbPotionSoin) { 
+    public World(int nbArcher, int nbPaysan, int nbGuerrier,int nbLapin, int nbLoup, int nbEpee, int nbPotionSoin, int dimension) { 
+        this.dimension = dimension;
+        
         listCreatures = new ArrayList(); //notre liste de créature
+        nbCreatures = nbArcher + nbPaysan + nbGuerrier + nbLapin + nbLoup;
         
         //On ajoute les Archers
         for (int i = 0; i < nbArcher; i++) {  
@@ -66,6 +80,7 @@ public class World {
         }
         
         listObjets = new ArrayList(); //notre liste d'objet
+        nbObjets = nbEpee + nbPotionSoin;
         
         //On ajoute les Epees
         for (int i = 0; i < nbEpee; i++) {  
@@ -77,14 +92,8 @@ public class World {
             listObjets.add(new PotionSoin()); 
         }
         
-        
-        
-               
-       
-        
+        this.creerMondeAlea();
     }
-    
-    
     
     /**
      * Constructeur aléatoire (évite que deux personnages apparaissent à la même position)
@@ -93,33 +102,47 @@ public class World {
     public void creerMondeAlea() {
         Date date = new Date();
         Random rand = new Random(date.getTime()); 
-        int[] listCoor = new int[14];
-        boolean flagAllUnique;  // Utiliser pour verifier que le couple de coordonées n'existe pas déjà
         
-        for (int i = 0; i < 7; i++) {                      
+        boolean flagAllUnique;  // Utiliser pour verifier que le couple de coordonées n'existe pas déjà
+        Point2D[] listCoor = new Point2D[nbCreatures + nbObjets];
+        
+        // Placement des créatures
+        for (int i = 0; i < nbCreatures; i++) {                      
             do {
                 flagAllUnique = true;
                 
-                // Tirage de deux entiers
-                listCoor[2*i] = rand.nextInt(10);
-                listCoor[2*i+1] = rand.nextInt(10);
+                // Tirage d'un nouveau couple de coordonnées
+                listCoor[i] = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
                 
                 // Vérification que la paire n'existe pas déjà parmi les couples générés precedemment
-                for (int j = 0; j < i && flagAllUnique; j++) {
-                    flagAllUnique = listCoor[2*i] != listCoor[2*j] && listCoor[2*i+1] != listCoor[2*j+1];
+                for (int j = 0; j < i && flagAllUnique; j++) {                    
+                    flagAllUnique = listCoor[i] != listCoor[j];
                 }
             }
             // On recommence l'opération tant que le couple existait déjà
             while (!flagAllUnique);
+            
+            listCreatures.get(i).setPos(listCoor[i]);
         }
         
-        robin.setPos(new Point2D(listCoor[0], listCoor[1]));
-        peon.setPos(new Point2D(listCoor[2], listCoor[3]));
-        guillaumeT.setPos(new Point2D(listCoor[4], listCoor[5]));
-        grosBill.setPos(new Point2D(listCoor[6], listCoor[7]));
-        bugs1.setPos(new Point2D(listCoor[8], listCoor[9]));
-        bugs2.setPos(new Point2D(listCoor[10], listCoor[11]));
-        wolfie.setPos(new Point2D(listCoor[12], listCoor[13]));
+        // Placement des objets en prenant en compte le placement des créatures
+        for (int i = nbCreatures; i < nbCreatures + nbObjets; i++) {                      
+            do {
+                flagAllUnique = true;
+                
+                // Tirage d'un nouveau couple de coordonnées
+                listCoor[i] = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
+                
+                // Vérification que la paire n'existe pas déjà parmi les couples générés precedemment
+                for (int j = 0; j < i && flagAllUnique; j++) {                                   
+                    flagAllUnique = listCoor[i] != listCoor[j];
+                }
+            }
+            // On recommence l'opération tant que le couple existait déjà
+            while (!flagAllUnique);
+            
+            listObjets.get(i - nbCreatures).setPos(listCoor[i]);
+        }
     }
     
     
@@ -144,7 +167,7 @@ public class World {
         for(int i=0; i< this.listObjets.size(); i++){
             // on vérifie si l'objet fait bien partie de la classe PotionSoin
             if (this.listObjets.get(i) instanceof PotionSoin ){
-                if (Point2D.distance(perso.pos, this.listObjets.get(i).getPos())==0){
+                if (perso.pos == this.listObjets.get(i).getPos()){
                 //ajout des points de vie au personnage 
                 // pour appeler la méthode getValeur de Potion Soin on utilise((PotionSoin)this.listObjets.get(i))
                     perso.setPtVie(perso.getPtVie()+((PotionSoin)this.listObjets.get(i)).getValeurPV());
