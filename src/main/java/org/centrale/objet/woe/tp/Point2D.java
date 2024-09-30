@@ -48,6 +48,16 @@ public class Point2D {
         return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
     
+    /**
+     * Test d'égalité entre deux points
+     * @param p Autre point à tester
+     * @return Valeur du test d'égalité
+     * @author simon
+     */
+    public boolean equals(Point2D p) {
+        return this.x == p.x && this.y == p.y;
+    }
+    
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
