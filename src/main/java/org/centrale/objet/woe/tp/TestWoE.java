@@ -21,9 +21,14 @@ public class TestWoE{
        
        TestWoE.testCompositionObjets(monde);
        
+       /*
        // Test du nombre de points de vie
-       TestWoE.testSommePV(monde);
-       
+       for (int n = 1; n <= 10000; n*=10){
+           monde = new World(20*n, 20*n, 20*n, 20*n, 20*n, 0, 0, 50);
+           
+           TestWoE.testSommePtVieIterateur(monde);
+       }
+       */
    }
    
    /**
@@ -96,15 +101,47 @@ public class TestWoE{
        System.out.println("\t" + nbEpee + " épées");
    }
    
-   private static void testSommePV(World monde) {
+   /**
+    * Calcule de la somme des points vies avec une boucle basée sur la taille
+    * @param monde Monde des personnages à tester
+    */
+   private static void testSommePtVieIterateur(World monde) {
        int sommePV = 0;
+       long tempsDeb, tempsFin;
+       
+       System.out.println("\n# TEST DU NOMBRE DE POINTS DE VIE TOTAL (" + monde.getNbCreatures() + ")");
+       
+       tempsDeb = System.nanoTime();   
        
        for (Creature c : monde.listCreatures) {
            sommePV += c.getPtVie();
        }
        
-       System.out.println("\n# TEST DU NOMBRE DE POINTS DE VIE TOTAL");
+       tempsFin = System.nanoTime();
                
        System.out.println("Nombre totale des points de vie : " + sommePV);
+       System.out.println("Execution en " + (tempsFin - tempsDeb) + " ns");
+   }
+   
+   /**
+    * Calcule de la somme des points vies avec une boucle basée sur la taille
+    * @param monde Monde des personnages à tester
+    */
+   private static void testSommePtVieTaille(World monde) {
+       int sommePV = 0;
+       long tempsDeb, tempsFin;
+       
+       System.out.println("\n# TEST DU NOMBRE DE POINTS DE VIE TOTAL (" + monde.getNbCreatures() + ")");
+       
+       tempsDeb = System.nanoTime();
+       
+       for (int i = 0; i < monde.getNbCreatures(); i++) {
+           sommePV += monde.listCreatures.get(i).getPtVie();
+       }
+       
+       tempsFin = System.nanoTime();
+               
+       System.out.println("Nombre totale des points de vie : " + sommePV);
+       System.out.println("Execution en " + (tempsFin - tempsDeb) + " ns");
    }
 }
