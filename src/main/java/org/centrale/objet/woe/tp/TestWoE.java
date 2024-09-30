@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.tp;
+import java.util.Date;
+import java.util.Random; 
 
 /**
  *
@@ -10,12 +12,13 @@ package org.centrale.objet.woe.tp;
  */
 public class TestWoE{
    public static void main(String[] args) {
-       World monde = new World(10, 7, 6, 2, 5, 4, 9, 50);
        
-       for(Objet o : monde.listObjets) {
-           o.affiche();
-       }
-       
+       //Tests générer un monde à la composition aléatoire (max 10 instances de chaque sous classe) 
+       Date date = new Date();
+       Random rand = new Random(date.getTime()); 
+      
+       World monde = new World(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 50);
+            
        // Tests de la compostion du monde       
        TestWoE.testCompositionCreatures(monde);
        
