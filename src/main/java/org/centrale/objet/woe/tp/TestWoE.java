@@ -12,6 +12,10 @@ public class TestWoE{
    public static void main(String[] args) {
        World monde = new World(10, 7, 6, 2, 5, 4, 9);
        
+       for(Objet o : monde.listObjets) {
+           o.affiche();
+       }
+       
        // Tests de la compostion du monde       
        TestWoE.testCompositionCreatures(monde);
        
