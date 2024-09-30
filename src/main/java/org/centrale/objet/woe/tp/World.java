@@ -175,6 +175,7 @@ public class World {
                                         
                 // la potion de soin est utilisée, on la retire du tableau potion
                 this.listObjets.remove(i); 
+                this.nbObjets--; 
                 }
             }
         }
