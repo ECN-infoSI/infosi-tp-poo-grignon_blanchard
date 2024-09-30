@@ -37,6 +37,67 @@ public class World {
         
     }
     
+    
+    /**
+     * Constructeur par défaut avec une créature de chaque sous classe (2 archers et 2 lapins) et un objet de chaque sous classe
+     * @param nbArcher 
+     * @param nbPaysan 
+     * @param nbGuerrier
+     * @param nbLapin
+     * @param nbLoup
+     * @param nbEpee
+     * @param nbPotionSoin
+     */
+    public World(int nbArcher, int nbPaysan, int nbGuerrier,int nbLapin, int nbLoup, int nbEpee, int nbPotionSoin) { 
+        listCreatures = new ArrayList(); //notre liste de créature
+        
+        //On ajoute les Archers
+        for (int i = 0; i < nbArcher; i++) {  
+            listCreatures.add(new Archer()); 
+        }
+        
+        //On ajoute les Paysans
+        for (int i = 0; i < nbPaysan; i++) {  
+            listCreatures.add(new Paysan()); 
+        }
+        
+        //On ajoute les Guerriers
+        for (int i = 0; i < nbGuerrier; i++) {  
+            listCreatures.add(new Guerrier()); 
+        }
+        
+        
+        //On ajoute les Lapins
+        for (int i = 0; i < nbLapin; i++) {  
+            listCreatures.add(new Lapin()); 
+        }
+        
+        //On ajoute les Loups
+        for (int i = 0; i < nbLoup; i++) {  
+            listCreatures.add(new Loup()); 
+        }
+        
+        listObjets = new ArrayList(); //notre liste d'objet
+        
+        //On ajoute les Epees
+        for (int i = 0; i < nbEpee; i++) {  
+            listObjets.add(new Epee()); 
+        }
+        
+        //On ajoute les Potions de Soin
+        for (int i = 0; i < nbPotionSoin; i++) {  
+            listObjets.add(new PotionSoin()); 
+        }
+        
+        
+        
+               
+       
+        
+    }
+    
+    
+    
     /**
      * Constructeur aléatoire (évite que deux personnages apparaissent à la même position)
      * @author simon
