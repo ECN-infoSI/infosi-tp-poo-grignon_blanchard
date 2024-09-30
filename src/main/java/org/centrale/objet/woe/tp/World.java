@@ -112,7 +112,7 @@ public class World {
             // On recommence l'opération tant que le couple existait déjà
             while (!flagAllUnique);
         }
-        
+        /*
         robin.setPos(new Point2D(listCoor[0], listCoor[1]));
         peon.setPos(new Point2D(listCoor[2], listCoor[3]));
         guillaumeT.setPos(new Point2D(listCoor[4], listCoor[5]));
@@ -120,6 +120,7 @@ public class World {
         bugs1.setPos(new Point2D(listCoor[8], listCoor[9]));
         bugs2.setPos(new Point2D(listCoor[10], listCoor[11]));
         wolfie.setPos(new Point2D(listCoor[12], listCoor[13]));
+        */
     }
     
     
