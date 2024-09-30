@@ -17,23 +17,11 @@ public class World {
     public ArrayList<Objet> listObjets; 
 
     /**
-     * Constructeur par défaut avec une créature de chaque sous classe (2 archers et 2 lapins) et un objet de chaque sous classe
+     * Constructeur par défaut qui crée un monde sans créature ni objet (les arraylists sont créées mais elles sont vides)
      */
     public World() { 
-        listCreatures = new ArrayList(); //notre liste de créature
-        
-        // On renomme les personnages pour pouvoir les distinguer
-        listCreatures.add(new Archer("Robin")); 
-        listCreatures.add(new Archer("Guillaume T.")); 
-        listCreatures.add(new Paysan("Peon")); 
-        listCreatures.add(new Guerrier("Gros Bill")); 
-        listCreatures.add(new Lapin());
-        listCreatures.add(new Lapin());
-        listCreatures.add(new Loup());
-               
-        listObjets = new ArrayList(); //notre liste d'objet
-        listObjets.add(new PotionSoin()); 
-        listObjets.add(new Epee()); 
+        listCreatures = new ArrayList(); //notre liste de créature vide
+        listObjets = new ArrayList(); //notre liste d'objet vide
         
     }
     
