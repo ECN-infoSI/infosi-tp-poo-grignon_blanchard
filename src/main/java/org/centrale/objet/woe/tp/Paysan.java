@@ -13,6 +13,15 @@ public class Paysan extends Personnage {
         super();
     }
     
+    /**
+     * Constructeur semi-manuel où seul le nom peut être défini
+     * @param nom Nom du Paysan
+     * @author simon
+     */
+    public Paysan(String nom) {
+        super(nom);
+    }
+    
     public Paysan(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p) {
         super(n, pV, dA, pPar, paAtt, paPar, dMax, p);
     }

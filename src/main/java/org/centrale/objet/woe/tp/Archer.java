@@ -19,6 +19,16 @@ public class Archer extends Personnage{
         nbFleches = 3;
     }
     
+    /**
+     * Constructeur semi-manuel où seul le nom peut être défini
+     * @param nom Nom de l'Archer
+     * @author simon
+     */
+    public Archer(String nom) {
+        super(nom);
+        nbFleches = 3;
+    }
+    
     public Archer(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int nbFleches) {
         super(n, pV, dA, pPar, paAtt, paPar, dMax, p);
         this.nbFleches = nbFleches;

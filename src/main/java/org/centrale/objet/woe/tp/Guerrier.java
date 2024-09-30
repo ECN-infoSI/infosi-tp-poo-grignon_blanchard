@@ -22,6 +22,15 @@ public class Guerrier extends Personnage {
     }
     
     /**
+     * Constructeur semi-manuel où seul le nom peut être défini
+     * @param nom Nom du Guerrier
+     * @author simon
+     */
+    public Guerrier(String nom) {
+        super(nom);
+    }
+    
+    /**
      * Constructeur 
      * @author grigm
      * @param n     Nom du personnage 

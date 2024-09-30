@@ -23,6 +23,17 @@ public class Personnage extends Creature{
     }
     
     /**
+     * Constructeur semi-manuel où seul le nom peut être défini
+     * @param nom Nom du Personnage
+     * @author simon
+     */
+    public Personnage(String nom) {
+        super(); 
+        this.nom = nom;
+        distAttMax = 10;
+    }
+    
+    /**
      * Constructeur
      * @param n     Nom du personnage
      * @param pV    Nombre de points de vie
