@@ -13,41 +13,27 @@ import java.util.ArrayList;
  * @author grigm
  */
 public class World {
-    public Archer robin; 
-    public Paysan peon; 
-    public Lapin bugs1;
-    public Lapin bugs2;
-    public Archer guillaumeT;
-    public Guerrier grosBill;
-    public Loup wolfie;
-    public ArrayList<PotionSoin> potion; 
+    public ArrayList<Creature> listCreatures; 
+    public ArrayList<Objet> listObjets; 
 
     /**
-     * Constructeur par défaut
+     * Constructeur par défaut avec une créature de chaque sous classe (2 archers et 2 lapins) et un objet de chaque sous classe
      */
     public World() { 
+        listCreatures = new ArrayList(); //notre liste de créature
+        
         // On renomme les personnages pour pouvoir les distinguer
-        
-        robin = new Archer(); 
-        robin.setNom("Robin");
-        
-        peon = new Paysan(); 
-        peon.setNom("Peon");
-        
-        guillaumeT = new Archer();
-        guillaumeT.setNom("Guillaume T.");
-        
-        grosBill = new Guerrier();
-        grosBill.setNom("Gros Bill");
-        
-        bugs1 = new Lapin(); 
-        bugs2 = new Lapin();
-        
-        wolfie = new Loup();
-        
-        potion = new ArrayList(); 
-        potion.add(new PotionSoin()); 
-        potion.add(new PotionSoin()); 
+        listCreatures.add(new Archer("Robin")); 
+        listCreatures.add(new Archer("Guillaume T.")); 
+        listCreatures.add(new Paysan("Peon")); 
+        listCreatures.add(new Guerrier("Gros Bill")); 
+        listCreatures.add(new Lapin());
+        listCreatures.add(new Lapin());
+        listCreatures.add(new Loup());
+               
+        listObjets = new ArrayList(); //notre liste d'objet
+        listObjets.add(new PotionSoin()); 
+        listObjets.add(new Epee()); 
         
     }
     
@@ -103,17 +89,21 @@ public class World {
      */
     public void utilisePotion(Personnage perso) { 
         // si le tableau potion est vide 
-        if (this.potion.isEmpty()){
+        if (this.listObjets.isEmpty()){
             System.out.println("il n'y a pas de potion de soin dans ce monde");   
         }
-        for(int i=0; i< this.potion.size(); i++){
-            if (Point2D.distance(perso.pos, this.potion.get(i).getPos())==0){
-            //ajout des points de vie au personnage 
-            perso.setPtVie(perso.getPtVie()+this.potion.get(i).getValeurPV());
-            System.out.println("vous consommez la potion de soin, vous gagnez " +this.potion.get(i).getValeurPV() + "PV");
-            
-            // la potion de soin est utilisée, on la retire du tableau potion
-            this.potion.remove(i); 
+        for(int i=0; i< this.listObjets.size(); i++){
+            // on vérifie si l'objet fait bien partie de la classe PotionSoin
+            if (this.listObjets.get(i) instanceof PotionSoin ){
+                if (Point2D.distance(perso.pos, this.listObjets.get(i).getPos())==0){
+                //ajout des points de vie au personnage 
+                // pour appeler la méthode getValeur de Potion Soin on utilise((PotionSoin)this.listObjets.get(i))
+                    perso.setPtVie(perso.getPtVie()+((PotionSoin)this.listObjets.get(i)).getValeurPV());
+                    System.out.println("vous consommez la potion de soin, vous gagnez " +((PotionSoin)this.listObjets.get(i)).getValeurPV() + "PV");
+                                        
+                // la potion de soin est utilisée, on la retire du tableau potion
+                this.listObjets.remove(i); 
+                }
             }
         }
     }
