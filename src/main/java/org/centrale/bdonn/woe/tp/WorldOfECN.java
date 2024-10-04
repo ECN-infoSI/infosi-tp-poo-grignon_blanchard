@@ -22,7 +22,7 @@ public class WorldOfECN {
      */
     public static void main(String[] args) {
         World world = new World();
-        // world.setPlayer("Saegusa");
+        world.setPlayer("Saegusa");
         
         // Test phase
         DatabaseTools database = new DatabaseTools();

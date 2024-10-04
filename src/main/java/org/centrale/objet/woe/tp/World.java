@@ -20,6 +20,7 @@ public class World {
     private int nbObjets;
     
     private int dimension;
+    private String player = "";
     
 
     /**
@@ -203,5 +204,13 @@ public class World {
 
     public void setDimension(int dimension) {
         this.dimension = dimension;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
     }
 }
