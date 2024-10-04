@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +90,29 @@ public class DatabaseTools {
      * @return
      */
     public Integer getPlayerID(String nomJoueur, String password) {
-        return null;
+        int playerId = -1;
+        
+        try {
+           
+            String query = "SELECT id FROM Joueur WHERE pseudo = ? AND motdepasse = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setString(1, nomJoueur);
+            stmt.setString(2, password);
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                playerId = res.getInt("id");
+            }
+               
+            stmt.close();
+            
+            } catch(SQLException ex) {
+                System.err.println("SQLException : " + ex.getMessage()) ;
+            }
+        
+        return playerId;
     }
 
     /**
