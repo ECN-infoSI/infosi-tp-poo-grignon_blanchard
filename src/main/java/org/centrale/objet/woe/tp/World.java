@@ -158,7 +158,7 @@ public class World {
      * @author simon
      */
     public void tourDeJeu() {
-        
+        for 
     }
     
     /**
@@ -191,10 +191,6 @@ public class World {
     public void creationJoueur() {
         // Creation du joueur et du personnage associé 
         joueur = new Joueur();
-        
-        // Ajout du personnage à la liste des créatures
-        listCreatures.add(joueur.perso);
-        nbCreatures ++;
         
         // Placement du joueur sur une case libre
         Date date = new Date();
@@ -236,5 +232,13 @@ public class World {
 
     public void setDimension(int dimension) {
         this.dimension = dimension;
+    }
+
+    public boolean[][] getPresences() {
+        return presences;
+    }
+
+    public void setPresences(boolean[][] presences) {
+        this.presences = presences;
     }
 }
