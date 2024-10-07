@@ -39,7 +39,7 @@ public class TestWoE{
        }
        */
        
-       
+       /*
        //Test Nuage Toxique déplacement + combat
        NuageToxique nunu = new NuageToxique(); 
        NuageToxique pluie = new NuageToxique(10); 
@@ -61,11 +61,26 @@ public class TestWoE{
        
        //Test Nourriture 
        Nourriture steak = new Nourriture(); 
-       Nourriture burger = new Nourriture("burger", -5, 0, 0, -5); 
+       Nourriture burger = new Nourriture("burger", 5, 5, 0, 0, -5); 
        steak.affiche();
        burger.affiche(); 
-       
-       
+       burger.utilise(wolfie);
+       wolfie.affiche();
+       */
+       //Test Epee
+       Epee excalibur = new Epee(); 
+       excalibur.affiche(); 
+       Guerrier bill = new Guerrier(); 
+       System.out.println("bill");
+       bill.affiche(); 
+       excalibur.utilise(bill); 
+       System.out.println("bill avec une épée");
+       bill.affiche(); 
+       PotionSoin champi = new PotionSoin(3); 
+       champi.affiche(); 
+       System.out.println("bill avec un champi 3");
+       champi.utilise(bill); 
+       bill.affiche();
    }
    
    /**
