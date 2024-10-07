@@ -7,6 +7,7 @@ package org.centrale.objet.woe.tp;
 import java.util.Random; 
 import java.util.Date;
 import java.util.ArrayList; 
+import java.util.Scanner;
 
 /**
  * Classe représentant le monde à utiliser lors d'une partie
@@ -158,7 +159,56 @@ public class World {
      * @author simon
      */
     public void tourDeJeu() {
+        // Affichage de l'environnement à proximité du joueur
+        afficheEnvironnementJoueur();
         
+        // Affichage des actions possibles 
+        Scanner scanner = new Scanner(System.in);
+        String action;    
+        boolean askFlag = true;
+        
+        do {
+            System.out.println("# Actions possibles (attack/move/nothing):");
+            action = scanner.nextLine();
+            
+            askFlag = false;  // Tant que action n'est pas validé, on suppose qu'il est valide
+            
+            switch (action) {
+                case "attack":
+                    break;
+                    
+                case "move":
+                    joueur.perso.deplacementAleatoire(presences);
+                    break;
+                    
+                case "nothing":
+                    break;
+                    
+                default:
+                    askFlag = true;
+            }
+        }
+        while (askFlag);
+        
+        
+        // Action des créatures non-joueurs
+        
+        for (Creature c: listCreatures) {
+            // Si la creature peut attaqué : attaque selon la distance au joueur
+            if (c instanceof Guerrier && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
+                ((Guerrier) c).combattre(joueur.perso);
+            }            
+            else if (c instanceof Archer && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= ((Archer) c).getDistAttMax()) {
+                ((Archer) c).combattre(joueur.perso);
+            }
+            else if (c instanceof Loup && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
+                ((Loup) c).combattre(joueur.perso);
+            }
+            // Si joueur trop loin, ou creature neutre, deplacement
+            else {
+                c.deplacementAleatoire(presences);
+            }   
+        }
     }
     
     /**
