@@ -8,7 +8,7 @@ package org.centrale.objet.woe.tp;
  * sous-classe Objet représentant les épées 
  * @author grigm
  */
-public abstract class Epee extends Objet implements Utilisable{
+public class Epee extends Objet implements Utilisable{
     
     /**
      * Constructeur par défaut

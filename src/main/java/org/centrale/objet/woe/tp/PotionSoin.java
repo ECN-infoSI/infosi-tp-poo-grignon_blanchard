@@ -8,7 +8,7 @@ package org.centrale.objet.woe.tp;
  * sous-classe d'Objet représentant les potions de soin
  * @author grigm
  */
-public  abstract class PotionSoin extends Objet implements Utilisable {
+public class PotionSoin extends Objet implements Utilisable {
     private int valeurPV; 
     
     /**

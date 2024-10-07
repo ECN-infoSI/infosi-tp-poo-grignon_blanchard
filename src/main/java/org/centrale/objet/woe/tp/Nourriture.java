@@ -8,7 +8,7 @@ package org.centrale.objet.woe.tp;
  * Sous classe Objet permettant de stocker les objets qui ont des bonus/malus sur les caractéristiques des personnages temporairement
  * @author grigm
  */
-public abstract class Nourriture extends Objet implements Utilisable {
+public class Nourriture extends Objet implements Utilisable {
     private String nom; 
     private int dureeEffet; 
     private int degAtt; 
