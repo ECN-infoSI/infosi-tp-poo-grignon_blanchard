@@ -11,7 +11,7 @@ import java.util.Random;
  * Sous-classe de Personnage représentant les guerriers
  * @author grigm
  */
-public class Guerrier extends Personnage {
+public class Guerrier extends Personnage implements Combattant {
     
     /**
      * Constructeur par défaut

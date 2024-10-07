@@ -11,7 +11,7 @@ import java.util.Random;
  * Super-classe représentant les créatures
  * @author grigm
  */
-public class Creature {
+public abstract class Creature implements Deplacable {
     protected int ptVie;
     protected int degAtt;
     protected int ptPar;
@@ -103,6 +103,28 @@ public class Creature {
         }
     }
     
+    public void deplacer(Point2D newPos, boolean[][] presences) throws Exception {
+        // Déplacement à l'intérieur du monde
+        if (newPos.getX() < presences.length && newPos.getY() < presences[0].length && 0 <= newPos.getX() && 0 <= newPos.getY()) {
+            // Déplacement sur une case libre
+            if (presences[newPos.getX()][newPos.getY()]) {
+                // La cellule associée à la position précedente est indiquée comme libre
+                presences[pos.getX()][pos.getY()] = false;
+
+                // Déplacement de l'archer
+                pos = newPos;
+
+                // La cellule associée à la nouvelle position est indiquée comme libre
+                presences[pos.getX()][pos.getY()] = true;
+            }
+            else {
+                throw new Exception("Mouvement vers une case occupée !");
+            }
+        }
+        else {
+            throw new Exception("Mouvement en dehors du monde !");
+        }
+    }
     
     public int getPtVie() {
         return ptVie;
@@ -151,7 +173,4 @@ public class Creature {
     public void setPos(Point2D pos) {
         this.pos = pos;
     }
-    
-    
-    
 }
