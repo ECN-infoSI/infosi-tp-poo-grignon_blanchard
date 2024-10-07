@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author grigm
  */
 public class World {
+    public Joueur joueur;
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
     
@@ -177,6 +178,30 @@ public class World {
                 this.listObjets.remove(i); 
                 this.nbObjets--; 
                 }
+            }
+        }
+    }
+    
+    public void creationJoueur() {
+        // Creation du joueur et du personnage associé 
+        joueur = new Joueur();
+        
+        // Ajout du personnage à la liste des créatures
+        listCreatures.add(joueur.perso);
+        nbCreatures ++;
+        
+        // Placement du joueur sur une case libre
+        Date date = new Date();
+        Random rand = new Random(date.getTime()); 
+        boolean freePositionFlag = false;
+        
+        while (!freePositionFlag) {
+            freePositionFlag = true;
+            
+            joueur.perso.setPos(new Point2D(rand.nextInt(dimension), rand.nextInt(dimension)));
+            
+            for (int i = 0; i < nbCreatures - 1 && freePositionFlag; i++) {
+                freePositionFlag = joueur.perso.getPos() != listCreatures.get(i).getPos();
             }
         }
     }

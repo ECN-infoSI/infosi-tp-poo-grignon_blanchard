@@ -18,7 +18,10 @@ public class TestWoE{
        Random rand = new Random(date.getTime()); 
       
        World monde = new World(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 50);
-            
+       
+       monde.creationJoueur();
+       monde.joueur.perso.getPos().affiche();
+       
        // Tests de la compostion du monde       
        TestWoE.testCompositionCreatures(monde);
        
