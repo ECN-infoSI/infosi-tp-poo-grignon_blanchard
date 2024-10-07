@@ -35,6 +35,8 @@ public class World {
         
         nbCreatures = 0;
         nbObjets = 0;
+        
+        presences = new boolean[dimension][dimension];
     }
     
     
@@ -93,6 +95,8 @@ public class World {
         for (int i = 0; i < nbPotionSoin; i++) {  
             listObjets.add(new PotionSoin()); 
         }
+        
+        presences = new boolean[dimension][dimension];
         
         this.creerMondeAlea();
     }
