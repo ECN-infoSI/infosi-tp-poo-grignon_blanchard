@@ -96,9 +96,9 @@ public abstract class Personnage extends Creature{
             dy = rand.nextInt(3) - 1;
         }
         while (dx * dy != 0  // Pas de déplacement en diagonale
-                && pos.getX() + dx < presences.length && pos.getY() + dy < presences[0].length // Déplacement à l'intérieur du monde (borne sup.)
-                && 0 <= pos.getX() + dx && 0 <= pos.getY() + dy  // Déplacement à l'intérieur du monde (borne inf.)
-                && presences[pos.getX() + dx][pos.getY() + dy]);  // Déplacement sur une cellule libre
+                || pos.getX() + dx >= presences.length || pos.getY() + dy >= presences[0].length // Déplacement à l'intérieur du monde (borne sup.)
+                || 0 > pos.getX() + dx || 0 > pos.getY() + dy  // Déplacement à l'intérieur du monde (borne inf.)
+                || presences[pos.getX() + dx][pos.getY() + dy]);  // Déplacement sur une cellule libre
         
         // La cellule associée à la position précedente est indiquée comme libre
         presences[pos.getX()][pos.getY()] = false;

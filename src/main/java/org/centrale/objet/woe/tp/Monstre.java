@@ -56,9 +56,9 @@ public abstract class Monstre extends Creature{
             dx = rand.nextInt(3) - 1;
             dy = rand.nextInt(3) - 1;
         }
-        while (pos.getX() + dx < presences.length && pos.getY() + dy < presences[0].length // Déplacement à l'intérieur du monde (borne sup.)
-                && 0 <= pos.getX() + dx && 0 <= pos.getY() + dy  // Déplacement à l'intérieur du monde (borne inf.) 
-                && presences[pos.getX() + dx][pos.getY() + dy]);  // Déplacement sur une cellule libre
+        while (pos.getX() + dx >= presences.length || pos.getY() + dy >= presences[0].length // Déplacement à l'intérieur du monde (borne sup.)
+                || 0 > pos.getX() + dx || 0 > pos.getY() + dy  // Déplacement à l'intérieur du monde (borne inf.)
+                || presences[pos.getX() + dx][pos.getY() + dy]);  // Déplacement sur une cellule libre
         
         // La cellule associée à la position précedente est indiquée comme libre
         presences[pos.getX()][pos.getY()] = false;
