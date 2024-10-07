@@ -8,7 +8,7 @@ package org.centrale.objet.woe.tp;
  * sous-classe d'Objet représentant les potions de soin
  * @author grigm
  */
-public class PotionSoin extends Objet{
+public  abstract class PotionSoin extends Objet implements Utilisable {
     private int valeurPV; 
     
     /**
@@ -31,6 +31,11 @@ public class PotionSoin extends Objet{
 
     public void setValeurPV(int valeurPV) {
         this.valeurPV = valeurPV;
+    }
+
+    @Override
+    public void utilise() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
