@@ -11,7 +11,8 @@ import java.util.Random;
  * @author grigm
  */
 public class TestWoE{
-   public static void main(String[] args) {
+   public static void main(String[] args) throws Exception {
+       
        
        //Tests générer un monde à la composition aléatoire (max 10 instances de chaque sous classe) 
        Date date = new Date();
@@ -19,13 +20,15 @@ public class TestWoE{
       
        World monde = new World(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 50);
        
-       monde.creationJoueur();
-       monde.joueur.perso.getPos().affiche();
+       
+       //monde.creationJoueur();
+       //monde.joueur.perso.getPos().affiche();
        
        // Tests de la compostion du monde       
-       TestWoE.testCompositionCreatures(monde);
+       //TestWoE.testCompositionCreatures(monde);
        
-       TestWoE.testCompositionObjets(monde);
+       //TestWoE.testCompositionObjets(monde);
+       
        
        /*
        // Test du nombre de points de vie
@@ -35,6 +38,30 @@ public class TestWoE{
            TestWoE.testSommePtVieIterateur(monde);
        }
        */
+       
+       
+       //Test Nuage Toxique déplacement + combat
+       NuageToxique nunu = new NuageToxique(); 
+       NuageToxique pluie = new NuageToxique(10); 
+       nunu.affiche(); 
+       pluie.affiche();
+       
+       Loup wolfie = new Loup();
+       wolfie.affiche(); 
+       System.out.println("Le loup est placé sous le nuage avec 100 pv"); 
+       
+       pluie.combattre((Creature)wolfie);
+       wolfie.affiche();
+       System.out.println("Le loup a perdu " + pluie.nivToxique + " pv"); 
+       
+       Point2D position = new Point2D(8,7); 
+       pluie.deplacer(position, monde.getPresences());
+       pluie.combattre((Creature)wolfie);
+       wolfie.affiche();
+       
+       
+       
+       
    }
    
    /**
