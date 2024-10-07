@@ -19,6 +19,7 @@ public class PotionSoin extends Objet implements Utilisable {
     public PotionSoin(){
         super();
         this.valeurPV = 3; 
+        this.dureeEffet=1; 
     }
     
     /**
@@ -29,6 +30,7 @@ public class PotionSoin extends Objet implements Utilisable {
     public PotionSoin(int pv){
         super();
         this.valeurPV = pv; 
+        this.dureeEffet = 1; 
     }
     
     
