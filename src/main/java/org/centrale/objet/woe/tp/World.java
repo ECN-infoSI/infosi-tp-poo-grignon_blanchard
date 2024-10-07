@@ -158,7 +158,39 @@ public class World {
      * @author simon
      */
     public void tourDeJeu() {
-        for 
+        
+    }
+    
+    /**
+     * Affiche l'environnement à proximité du joueur
+     * @author simon
+     */
+    public void afficheEnvironnementJoueur() {
+        Point2D pos = joueur.perso.getPos();
+        
+        System.out.println("+-+-+-+-+-+");
+        
+        for (int i = -2; i <= 2; i++) {
+            System.out.print('|');
+            
+            for (int j = -2; j <= 2; j++) {
+                if (i == 0 && j == 0) {
+                    System.out.print("O|");
+                }
+                // Hors du plateau
+                else if (pos.getX() + i < 0 || pos.getY() + j < 0 || pos.getX() + i >= dimension || pos.getY() + j >= dimension) {
+                    System.out.print("#|");
+                }
+                else if (presences[pos.getX() + i][pos.getY() + j]) {
+                    System.out.print("X|");
+                }
+                else {
+                    System.out.print(" |");
+                }
+            }
+            
+            System.out.println("\n+-+-+-+-+-+");
+        }
     }
     
     /**
