@@ -17,6 +17,8 @@ public class World {
     public Joueur joueur;
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
+    public ArrayList<Utilisable> listUtilisables; 
+    public ArrayList<Utilisable> listInventaire; 
     
     private int nbCreatures;
     private int nbObjets;
@@ -38,6 +40,9 @@ public class World {
         nbObjets = 0;
         
         presences = new boolean[dimension][dimension];
+        
+        listUtilisables = new ArrayList(); //liste d'utilisable vide
+        listInventaire = new ArrayList(); //inventaire vide 
     }
     
     
@@ -98,6 +103,9 @@ public class World {
         }
         
         presences = new boolean[dimension][dimension];
+        
+        listUtilisables = new ArrayList(); //liste d'utilisable vide
+        listInventaire = new ArrayList(); //inventaire vide 
         
         this.creerMondeAlea();
     }
