@@ -11,25 +11,25 @@ import java.util.Random;
  * Super-classe représentant les créatures
  * @author grigm
  */
-public abstract class Creature implements Deplacable {
+public abstract class Creature extends ElementDeJeu implements Deplacable {
     protected int ptVie;
     protected int degAtt;
     protected int ptPar;
     protected int pageAtt;
     protected int pagePar;
-    protected Point2D pos;
+    
     
     /**
      * Constructeur par défaut
      * @author grigm
      */
     public Creature() {
+        super(); 
         ptVie = 100;
         degAtt = 10;
         ptPar = 5;
         pageAtt = 80;
         pagePar = 25;
-        pos = new Point2D();
     }
     
     /**
