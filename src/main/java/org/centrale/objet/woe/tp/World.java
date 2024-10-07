@@ -165,7 +165,7 @@ public class World {
         // Affichage des actions possibles 
         Scanner scanner = new Scanner(System.in);
         String action;    
-        boolean askFlag = true;
+        boolean askFlag;
         
         do {
             System.out.println("# Actions possibles (attack/move/nothing):");
@@ -178,7 +178,7 @@ public class World {
                     break;
                     
                 case "move":
-                    joueur.perso.deplacementAleatoire(presences);
+                    joueur.choixDeplacement(presences);
                     break;
                     
                 case "nothing":

@@ -46,4 +46,48 @@ public class Joueur {
         System.out.println("# Nom du personnage : ");
         perso.setNom(scanner.nextLine());
     }
+    
+    public void choixDeplacement(boolean[][] presences) {
+        Scanner scanner = new Scanner(System.in);
+        String direction;    
+        boolean askFlag;
+        Point2D newPos = new Point2D(perso.getPos());
+        
+        do {
+            System.out.println("# Directions possibles (north/south/east/west):");
+            direction = scanner.nextLine();
+            
+            askFlag = false;  // Tant que direction n'est pas validé, on suppose qu'il est valide
+            
+            switch (direction) {
+                case "north":
+                    newPos.translate(-1, 0);
+                    break;
+                    
+                case "south":
+                    newPos.translate(1, 0);
+                    break;
+                    
+                case "east":
+                    newPos.translate(0, 1);
+                    break;
+                    
+                case "west":
+                    newPos.translate(0, -1);
+                    break;
+                    
+                default:
+                    askFlag = true;
+            }
+        }
+        while (askFlag);
+        
+        // Déplacement
+        try {
+            perso.deplacer(newPos, presences);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

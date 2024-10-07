@@ -107,7 +107,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
         // Déplacement à l'intérieur du monde
         if (newPos.getX() < presences.length && newPos.getY() < presences[0].length && 0 <= newPos.getX() && 0 <= newPos.getY()) {
             // Déplacement sur une case libre
-            if (presences[newPos.getX()][newPos.getY()]) {
+            if (!presences[newPos.getX()][newPos.getY()]) {
                 // La cellule associée à la position précedente est indiquée comme libre
                 presences[pos.getX()][pos.getY()] = false;
 
