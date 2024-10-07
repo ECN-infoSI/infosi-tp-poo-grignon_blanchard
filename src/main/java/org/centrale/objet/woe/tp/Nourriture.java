@@ -65,6 +65,23 @@ public class Nourriture extends Objet implements Utilisable {
                
     }
     
+    /**
+     * méthode pour activer l'objet et modifier les caractéristiques du personnage
+     * @author grigm
+     * @param c représentant l'instance de Creature qui active l'objet
+     */
+    @Override
+    public void utilise(Creature c) {
+        //on met à jour les capacités de la créature 
+        c.setDegAtt(c.degAtt+this.degAtt);
+        c.setPtPar(c.ptPar+this.ptPar);
+        c.setPageAtt(c.pageAtt+this.pageAtt);
+        c.setPagePar(c.pagePar+this.pagePar);     
+        
+        //on réduit la durée de l'effet d'un 
+        this.dureeEffet--; 
+    }
+    
     public int getDegAtt() {
         return degAtt;
     }
@@ -114,11 +131,7 @@ public class Nourriture extends Objet implements Utilisable {
         this.dureeEffet = dureeEffet;
     }
 
-    @Override
-    public void utilise() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+      
     
     
 }
