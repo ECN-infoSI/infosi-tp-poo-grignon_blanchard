@@ -90,4 +90,13 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
             System.out.println("La créature n'est pas sous le nuage toxique");
         }
     }
+
+    public int getNivToxique() {
+        return nivToxique;
+    }
+
+    public void setNivToxique(int nivToxique) {
+        this.nivToxique = nivToxique;
+    }
+    
 }
