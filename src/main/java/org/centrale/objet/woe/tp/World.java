@@ -21,6 +21,7 @@ public class World {
     private int nbObjets;
     
     private int dimension;
+    private boolean[][] presences;
     
 
     /**
@@ -124,6 +125,7 @@ public class World {
             while (!flagAllUnique);
             
             listCreatures.get(i).setPos(listCoor[i]);
+            presences[listCoor[i].getX()][listCoor[i].getY()] = true;
         }
         
         // Placement des objets en prenant en compte le placement des créatures
@@ -204,6 +206,8 @@ public class World {
                 freePositionFlag = joueur.perso.getPos() != listCreatures.get(i).getPos();
             }
         }
+        
+        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
     }
 
     public int getNbCreatures() {
