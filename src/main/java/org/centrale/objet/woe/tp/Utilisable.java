@@ -9,11 +9,12 @@ package org.centrale.objet.woe.tp;
  * @author grigm
  */
 public interface Utilisable {
+       
     /**
      * Utilise l'objet en activant son effet
      * @author grigm
-     * 
+     * @param c représentant l'instance de Creature qui active l'objet
      */
-    public void utilise();
+    public void utilise(Creature c);
         
 }
