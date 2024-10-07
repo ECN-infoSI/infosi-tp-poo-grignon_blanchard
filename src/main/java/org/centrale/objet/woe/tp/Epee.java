@@ -32,4 +32,14 @@ public class Epee extends Objet implements Utilisable{
         // on réduit la durée de l'effet d'un 
         this.dureeEffet--; 
     }
+
+    public int getDureeEffet() {
+        return dureeEffet;
+    }
+
+    public void setDureeEffet(int dureeEffet) {
+        this.dureeEffet = dureeEffet;
+    }
+    
+    
 }
