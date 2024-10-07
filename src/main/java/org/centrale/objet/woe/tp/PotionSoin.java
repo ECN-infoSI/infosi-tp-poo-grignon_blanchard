@@ -10,6 +10,7 @@ package org.centrale.objet.woe.tp;
  */
 public class PotionSoin extends Objet implements Utilisable {
     private int valeurPV; 
+    private int dureeEffet; 
     
     /**
      * Constructeur par défaut
@@ -33,9 +34,28 @@ public class PotionSoin extends Objet implements Utilisable {
         this.valeurPV = valeurPV;
     }
 
+    public int getDureeEffet() {
+        return dureeEffet;
+    }
+
+    public void setDureeEffet(int dureeEffet) {
+        this.dureeEffet = dureeEffet;
+    }
+    
+    
+    
+    /**
+     * méthode pour activer l'objet et modifier les caractéristiques du personnage
+     * @author grigm
+     * @param c représentant l'instance de Creature qui active l'objet
+     */
     @Override
-    public void utilise() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void utilise(Creature c) {
+        //on met à jour les points de vie de la créature 
+        c.setPtVie(c.ptVie+this.valeurPV);
+        
+        //on réduit la durée de l'effet d'un 
+        this.dureeEffet--; 
     }
     
     
