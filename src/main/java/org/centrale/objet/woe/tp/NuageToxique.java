@@ -46,20 +46,8 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     public void deplacer(Point2D newPos, boolean[][] presences) throws Exception {
         // Déplacement à l'intérieur du monde
         if (newPos.getX() < presences.length && newPos.getY() < presences[0].length && 0 <= newPos.getX() && 0 <= newPos.getY()) {
-            // Déplacement sur une case libre
-            if (presences[newPos.getX()][newPos.getY()]) {
-                // La cellule associée à la position précedente est indiquée comme libre
-                presences[pos.getX()][pos.getY()] = false;
-
-                // Déplacement du nuage
-                pos = newPos;
-
-                // La cellule associée à la nouvelle position est indiquée comme libre
-                presences[pos.getX()][pos.getY()] = true;
-            }
-            else {
-                throw new Exception("Mouvement vers une case occupée !");
-            }
+            // on considère que le nuage peut se déplacer vers n'importe quelle position dans le monde
+            pos = newPos;
         }
         else {
             throw new Exception("Mouvement en dehors du monde !");
@@ -78,24 +66,12 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
         Random rand = new Random(date.getTime());
         
         int dx, dy;
+        dx = rand.nextInt(3) - 1;
+        dy = rand.nextInt(3) - 1;
         
-        // On génère un vecteur-déplacement jusqu'à qu'il soit valide
-        do {
-            dx = rand.nextInt(3) - 1;
-            dy = rand.nextInt(3) - 1;
-        }
-        while (pos.getX() + dx < presences.length && pos.getY() + dy < presences[0].length // Déplacement à l'intérieur du monde (borne sup.)
-                && 0 <= pos.getX() + dx && 0 <= pos.getY() + dy  // Déplacement à l'intérieur du monde (borne inf.) 
-                && presences[pos.getX() + dx][pos.getY() + dy]);  // Déplacement sur une cellule libre
-        
-        // La cellule associée à la position précedente est indiquée comme libre
-        presences[pos.getX()][pos.getY()] = false;
-        
-        // Déplacement du nuage toxique
+        // Déplacement du nuage toxique aléatoirement
         pos.translate(dx, dy);
-        
-        // La cellule associée à la nouvelle position est indiquée comme occupée
-        presences[pos.getX()][pos.getY()] = true;
+
     }
     
     
