@@ -11,7 +11,7 @@ import java.util.Random;
  * Monstre : Loup
  * @author simon
  */
-public class Loup extends Monstre {
+public class Loup extends Monstre implements Combattant {
     /**
      * Constructeur manuel de Loup  
      * @param pV    Points de vie

@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author simon
  */
-public class Archer extends Personnage{
+public class Archer extends Personnage implements Combattant {
     private int nbFleches;
     
     public Archer() {
