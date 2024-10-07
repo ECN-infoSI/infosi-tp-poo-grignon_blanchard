@@ -24,7 +24,7 @@ public abstract class Personnage extends Creature{
     public Personnage() {
         super(); 
         nom = "John Doe";
-        distAttMax = 10;
+        distAttMax = 1;
     }
     
     /**

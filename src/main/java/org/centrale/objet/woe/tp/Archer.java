@@ -17,6 +17,8 @@ public class Archer extends Personnage implements Combattant {
     public Archer() {
         super();
         nbFleches = 3;
+        distAttMax = 10;
+        degAtt = 5;
     }
     
     /**
@@ -27,6 +29,8 @@ public class Archer extends Personnage implements Combattant {
     public Archer(String nom) {
         super(nom);
         nbFleches = 3;
+        distAttMax = 10;
+        degAtt = 5;
     }
     
     public Archer(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int nbFleches) {
