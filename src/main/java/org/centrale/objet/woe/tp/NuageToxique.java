@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class NuageToxique extends Objet implements Deplacable, Combattant{
     
-    int nivToxique; //nombre dégat que prend le joueur s'il est sous le nuage toxique 
+    private int nivToxique; //nombre dégat que prend le joueur s'il est sous le nuage toxique 
     
     /**
      * Constructeur par défaut (nivToxique =5)
