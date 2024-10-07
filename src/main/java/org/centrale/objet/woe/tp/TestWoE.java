@@ -52,14 +52,18 @@ public class TestWoE{
        
        pluie.combattre((Creature)wolfie);
        wolfie.affiche();
-       System.out.println("Le loup a perdu " + pluie.nivToxique + " pv"); 
+       System.out.println("Le loup a perdu " + pluie.getNivToxique() + " pv"); 
        
        Point2D position = new Point2D(8,7); 
        pluie.deplacer(position, monde.getPresences());
        pluie.combattre((Creature)wolfie);
        wolfie.affiche();
        
-       
+       //Test Nourriture 
+       Nourriture steak = new Nourriture(); 
+       Nourriture burger = new Nourriture("burger", -5, 0, 0, -5); 
+       steak.affiche();
+       burger.affiche(); 
        
        
    }
