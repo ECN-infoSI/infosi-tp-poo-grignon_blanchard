@@ -34,14 +34,16 @@ public class Nourriture extends Objet{
      * Constructeur manuel
      * @author grigm
      * @param n nom de la nourriture
+     * @param duree nombre de tour que dure l'effet 
      * @param dA nombre de dégat malus ou bonus 
      * @param pPar nombre de point de parade malus ou bonus
      * @param paAtt nombre de point à ajouter au pourcentage attaque malus ou bonus
      * @param paPar nombre de point à ajouter au pourcentage parade malus ou bonus
      */
-    public Nourriture(String n, int dA, int pPar, int paAtt, int paPar) {
+    public Nourriture(String n, int duree,  int dA, int pPar, int paAtt, int paPar) {
         super();
         nom=n; 
+        dureeEffet = duree; 
         degAtt=dA;
         ptPar = pPar; 
         pageAtt = paAtt; 
@@ -55,6 +57,7 @@ public class Nourriture extends Objet{
     @Override
     public void affiche(){
         System.out.println(nom + " (" + pos.getX() + ", " + pos.getY() + ")");
+        System.out.println("Duree effet : " + dureeEffet + " tour(s)");
         System.out.println("Effet Att. : " + degAtt);
         System.out.println("Effet Par. : " + ptPar);
         System.out.println("Effet Pourcentage Att. : " + pageAtt);
