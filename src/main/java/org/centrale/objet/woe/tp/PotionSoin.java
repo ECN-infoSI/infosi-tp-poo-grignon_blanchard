@@ -22,6 +22,17 @@ public class PotionSoin extends Objet implements Utilisable {
     }
     
     /**
+     * Constructeur avec choix de la valeur pv
+     * @author grigm
+     * @param pv point de vie ajoutés quand la potion est utilisée 
+     */
+    public PotionSoin(int pv){
+        super();
+        this.valeurPV = pv; 
+    }
+    
+    
+    /**
      * Ascesseur pour récupérer le nombre de pv qu'apporte la potion de soin
      * @author grigm
      * @return valeurPV la valeur de la potion de soin en PV
