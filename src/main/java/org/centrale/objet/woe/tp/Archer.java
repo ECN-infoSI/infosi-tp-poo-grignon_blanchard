@@ -15,7 +15,7 @@ public class Archer extends Personnage implements Combattant {
     private int nbFleches;
     
     public Archer() {
-        super();
+        super("Archer Ennemi");
         nbFleches = 3;
         distAttMax = 10;
         degAtt = 5;
@@ -51,6 +51,17 @@ public class Archer extends Personnage implements Combattant {
         Date date = new Date();
         Random rand = new Random(date.getTime());
         double dist = Point2D.distance(pos, c.pos);
+        String nomAdversaire;
+        
+        // Détermination du nom de la créature adverse
+        if (c instanceof Personnage) {
+            nomAdversaire = ((Personnage) c).getNom();
+        }
+        else {
+            nomAdversaire = c.getClass().getSimpleName() +  " sauvage";
+        }
+        
+        System.out.print("# " + this.nom + " attaque " + nomAdversaire);
         
         // Vérification que l'adversaire n'est pas hors de portée
         if (dist > 1 && dist <= distAttMax) {
@@ -60,16 +71,16 @@ public class Archer extends Personnage implements Combattant {
             nbFleches --;  
             
             if (tirrageAtt <= pageAtt && nbFleches > 0) {
-                System.out.println(tirrageAtt + " : L'attaque a réussi !");
+                System.out.println(" : L'attaque a réussi ! (" + tirrageAtt + ')');
                 
                 c.prendreDegats(degAtt);
             } 
             else {
-                System.out.println(tirrageAtt + " : L'attaque a échoué");
+                System.out.println(" : L'attaque a échoué (" + tirrageAtt + ')');
             }
         }
         else {
-            System.out.println("La créature est hors de portée");
+            System.out.println(" : La créature est hors de portée");
         }
     }
     

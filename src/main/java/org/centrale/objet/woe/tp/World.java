@@ -159,6 +159,10 @@ public class World {
      * @author simon
      */
     public void tourDeJeu() {
+        // Affichage des statistiques du joueur
+        System.out.println("\n# NOUVEAU TOUR DE JEU");
+        joueur.perso.affiche();
+        
         // Affichage de l'environnement à proximité du joueur
         afficheEnvironnementJoueur();
         
@@ -218,10 +222,10 @@ public class World {
     public void afficheEnvironnementJoueur() {
         Point2D pos = joueur.perso.getPos();
         
-        System.out.println("+-+-+-+-+-+");
+        System.out.println("\t+-+-+-+-+-+");
         
         for (int i = -2; i <= 2; i++) {
-            System.out.print('|');
+            System.out.print("\t|");
             
             for (int j = -2; j <= 2; j++) {
                 if (i == 0 && j == 0) {
@@ -239,7 +243,7 @@ public class World {
                 }
             }
             
-            System.out.println("\n+-+-+-+-+-+");
+            System.out.println("\n\t+-+-+-+-+-+");
         }
     }
     
@@ -270,6 +274,10 @@ public class World {
         }
     }
     
+    /**
+     * Procédure de création du personnage du joueur et placement sur une case libre
+     * @author simon
+     */
     public void creationJoueur() {
         // Creation du joueur et du personnage associé 
         joueur = new Joueur();
