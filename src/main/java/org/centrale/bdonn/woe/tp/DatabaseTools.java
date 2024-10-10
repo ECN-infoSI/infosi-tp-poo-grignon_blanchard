@@ -89,11 +89,12 @@ public class DatabaseTools {
 
     /**
      * get Player ID
-     * @param nomJoueur
-     * @param password
-     * @return
+     * @param nomJoueur  Pseudo
+     * @param password   Mot de Passe
+     * @return           Indice du Joueur
+     * @throws Exception Si les identifiants de connexion ne fonctionne pas
      */
-    public Integer getPlayerID(String nomJoueur, String password) {
+    public Integer getPlayerID(String nomJoueur, String password) throws Exception {
         int playerId = -1;
         
         try {
@@ -112,9 +113,13 @@ public class DatabaseTools {
                
             stmt.close();
             
-            } catch(SQLException ex) {
-                System.err.println("SQLException : " + ex.getMessage()) ;
-            }
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+        
+        if (playerId == -1) {
+            throw new Exception("Le couple nom / mot de passe n'existe pas !");
+        }
         
         return playerId;
     }
@@ -127,7 +132,7 @@ public class DatabaseTools {
      * @param monde
      */
     public void saveWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) {
-
+        
     }
     
     /**
@@ -193,7 +198,7 @@ public class DatabaseTools {
      * @param idPartie      Identifiant de la partie en cours
      * @param nomSauvegarde Nom de la sauvegarde
      */
-    public void saveObjet(Objet o, int idPartie, String nomSauvegarde){ 
+    private void saveObjet(Objet o, int idPartie, String nomSauvegarde){ 
         try {
             String query = "INSERT INTO positionobjet(idobjet, nomsauvegarde, idpartie, dansinventaire, x, y) VALUES (?,?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
