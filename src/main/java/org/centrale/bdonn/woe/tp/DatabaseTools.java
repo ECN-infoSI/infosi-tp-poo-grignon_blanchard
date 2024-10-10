@@ -18,6 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.centrale.objet.woe.tp.World;
+import org.centrale.objet.woe.tp.Creature;
+import org.centrale.objet.woe.tp.Personnage;
+import org.centrale.objet.woe.tp.Archer;
 
 /**
  *
@@ -124,6 +127,62 @@ public class DatabaseTools {
      */
     public void saveWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) {
 
+    }
+    
+    /**
+     * Processus de sauvegarde pour une creature
+     * @author simon
+     * @param c             Instance de la créature à sauvergarder
+     * @param idPartie      Identifiant de la partie en cours
+     * @param nomSauvegarde Nom de la sauvegarde
+     * @param estJoueur     Test si la créature est controllée par le joueur
+     */
+    private void saveCreature(Creature c, int idPartie, String nomSauvegarde, boolean estJoueur) {
+        String query1 = "INSERT INTO InstanceCreature(nomSauvegarde, idPartie, estJoueur, type, ptVie, ptAtt, pageAtt, ptPar, pagePar, x, y";
+        String query2 = ") VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        
+        // Ajout de champs en plus en fonction de la sous-classe de creature
+        if (c instanceof Personnage) {
+            query1 += ", nom, distAtt, sexe";
+            query2 += ", ?, ?, ?";
+            
+            if (c instanceof Archer) {
+                query1 += ", nbProj";
+                query2 += ", ?";
+            }
+        }
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query1 + query2 + ");");
+            
+            stmt.setString(1, nomSauvegarde);
+            stmt.setInt(2, idPartie);
+            stmt.setBoolean(3, estJoueur);
+            stmt.setString(4, c.getClass().getSimpleName());
+            stmt.setInt(5, c.getPtVie());
+            stmt.setInt(6, c.getDegAtt());
+            stmt.setInt(7, c.getPageAtt());
+            stmt.setInt(8, c.getPtPar());
+            stmt.setInt(9, c.getPagePar());
+            stmt.setInt(10, c.getPos().getX());
+            stmt.setInt(11, c.getPos().getY());
+            
+            if (c instanceof Personnage) {
+                stmt.setString(12, ((Personnage) c).getNom());
+                stmt.setInt(13, ((Personnage) c).getDistAttMax());                
+                stmt.setInt(14, ((Personnage) c).getSexe());
+                
+                if (c instanceof Archer) {
+                    stmt.setInt(15, ((Archer) c).getNbFleches());
+                }
+            }
+            
+            stmt.execute();               
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
     }
 
     /**
