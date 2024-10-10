@@ -131,7 +131,7 @@ public class DatabaseTools {
      * @return              Indice de la partie
      * @throws Exception    Si la partie n'existe pas     
      */
-    public int getIdPartie(int idJoueur, String nomPartie) throws Exception {
+    private int getIdPartie(int idJoueur, String nomPartie) throws Exception {
         int idPartie = -1;
         
         try {
@@ -159,6 +159,28 @@ public class DatabaseTools {
         }
         
         return idPartie;
+    }
+    
+    /**
+     * Crée une nouvelle sauvegarde avec les informations données
+     * @param idPartie      Identifiant de la partie en cours
+     * @param nomSauvegarde Nom de la nouvelle sauvegarde
+     */
+    private void createSauvegarde(int idPartie, String nomSauvegarde) {
+        try {
+           
+            String query = "INSERT INTO Sauvegarde VALUES(?, ?, CURRENT_TIMESTAMP);";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setString(1, nomSauvegarde);
+            stmt.setInt(2, idPartie);
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
     }
 
     /**
