@@ -235,6 +235,20 @@ public class World {
         nbObjets ++;
     }
     
+    /**
+     * Modifie le personnage du joueur en modifiant sa presence dans le monde
+     * @param p Nouveau personnage
+     */
+    public void changePersonnageJoueur(Personnage p) {
+        if (this.joueur != null && this.joueur.perso != null) {
+            // S'il y avait déjà un personnage, on supprime sa présence
+            presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = false;
+        }
+        
+        this.joueur.perso = p;
+        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
+    }
+    
     public int getNbCreatures() {
         return nbCreatures;
     }
@@ -280,13 +294,7 @@ public class World {
     }
 
     public void setJoueur(Joueur joueur) {
-        if (this.joueur != null) {
-            // S'il y avait déjà un joueur, on supprime sa présence
-            presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = false;
-        }
-        
         this.joueur = joueur;
-        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
     }
 
     public ArrayList<Creature> getListCreatures() {
