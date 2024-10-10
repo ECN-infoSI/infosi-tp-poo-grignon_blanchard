@@ -162,6 +162,31 @@ public class DatabaseTools {
     }
     
     /**
+     * Ajout d'une partie dans la base de données
+     * @param idJoueur  Identifiant du joueur
+     * @param nomPartie Nom de la partie à créer
+     * @param dimension Dimension du monde
+     */
+    public void createPartie(int idJoueur, String nomPartie, int dimension) {
+        try {
+           
+            String query = "INSERT INTO Partie(nom, idJoueur, largeur, longueur) VALUES(?, ?, ?, ?);";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setString(1, nomPartie);
+            stmt.setInt(2, idJoueur);
+            stmt.setInt(3, dimension);
+            stmt.setInt(4, dimension);
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+    }
+    
+    /**
      * Crée une nouvelle sauvegarde avec les informations données
      * @param idPartie      Identifiant de la partie en cours
      * @param nomSauvegarde Nom de la nouvelle sauvegarde
@@ -190,8 +215,25 @@ public class DatabaseTools {
      * @param nomSauvegarde
      * @param monde
      */
-    public void saveWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) {
+    public void saveWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) throws Exception {
+        // Obtention de l'identifiant de la partie
+        int idPartie = this.getIdPartie(idJoueur, nomPartie);
         
+        // Création de la sauvegarde
+        this.createSauvegarde(idPartie, nomSauvegarde);
+        
+        // Sauvegarde du personnage du joueur
+        saveCreature(monde.joueur.perso, idPartie, nomSauvegarde, true);
+        
+        // Sauvegarde des créatures non-joueur
+        for (Creature c: monde.listCreatures) {
+            saveCreature(c, idPartie, nomSauvegarde, false);
+        }
+        
+        // Sauvegarde des objets
+        for (Objet o: monde.listObjets) {
+            saveObjet(o, idPartie, nomSauvegarde);
+        }
     }
     
     /**
