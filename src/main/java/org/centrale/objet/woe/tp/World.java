@@ -7,12 +7,14 @@ package org.centrale.objet.woe.tp;
 import java.util.Random; 
 import java.util.Date;
 import java.util.ArrayList; 
+import java.util.Scanner;
 
 /**
  * Classe représentant le monde à utiliser lors d'une partie
  * @author grigm
  */
 public class World {
+    public Joueur joueur;
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
     
@@ -20,8 +22,9 @@ public class World {
     private int nbObjets;
     
     private int dimension;
-    private String player = "";
+    private boolean[][] presences;
     
+    private String player = "";
 
     /**
      * Constructeur par défaut qui crée un monde sans créature ni objet (les arraylists sont créées mais elles sont vides)
@@ -34,6 +37,8 @@ public class World {
         
         nbCreatures = 0;
         nbObjets = 0;
+        
+        presences = new boolean[dimension][dimension];
     }
     
     
@@ -93,6 +98,8 @@ public class World {
             listObjets.add(new PotionSoin()); 
         }
         
+        presences = new boolean[dimension][dimension];
+        
         this.creerMondeAlea();
     }
     
@@ -124,6 +131,7 @@ public class World {
             while (!flagAllUnique);
             
             listCreatures.get(i).setPos(listCoor[i]);
+            presences[listCoor[i].getX()][listCoor[i].getY()] = true;
         }
         
         // Placement des objets en prenant en compte le placement des créatures
@@ -181,6 +189,32 @@ public class World {
             }
         }
     }
+    
+    /**
+     * Procédure de création du personnage du joueur et placement sur une case libre
+     * @author simon
+     */
+    public void creationJoueur() {
+        // Creation du joueur et du personnage associé 
+        joueur = new Joueur();
+        
+        // Placement du joueur sur une case libre
+        Date date = new Date();
+        Random rand = new Random(date.getTime()); 
+        boolean freePositionFlag = false;
+        
+        while (!freePositionFlag) {
+            freePositionFlag = true;
+            
+            joueur.perso.setPos(new Point2D(rand.nextInt(dimension), rand.nextInt(dimension)));
+            
+            for (int i = 0; i < nbCreatures - 1 && freePositionFlag; i++) {
+                freePositionFlag = joueur.perso.getPos() != listCreatures.get(i).getPos();
+            }
+        }
+        
+        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
+    }
 
     public int getNbCreatures() {
         return nbCreatures;
@@ -206,6 +240,14 @@ public class World {
         this.dimension = dimension;
     }
 
+    public boolean[][] getPresences() {
+        return presences;
+    }
+
+    public void setPresences(boolean[][] presences) {
+        this.presences = presences;
+    }
+    
     public String getPlayer() {
         return player;
     }
