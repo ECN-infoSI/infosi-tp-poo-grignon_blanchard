@@ -41,9 +41,10 @@ public class Guerrier extends Personnage {
      * @param paPar Page parade
      * @param dMax  Distance d'attaque maximale
      * @param p     Position
+     * @param sexe  Sexe
      */
-    public Guerrier(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p) {
-        super(n, pV, dA, pPar, paAtt, paPar, dMax, p);
+    public Guerrier(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int sexe) {
+        super(n, pV, dA, pPar, paAtt, paPar, dMax, p, sexe);
     }
     
     /**
