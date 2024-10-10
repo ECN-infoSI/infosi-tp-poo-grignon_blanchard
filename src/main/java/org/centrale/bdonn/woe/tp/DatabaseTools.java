@@ -366,6 +366,70 @@ public class DatabaseTools {
         
         return dimension;
     }  
+    
+    /**
+     * Retourne l'ensemble des indices des instances de créatures d'une sauvegarde
+     * @param idPartie      Identifiant de la partie
+     * @param nomSauvegarde Nom de la sauvegarde
+     * @return              Liste des indices des créatures de la sauvegarde          
+     */
+    private ArrayList<Integer> getCreaturesIndexes(int idPartie, String nomSauvegarde) {
+        ArrayList<Integer> creaturesIndexes = new ArrayList<Integer>();
+        
+        try {
+           
+            String query = "SELECT id FROM InstanceCreature WHERE idPartie = ? AND nomSauvegarde = ?;";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setInt(1, idPartie);
+            stmt.setString(2, nomSauvegarde);
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                creaturesIndexes.add(res.getInt("id"));
+            }
+               
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+        
+        return creaturesIndexes;
+    }
+    
+    /**
+     * Retourne l'ensemble des indices des instances des objets d'une sauvegarde
+     * @param idPartie      Identifiant de la partie
+     * @param nomSauvegarde Nom de la sauvegarde
+     * @return              Liste des indices des objets de la sauvegarde          
+     */
+    private ArrayList<Integer> getObjetsIndexes(int idPartie, String nomSauvegarde) {
+        ArrayList<Integer> objetsIndexes = new ArrayList<Integer>();
+        
+        try {
+           
+            String query = "SELECT id FROM PositionObjets WHERE idPartie = ? AND nomSauvegarde = ?;";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setInt(1, idPartie);
+            stmt.setString(2, nomSauvegarde);
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                objetsIndexes.add(res.getInt("id"));
+            }
+               
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+        
+        return objetsIndexes;
+    }  
 
     /**
      * get world from database
