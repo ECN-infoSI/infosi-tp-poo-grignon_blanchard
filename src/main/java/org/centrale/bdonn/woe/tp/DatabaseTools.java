@@ -346,6 +346,11 @@ public class DatabaseTools {
 
     }
     
+    /**
+     * Processus pour lire une créature et retourner un objet de la sous classe correspondante
+     * @author grigm
+     * @param idCreature    Id de la créature dans la table instancecreature
+     */
     public Creature readCreature(int idCreature){
         String query1 = "SELECT * FROM instancecreature WHERE id=?";
         try {
@@ -399,6 +404,54 @@ public class DatabaseTools {
                     return (Creature)o; 
                 } catch (Exception e) { 
                     System.out.println("Message erreur readCreature"); 
+                    return null; 
+                }
+            }
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+            return null; 
+        }
+        return null; 
+    }
+    
+    /**
+     * Processus pour lire une créature et retourner un objet de la sous classe correspondante
+     * @author grigm
+     * @param idObjet    Id (unique) de l'objet dans la table positionobjet
+     */
+    public Objet readObjet(int idObjet){
+        String query1 = "SELECT objet.type, positionobjet.x, positionobjet.y, positionobjet.dansinventaire FROM positionobjet JOIN objet on objet.id = positionobjet.idobjet WHERE positionobjet.id=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query1);
+            stmt.setInt(1, idObjet);
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                String typeClass= res.getString("type");
+                int x= res.getInt("x");
+                int y= res.getInt("y"); 
+            
+                try {
+                 
+                    //On cree un objet Class
+                    Class cl = Class.forName("org.centrale.objet.woe.tp." + typeClass);
+                    //On cree les parametres du constructeur
+                    Class[] types = new Class[]{};
+                    //On recupere le constructeur avec les  paramètres
+                    Constructor ct = cl.getConstructor(types);
+                    //On instancie l’objet avec le constructeur surcharge !
+                    Object o = ct.newInstance();
+                    
+                    //on crée un objet position 
+                    Point2D position = new Point2D(x,y); 
+                    ((Objet)o).setPos(position); 
+                    
+                    return (Objet)o; 
+                    
+                } catch (Exception e) { 
+                    System.out.println("Message erreur readObjet"); 
                     return null; 
                 }
             }
