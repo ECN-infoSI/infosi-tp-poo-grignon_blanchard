@@ -21,6 +21,7 @@ import org.centrale.objet.woe.tp.World;
 import org.centrale.objet.woe.tp.Creature;
 import org.centrale.objet.woe.tp.Personnage;
 import org.centrale.objet.woe.tp.Archer;
+import org.centrale.objet.woe.tp.Objet;
 
 /**
  *
@@ -179,6 +180,47 @@ public class DatabaseTools {
             
             stmt.execute();               
             stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+    }
+    
+    /**
+     * Processus de sauvegarde pour un objet
+     * @author grigm
+     * @param o             Instance d'objet à sauvergarder
+     * @param idPartie      Identifiant de la partie en cours
+     * @param nomSauvegarde Nom de la sauvegarde
+     */
+    public void saveObjet(Objet o, int idPartie, String nomSauvegarde){ 
+        try {
+            String query = "INSERT INTO positionobjet(idobjet, nomsauvegarde, idpartie, dansinventaire, x, y) VALUES (?,?,?,?,?,?)";
+            PreparedStatement stmt = connection.prepareStatement(query);
+
+
+            String nomClasse = o.getClass().getSimpleName(); 
+
+            try {
+                String queryIdObjet = "SELECT id from objet Where type =?";
+                PreparedStatement stmtIdObjet = connection.prepareStatement(queryIdObjet); 
+                stmtIdObjet.setString(1,nomClasse);
+                ResultSet resIdObjet = stmtIdObjet.executeQuery();
+                if (resIdObjet.next()) {
+                    int idJoueur =resIdObjet.getInt("id");
+                    stmt.setInt(1,idJoueur);
+                }
+                stmtIdObjet.close(); 
+            } catch(SQLException ex) {
+                System.err.println("SQLException : " + ex.getMessage()) ;
+            }
+
+            stmt.setString(2, nomSauvegarde);
+            stmt.setInt(3, idPartie);
+            stmt.setBoolean(4, false);
+            stmt.setInt(5,o.getPos().getX()); 
+            stmt.setInt(6,o.getPos().getY()); 
+            stmt.execute();
             
         } catch(SQLException ex) {
             System.err.println("SQLException : " + ex.getMessage()) ;
