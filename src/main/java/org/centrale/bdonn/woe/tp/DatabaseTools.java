@@ -7,6 +7,7 @@
  * -------------------------------------------------------------------------------- */
 package org.centrale.bdonn.woe.tp;
 
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -22,6 +23,7 @@ import org.centrale.objet.woe.tp.Creature;
 import org.centrale.objet.woe.tp.Personnage;
 import org.centrale.objet.woe.tp.Archer;
 import org.centrale.objet.woe.tp.Objet;
+import org.centrale.objet.woe.tp.Point2D;
 
 /**
  *
@@ -342,5 +344,70 @@ public class DatabaseTools {
      */
     public void readWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) {
 
+    }
+    
+    public Creature readCreature(int idCreature){
+        String query1 = "SELECT * FROM instancecreature WHERE id=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query1);
+            stmt.setInt(1, idCreature);
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                String nom= res.getString("nom");
+                String typeClass= res.getString("type");
+                int ptvie= res.getInt("ptvie");
+                int ptatt= res.getInt("ptatt");
+                int pageatt= res.getInt("pageatt");
+                int ptpar= res.getInt("ptpar");
+                int pagepar= res.getInt("pagepar");
+                int distatt= res.getInt("distatt");
+                int nbproj= res.getInt("nbproj");
+                int x= res.getInt("x");
+                int y= res.getInt("y"); 
+                int sexe = res.getInt("sexe"); 
+            
+                try {
+                    
+                    //On cree un objet Class
+                    Class cl = Class.forName("org.centrale.objet.woe.tp." + typeClass);
+                    //On cree les parametres du constructeur
+                    Class[] types = new Class[]{};
+                    //On recupere le constructeur avec les  paramètres
+                    Constructor ct = cl.getConstructor(types);
+                    //On instancie l’objet avec le constructeur surcharge !
+                    Object o = ct.newInstance();
+                    
+                    //on crée un objet position 
+                    Point2D position = new Point2D(x,y); 
+                    ((Creature)o).setPos(position); 
+                    
+                    ((Creature)o).setDegAtt(ptatt); 
+                    ((Creature)o).setPageAtt(pageatt); 
+                    ((Creature)o).setPagePar(pagepar); 
+                    ((Creature)o).setPtPar(ptpar); 
+                    ((Creature)o).setPtVie(ptvie); 
+                    
+                    if (o instanceof Personnage){
+                        ((Personnage)o).setNom(nom); 
+                        ((Personnage)o).setSexe(sexe); 
+                        ((Personnage)o).setDistAttMax(distatt);
+                        if (o instanceof Archer){
+                            ((Archer)o).setNbFleches(nbproj);
+                        }
+                    }
+                    return (Creature)o; 
+                } catch (Exception e) { 
+                    System.out.println("Message erreur readCreature"); 
+                    return null; 
+                }
+            }
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+            return null; 
+        }
+        return null; 
     }
 }
