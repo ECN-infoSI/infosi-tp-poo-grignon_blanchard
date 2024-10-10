@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 import org.centrale.objet.woe.tp.World;
 import org.centrale.objet.woe.tp.Creature;
@@ -336,14 +337,52 @@ public class DatabaseTools {
     }
 
     /**
+     * Obtient la dimension d'un monde carré depuis les informations sur la partie
+     * @param idJoueur  Identifiant du Joueur  
+     * @param nomPartie Nom de la partie
+     * @return          Dimension du monde
+     */
+    private int getWorldDimension(int idJoueur, String nomPartie) {
+        int dimension = 0;
+        
+        try {
+            String query = "SELECT largeur FROM Partie WHERE idJoueur = ? AND nom = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setInt(1, idJoueur);
+            stmt.setString(2, nomPartie);
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                dimension = res.getInt("largeur");
+            }
+               
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+        
+        return dimension;
+    }  
+
+    /**
      * get world from database
      * @param idJoueur
      * @param nomPartie
      * @param nomSauvegarde
-     * @param monde
      */
-    public void readWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) {
-
+    public void readWorld(Integer idJoueur, String nomPartie, String nomSauvegarde) {
+        // Creation d'une instance de World
+        World monde = new World();
+        monde.setDimension(getWorldDimension(idJoueur, nomPartie));
+        
+        // Ajout des créatures non-joueurs
+        
+        // Ajout des objets
+        
+        // Ajout du personnage joueur
     }
     
     /**
@@ -351,7 +390,7 @@ public class DatabaseTools {
      * @author grigm
      * @param idCreature    Id de la créature dans la table instancecreature
      */
-    public Creature readCreature(int idCreature){
+    private Creature readCreature(int idCreature){
         String query1 = "SELECT * FROM instancecreature WHERE id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query1);
@@ -421,7 +460,7 @@ public class DatabaseTools {
      * @author grigm
      * @param idObjet    Id (unique) de l'objet dans la table positionobjet
      */
-    public Objet readObjet(int idObjet){
+    private Objet readObjet(int idObjet){
         String query1 = "SELECT objet.type, positionobjet.x, positionobjet.y, positionobjet.dansinventaire FROM positionobjet JOIN objet on objet.id = positionobjet.idobjet WHERE positionobjet.id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query1);
