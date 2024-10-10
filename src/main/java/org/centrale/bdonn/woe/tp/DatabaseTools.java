@@ -225,15 +225,15 @@ public class DatabaseTools {
         this.createSauvegarde(idPartie, nomSauvegarde);
         
         // Sauvegarde du personnage du joueur
-        saveCreature(monde.joueur.perso, idPartie, nomSauvegarde, true);
+        saveCreature(monde.getJoueur().perso, idPartie, nomSauvegarde, true);
         
         // Sauvegarde des créatures non-joueur
-        for (Creature c: monde.listCreatures) {
+        for (Creature c: monde.getListCreatures()) {
             saveCreature(c, idPartie, nomSauvegarde, false);
         }
         
         // Sauvegarde des objets
-        for (Objet o: monde.listObjets) {
+        for (Objet o: monde.getListObjets()) {
             saveObjet(o, idPartie, nomSauvegarde);
         }
     }
