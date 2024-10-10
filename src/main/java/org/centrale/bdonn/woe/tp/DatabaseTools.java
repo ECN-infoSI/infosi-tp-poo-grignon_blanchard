@@ -123,6 +123,43 @@ public class DatabaseTools {
         
         return playerId;
     }
+    
+    /**
+     * Retourne l'indice d'une partie
+     * @param idJoueur      Indice du Joueur
+     * @param nomPartie     Nom de la partie
+     * @return              Indice de la partie
+     * @throws Exception    Si la partie n'existe pas     
+     */
+    public int getIdPartie(int idJoueur, String nomPartie) throws Exception {
+        int idPartie = -1;
+        
+        try {
+           
+            String query = "SELECT id FROM Partie WHERE idJoueur = ? AND nom = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            
+            stmt.setInt(1, idJoueur);
+            stmt.setString(2, nomPartie);
+            
+            ResultSet res = stmt.executeQuery();
+            
+            if (res.next()) {
+                idPartie = res.getInt("id");
+            }
+               
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+        
+        if (idPartie == -1) {
+            throw new Exception("La partie cherchée n'existe pas !");
+        }
+        
+        return idPartie;
+    }
 
     /**
      * save world to database
