@@ -12,6 +12,7 @@ public class Personnage extends Creature{
     protected String nom;
     protected int distAttMax;
     protected int sexe; // 0 pour H, 1 pour F
+    protected boolean estJoueur = false;
  
     /**
      * Constructeur par défaut
@@ -109,5 +110,13 @@ public class Personnage extends Creature{
 
     public void setSexe(int sexe) {
         this.sexe = sexe;
+    }
+    
+    public boolean isEstJoueur() {
+        return estJoueur;
+    }
+
+    public void setEstJoueur(boolean estJoueur) {
+        this.estJoueur = estJoueur;
     }
 }

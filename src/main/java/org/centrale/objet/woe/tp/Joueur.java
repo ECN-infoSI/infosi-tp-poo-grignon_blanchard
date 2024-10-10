@@ -45,6 +45,7 @@ public class Joueur {
         
         System.out.println("# Nom du personnage : ");
         perso.setNom(scanner.nextLine());
+        perso.setEstJoueur(true);
     }
     
     public void choixDeplacement(boolean[][] presences) {

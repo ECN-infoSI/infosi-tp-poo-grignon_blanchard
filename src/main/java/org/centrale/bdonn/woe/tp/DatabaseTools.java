@@ -474,6 +474,7 @@ public class DatabaseTools {
                 int x= res.getInt("x");
                 int y= res.getInt("y"); 
                 int sexe = res.getInt("sexe"); 
+                boolean estJoueur = res.getBoolean("estJoueur");
             
                 try {
                     
@@ -500,6 +501,7 @@ public class DatabaseTools {
                         ((Personnage)o).setNom(nom); 
                         ((Personnage)o).setSexe(sexe); 
                         ((Personnage)o).setDistAttMax(distatt);
+                        ((Personnage)o).setEstJoueur(estJoueur);
                         if (o instanceof Archer){
                             ((Archer)o).setNbFleches(nbproj);
                         }
