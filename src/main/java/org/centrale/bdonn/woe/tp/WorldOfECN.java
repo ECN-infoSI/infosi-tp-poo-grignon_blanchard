@@ -21,19 +21,37 @@ public class WorldOfECN {
      * @param args
      */
     public static void main(String[] args) {
-        World world = new World();
-        world.setPlayer("Saegusa");
+        String nomJoueur = "Saegusa";
+        String motDePasse = "Mayumi";
+        String nomPartie = "Test Game 1";
+        String nomSauvegarde = "Start";
+        int dimension = 10;
+        
+        //
+        
+        World world = new World(2, 2, 2, 2, 2, 1, 1, dimension);
+        world.setPlayer(nomJoueur);
+        world.creationJoueur();
         
         // Test phase
         DatabaseTools database = new DatabaseTools();
 
-        // Save world
         database.connect();
-        Integer playerId = database.getPlayerID("Saegusa", "Mayumi");
-        database.saveWorld(playerId, "Test Game 1", "Start", world);
         
+        // Save world
+        try {
+            Integer playerId = database.getPlayerID(nomJoueur, motDePasse);
+            database.createPartie(playerId, nomPartie, dimension);
+            database.saveWorld(playerId, nomPartie, nomSauvegarde, world);
+        }
+        catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        
+        /*        
         // Retreive World
         database.readWorld(playerId, "Test Game 1", "Start", world);
         database.disconnect();
+        */
     }
 }
