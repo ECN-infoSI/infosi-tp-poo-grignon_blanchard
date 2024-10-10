@@ -46,7 +46,7 @@ public class TestWoE{
        int nbLapin = 0;
        int nbLoup = 0;
        
-       for (Creature c : monde.listCreatures) {
+       for (Creature c : monde.getListCreatures()) {
            if (c instanceof Archer) {
                nbArcher++;
            }
@@ -87,7 +87,7 @@ public class TestWoE{
        int nbPotionSoin = 0;
        int nbEpee = 0;
        
-       for (Objet o : monde.listObjets) {
+       for (Objet o : monde.getListObjets()) {
            if (o instanceof PotionSoin) {
                nbPotionSoin++;
            }
@@ -116,7 +116,7 @@ public class TestWoE{
        
        tempsDeb = System.nanoTime();   
        
-       for (Creature c : monde.listCreatures) {
+       for (Creature c : monde.getListCreatures()) {
            sommePV += c.getPtVie();
        }
        
@@ -139,7 +139,7 @@ public class TestWoE{
        tempsDeb = System.nanoTime();
        
        for (int i = 0; i < monde.getNbCreatures(); i++) {
-           sommePV += monde.listCreatures.get(i).getPtVie();
+           sommePV += monde.getListCreatures().get(i).getPtVie();
        }
        
        tempsFin = System.nanoTime();

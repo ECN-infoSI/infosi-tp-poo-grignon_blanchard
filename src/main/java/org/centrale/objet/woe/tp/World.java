@@ -14,9 +14,9 @@ import java.util.Scanner;
  * @author grigm
  */
 public class World {
-    public Joueur joueur;
-    public ArrayList<Creature> listCreatures; 
-    public ArrayList<Objet> listObjets; 
+    private Joueur joueur;
+    private ArrayList<Creature> listCreatures; 
+    private ArrayList<Objet> listObjets; 
     
     private int nbCreatures;
     private int nbObjets;
@@ -215,7 +215,26 @@ public class World {
         
         presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
     }
-
+    
+    /**
+     * Ajout d'une créature non-joueur
+     * @param c Créature à ajouter
+     */
+    public void addCreature(Creature c) {
+        listCreatures.add(c);
+        presences[c.getPos().getX()][c.getPos().getY()] = true;
+        nbCreatures ++;
+    }
+    
+    /**
+     * Ajout d'un objet
+     * @param o Objet à ajouter
+     */
+    public void addObjets(Objet o) {
+        listObjets.add(o);
+        nbObjets ++;
+    }
+    
     public int getNbCreatures() {
         return nbCreatures;
     }
@@ -255,4 +274,36 @@ public class World {
     public void setPlayer(String player) {
         this.player = player;
     }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public void setJoueur(Joueur joueur) {
+        if (this.joueur != null) {
+            // S'il y avait déjà un joueur, on supprime sa présence
+            presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = false;
+        }
+        
+        this.joueur = joueur;
+        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
+    }
+
+    public ArrayList<Creature> getListCreatures() {
+        return listCreatures;
+    }
+
+    public void setListCreatures(ArrayList<Creature> listCreatures) {
+        this.listCreatures = listCreatures;
+    }
+
+    public ArrayList<Objet> getListObjets() {
+        return listObjets;
+    }
+
+    public void setListObjets(ArrayList<Objet> listObjets) {
+        this.listObjets = listObjets;
+    }
+    
+    
 }
