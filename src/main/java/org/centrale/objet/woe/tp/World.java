@@ -243,9 +243,12 @@ public class World {
         if (this.joueur != null && this.joueur.perso != null) {
             // S'il y avait déjà un personnage, on supprime sa présence
             presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = false;
+            this.joueur.perso = p;
+        }
+        else {
+            this.joueur = new Joueur(p);
         }
         
-        this.joueur.perso = p;
         presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
     }
     
