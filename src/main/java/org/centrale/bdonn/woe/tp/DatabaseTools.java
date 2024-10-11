@@ -386,7 +386,7 @@ public class DatabaseTools {
             
             ResultSet res = stmt.executeQuery();
             
-            if (res.next()) {
+            while (res.next()) {
                 creaturesIndexes.add(res.getInt("id"));
             }
                
@@ -410,7 +410,7 @@ public class DatabaseTools {
         
         try {
            
-            String query = "SELECT id FROM PositionObjets WHERE idPartie = ? AND nomSauvegarde = ?;";
+            String query = "SELECT id FROM PositionObjet WHERE idPartie = ? AND nomSauvegarde = ?;";
             PreparedStatement stmt = connection.prepareStatement(query);
             
             stmt.setInt(1, idPartie);
@@ -418,7 +418,7 @@ public class DatabaseTools {
             
             ResultSet res = stmt.executeQuery();
             
-            if (res.next()) {
+            while (res.next()) {
                 objetsIndexes.add(res.getInt("id"));
             }
                
@@ -433,20 +433,42 @@ public class DatabaseTools {
 
     /**
      * get world from database
-     * @param idJoueur
-     * @param nomPartie
-     * @param nomSauvegarde
+     * @param idJoueur      Identifiant du joueur
+     * @param nomPartie     Nom de la partie
+     * @param nomSauvegarde Nom de la sauvegarde
+     * @returns             Monde créé à partir de la sauvegarde
      */
-    public void readWorld(Integer idJoueur, String nomPartie, String nomSauvegarde) {
+    public World readWorld(Integer idJoueur, String nomPartie, String nomSauvegarde) throws Exception {
+        // Recuperation de l'identifant de la partie
+        int idPartie = getIdPartie(idJoueur, nomPartie);
+        
         // Creation d'une instance de World
         World monde = new World();
         monde.setDimension(getWorldDimension(idJoueur, nomPartie));
         
-        // Ajout des créatures non-joueurs
+        // Ajout des créatures
+        Creature tempCreature;
+        
+        for (int idCreature: getCreaturesIndexes(idPartie, nomSauvegarde)) {
+            tempCreature = readCreature(idCreature);
+            
+            if (tempCreature instanceof Personnage && ((Personnage) tempCreature).isEstJoueur()) {
+                // Ajout du personnage du joueur
+                monde.changePersonnageJoueur((Personnage) tempCreature);
+            }
+            else {
+                monde.addCreature(tempCreature);
+            }
+        }
         
         // Ajout des objets
+        Objet tempObjet;
         
-        // Ajout du personnage joueur
+        for (int idObjet: getObjetsIndexes(idPartie, nomSauvegarde)) {
+            monde.addObjets(readObjet(idObjet));
+        }
+        
+        return monde;
     }
     
     /**

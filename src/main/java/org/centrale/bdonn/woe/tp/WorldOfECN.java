@@ -8,6 +8,15 @@
 
 package org.centrale.bdonn.woe.tp;
 
+import org.centrale.objet.woe.tp.Archer;
+import org.centrale.objet.woe.tp.Creature;
+import org.centrale.objet.woe.tp.Epee;
+import org.centrale.objet.woe.tp.Guerrier;
+import org.centrale.objet.woe.tp.Lapin;
+import org.centrale.objet.woe.tp.Loup;
+import org.centrale.objet.woe.tp.Objet;
+import org.centrale.objet.woe.tp.Paysan;
+import org.centrale.objet.woe.tp.PotionSoin;
 import org.centrale.objet.woe.tp.World;
 
 /**
@@ -24,11 +33,10 @@ public class WorldOfECN {
         String nomJoueur = "Saegusa";
         String motDePasse = "Mayumi";
         String nomPartie = "Test Game 1";
-        String nomSauvegarde = "Start";
+        String nomSauvegarde = "INIT";
         int dimension = 10;
         
-        //
-        
+        // #########
         World world = new World(2, 2, 2, 2, 2, 1, 1, dimension);
         world.setPlayer(nomJoueur);
         world.creationJoueur();
@@ -38,20 +46,20 @@ public class WorldOfECN {
 
         database.connect();
         
-        // Save world
+        
         try {
-            Integer playerId = database.getPlayerID(nomJoueur, motDePasse);
+            // Save world
+            int playerId = database.getPlayerID(nomJoueur, motDePasse);
             database.createPartie(playerId, nomPartie, dimension);
             database.saveWorld(playerId, nomPartie, nomSauvegarde, world);
+            
+            // Retreive World
+            World newMonde = database.readWorld(3, nomPartie, nomSauvegarde);
         }
         catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
         
-        /*        
-        // Retreive World
-        database.readWorld(playerId, "Test Game 1", "Start", world);
         database.disconnect();
-        */
     }
 }
