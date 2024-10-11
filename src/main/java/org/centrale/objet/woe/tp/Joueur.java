@@ -48,6 +48,14 @@ public class Joueur {
         perso.setEstJoueur(true);
     }
     
+    /**
+     * Constructeur manuel
+     * @param p Personnage du joueur
+     */
+    public Joueur(Personnage p) {
+        this.perso = p;
+    }
+    
     public void choixDeplacement(boolean[][] presences) {
         
     }
