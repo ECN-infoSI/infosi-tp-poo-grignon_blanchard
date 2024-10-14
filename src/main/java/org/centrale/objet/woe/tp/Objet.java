@@ -25,7 +25,7 @@ public class Objet extends ElementDeJeu{
      * @author grigm
      */
     public void affiche(){ 
-        System.out.println("Objet(" + this.pos.getX() +","+this.pos.getY()+")");
+        System.out.println(this.getClass().getSimpleName() + " Objet(" + this.pos.getX() +","+this.pos.getY()+")");
     }
 
     
