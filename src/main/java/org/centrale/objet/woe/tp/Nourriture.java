@@ -123,10 +123,12 @@ public class Nourriture extends Objet implements Utilisable {
     }
 
    
+    @Override
     public int getDureeEffet() {
         return dureeEffet;
     }
 
+    @Override
     public void setDureeEffet(int dureeEffet) {
         this.dureeEffet = dureeEffet;
     }

@@ -16,7 +16,7 @@ public class Epee extends Objet implements Utilisable{
      */
     public Epee(){
         super();
-        dureeEffet = 10; 
+        dureeEffet = 2; 
     }
     
     /**
@@ -29,8 +29,7 @@ public class Epee extends Objet implements Utilisable{
     public void utilise(Creature c) {
         // on ajoute 10 points d'attaque à la créature
         c.setDegAtt(c.degAtt+10); 
-        // on réduit la durée de l'effet d'un 
-        this.dureeEffet--; 
+        
     }
 
     public int getDureeEffet() {

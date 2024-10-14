@@ -51,6 +51,7 @@ public class PotionSoin extends Objet implements Utilisable {
         return dureeEffet;
     }
 
+    @Override
     public void setDureeEffet(int dureeEffet) {
         this.dureeEffet = dureeEffet;
     }
@@ -67,8 +68,6 @@ public class PotionSoin extends Objet implements Utilisable {
         //on met à jour les points de vie de la créature 
         c.setPtVie(c.ptVie+this.valeurPV);
         
-        //on réduit la durée de l'effet d'un 
-        this.dureeEffet--; 
     }
     
     

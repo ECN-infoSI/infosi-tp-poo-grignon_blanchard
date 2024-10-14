@@ -16,5 +16,11 @@ public interface Utilisable {
      * @param c représentant l'instance de Creature qui active l'objet
      */
     public void utilise(Creature c);
+    
+    public void affiche(); 
+
+    public int getDureeEffet();
+
+    public void setDureeEffet(int duree);
         
 }
