@@ -15,7 +15,7 @@ public class Joueur {
     public Personnage perso;
     
     private ArrayList<Objet> inventaire;
-    private ArrayList<Objet> effets;
+    private ArrayList<Utilisable> effets;
     
     /**
      * Constructeur
@@ -113,8 +113,8 @@ public class Joueur {
     
     /**
      * Affichage et choix de la cible à attaquer
-     * @param listCreature
-     * @return 
+     * @param listCreature Liste des créatures adverses
+     * @return Indice de la créature à attaquer dans la liste
      */
     public int choixAttaque(ArrayList<Creature> listCreature) {
         Scanner scan = new Scanner(System.in);
@@ -160,7 +160,64 @@ public class Joueur {
         
         return indexCible;
     }
-
+    
+    /**
+     * Affichage et choix des objets dans l'inventaire
+     * @return Indice de l'objet à utiliser
+     */
+    public int choixObjet() {
+        Scanner scan = new Scanner(System.in);
+        
+        // Affichage des objets dans l'inventaire
+        
+        System.out.println("# Liste des Créatures dans le monde : ");
+        
+        for (int i = 0; i < inventaire.size(); i++) {
+            Objet o = inventaire.get(i);
+            
+            System.out.println("\t" + (i + 1) + ". " + o.getClass().getSimpleName());
+        }
+        
+        // Demande de la cible
+        
+        int indexCible = -1;
+        
+        while (indexCible == -1) {
+            System.out.println("# N° de l'objet à utiliser ?");
+            
+            try {
+                indexCible = Integer.parseInt(scan.nextLine()) - 1;
+            }
+            catch (NumberFormatException e) {
+                indexCible = -1;
+            }
+            
+            // Vérification de la validité de l'indice
+            if (indexCible < 0 || indexCible >= inventaire.size()) {
+                indexCible = -1;
+            }
+        }
+        
+        return indexCible;
+    }
+    
+    /**
+     * Pour afficher la liste des utilisables en cours
+     * @author grigm
+     */
+    public void afficheEffets() { 
+        // s'il n'y a rien dans l'iventaire on le récise au joueur 
+        if (this.effets.isEmpty()){
+            System.out.println("Aucun effet n'est actif"); 
+        } else {
+            for (int i=0; i < this.effets.size(); i++){
+               System.out.println("Objet " + i +":");
+               effets.get(i).affiche(); 
+               System.out.println("Durée restante : " +effets.get(i).getDureeEffet()); 
+            }
+        }
+    }
+    
     public ArrayList<Objet> getInventaire() {
         return inventaire;
     }
@@ -177,7 +234,7 @@ public class Joueur {
         this.inventaire = inventaire;
     }
 
-    public ArrayList<Objet> getEffets() {
+    public ArrayList<Utilisable> getEffets() {
         return effets;
     }
     
@@ -185,11 +242,11 @@ public class Joueur {
      * Ajouter un objet à la liste des objets en cours d'utilisation
      * @param o Objet à utiliser
      */
-    public void addToEffets(Objet o) {
+    public void addToEffets(Utilisable o) {
         this.effets.add(o);
     }
 
-    public void setEffets(ArrayList<Objet> effets) {
+    public void setEffets(ArrayList<Utilisable> effets) {
         this.effets = effets;
     }
     
