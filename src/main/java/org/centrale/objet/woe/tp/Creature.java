@@ -140,7 +140,6 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
                                inventaire.add(listObjets.get(i)); 
                                 
                                 //afficher le nouvel objet
-                                System.out.println(listObjets.get(i).getClass().getSimpleName());
                                 listObjets.get(i).affiche();
                                 
                                //retirer l'objet de la liste des objets du monde 
