@@ -95,7 +95,7 @@ public class TestWoE{
        System.out.println(excalibur.getDureeEffet()); 
        
        bill.affiche(); 
-       monde.activerObjet(excalibur,bill); 
+       monde.activerObjet(0,bill); 
        monde.afficheEffets();  
        bill.affiche();
 
