@@ -16,6 +16,8 @@ import java.lang.Exception;
 public abstract class Personnage extends Creature{
     protected String nom;
     protected int distAttMax;
+    protected int sexe; // 0 pour H, 1 pour F
+    protected boolean estJoueur = false;
  
     /**
      * Constructeur par défaut
@@ -24,6 +26,8 @@ public abstract class Personnage extends Creature{
     public Personnage() {
         super(); 
         nom = "John Doe";
+        sexe = 0;
+        distAttMax = 10;
         distAttMax = 1;
     }
     
@@ -35,6 +39,7 @@ public abstract class Personnage extends Creature{
     public Personnage(String nom) {
         super(); 
         this.nom = nom;
+        sexe = 0;
         distAttMax = 10;
     }
     
@@ -48,11 +53,13 @@ public abstract class Personnage extends Creature{
      * @param paPar Pourcentage de parade
      * @param dMax  Distance d'attaque maximale
      * @param p     Position
+     * @param sexe  Sexe du personnage
      */
-    public Personnage(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p) {
+    public Personnage(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int sexe) {
         super( pV, dA, pPar, paAtt, paPar, p); 
         nom = n;
         distAttMax = dMax;
+        this.sexe = sexe;
     }
     
     
@@ -65,9 +72,8 @@ public abstract class Personnage extends Creature{
         super((Creature) perso);
         this.nom = perso.getNom();
         this.distAttMax = perso.getDistAttMax();
+        this.sexe = perso.getSexe();
     }
-    
-       
     
     /**
      * Affiche l'ensemble des statistiques du Personnage
@@ -129,6 +135,20 @@ public abstract class Personnage extends Creature{
     public void setDistAttMax(int distAttMax) {
         this.distAttMax = distAttMax;
     }
+
+    public int getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(int sexe) {
+        this.sexe = sexe;
+    }
     
-    
+    public boolean isEstJoueur() {
+        return estJoueur;
+    }
+
+    public void setEstJoueur(boolean estJoueur) {
+        this.estJoueur = estJoueur;
+    }
 }

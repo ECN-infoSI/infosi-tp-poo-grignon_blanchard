@@ -33,8 +33,8 @@ public class Archer extends Personnage implements Combattant {
         degAtt = 5;
     }
     
-    public Archer(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int nbFleches) {
-        super(n, pV, dA, pPar, paAtt, paPar, dMax, p);
+    public Archer(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int nbFleches, int sexe) {
+        super(n, pV, dA, pPar, paAtt, paPar, dMax, p, sexe);
         this.nbFleches = nbFleches;
     }
     

@@ -45,8 +45,21 @@ public class Joueur {
         
         System.out.println("# Nom du personnage : ");
         perso.setNom(scanner.nextLine());
+        perso.setEstJoueur(true);
     }
     
+    /**
+     * Constructeur manuel
+     * @param p Personnage du joueur
+     */
+    public Joueur(Personnage p) {
+        this.perso = p;
+    }
+    
+    /**
+     * Affichage du menu de déplacements
+     * @param presences Présences des autres créatures
+     */
     public void choixDeplacement(boolean[][] presences) {
         Scanner scanner = new Scanner(System.in);
         String direction;    

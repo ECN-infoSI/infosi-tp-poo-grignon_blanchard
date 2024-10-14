@@ -26,6 +26,7 @@ public class World {
     private int dimension;
     private boolean[][] presences;
     
+    private String player = "";
 
     /**
      * Constructeur par défaut qui crée un monde sans créature ni objet (les arraylists sont créées mais elles sont vides)
@@ -305,7 +306,43 @@ public class World {
         
         presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
     }
-
+    
+    /**
+     * Ajout d'une créature non-joueur
+     * @param c Créature à ajouter
+     */
+    public void addCreature(Creature c) {
+        listCreatures.add(c);
+        presences[c.getPos().getX()][c.getPos().getY()] = true;
+        nbCreatures ++;
+    }
+    
+    /**
+     * Ajout d'un objet
+     * @param o Objet à ajouter
+     */
+    public void addObjets(Objet o) {
+        listObjets.add(o);
+        nbObjets ++;
+    }
+    
+    /**
+     * Modifie le personnage du joueur en modifiant sa presence dans le monde
+     * @param p Nouveau personnage
+     */
+    public void changePersonnageJoueur(Personnage p) {
+        if (this.joueur != null && this.joueur.perso != null) {
+            // S'il y avait déjà un personnage, on supprime sa présence
+            presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = false;
+            this.joueur.perso = p;
+        }
+        else {
+            this.joueur = new Joueur(p);
+        }
+        
+        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
+    }
+    
     public int getNbCreatures() {
         return nbCreatures;
     }
@@ -337,4 +374,38 @@ public class World {
     public void setPresences(boolean[][] presences) {
         this.presences = presences;
     }
+    
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public ArrayList<Creature> getListCreatures() {
+        return listCreatures;
+    }
+
+    public void setListCreatures(ArrayList<Creature> listCreatures) {
+        this.listCreatures = listCreatures;
+    }
+
+    public ArrayList<Objet> getListObjets() {
+        return listObjets;
+    }
+
+    public void setListObjets(ArrayList<Objet> listObjets) {
+        this.listObjets = listObjets;
+    }
+    
+    
 }
