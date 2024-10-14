@@ -9,5 +9,5 @@ package org.centrale.objet.woe.tp;
  * @author simon
  */
 public interface Combattant {
-    public void combattre(Creature c);
+    public boolean combattre(Creature c);
 }

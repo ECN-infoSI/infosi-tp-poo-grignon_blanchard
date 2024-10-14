@@ -46,12 +46,14 @@ public class Archer extends Personnage implements Combattant {
     /**
      * Attaque à distance pour la classe Archer
      * @param c Créature à attaquer (peut être hors de portée)
+     * @returns Flag si la cible est tuée dans l'attaque
      */
-    public void combattre(Creature c) {
+    public boolean combattre(Creature c) {
         Date date = new Date();
         Random rand = new Random(date.getTime());
         double dist = Point2D.distance(pos, c.pos);
         String nomAdversaire;
+        boolean isKilled = false;
         
         // Détermination du nom de la créature adverse
         if (c instanceof Personnage) {
@@ -73,7 +75,7 @@ public class Archer extends Personnage implements Combattant {
             if (tirrageAtt <= pageAtt && nbFleches > 0) {
                 System.out.println(" : L'attaque a réussi ! (" + tirrageAtt + ')');
                 
-                c.prendreDegats(degAtt);
+                isKilled = c.prendreDegats(degAtt);
             } 
             else {
                 System.out.println(" : L'attaque a échoué (" + tirrageAtt + ')');
@@ -82,6 +84,8 @@ public class Archer extends Personnage implements Combattant {
         else {
             System.out.println(" : La créature est hors de portée");
         }
+        
+        return isKilled;
     }
     
     /**

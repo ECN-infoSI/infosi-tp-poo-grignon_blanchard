@@ -92,15 +92,20 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
      * Méthode permettant la gestion de la prise de dégats
      * @param degats Nombre de dégats à infliger (si négatif, rien n'est fait)
      */
-    public void prendreDegats(int degats) {
+    public boolean prendreDegats(int degats) {
+        boolean killed = false;
+        
         if (degats > 0) {
             ptVie -= degats;
 
             if (ptVie <= 0) {
                 ptVie = 0;
                 System.out.println("La créature est morte !");
+                killed = true;
             }
         }
+        
+        return true;
     }
     
     public void deplacer(Point2D newPos, boolean[][] presences) throws Exception {
