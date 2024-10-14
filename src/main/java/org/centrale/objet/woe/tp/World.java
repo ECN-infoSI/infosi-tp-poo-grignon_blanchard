@@ -175,17 +175,24 @@ public class World {
         boolean askFlag;
         
         do {
-            System.out.println("# Actions possibles (attack/move/nothing):");
+            System.out.println("# Actions possibles (attack/move/object/nothing):");
             action = scanner.nextLine();
             
             askFlag = false;  // Tant que action n'est pas validé, on suppose qu'il est valide
             
             switch (action) {
                 case "attack":
+                    if (joueur.perso instanceof Combattant) {    
+                        ((Combattant) joueur.perso).combattre(listCreatures.get(joueur.choixAttaque(listCreatures)));
+                    }
                     break;
                     
                 case "move":
                     joueur.choixDeplacement(presences);
+                    break;
+                    
+                case "object":
+                    joueur.choixObjet();
                     break;
                     
                 case "nothing":
@@ -201,20 +208,23 @@ public class World {
         // Action des créatures non-joueurs
         
         for (Creature c: listCreatures) {
-            // Si la creature peut attaqué : attaque selon la distance au joueur
-            if (c instanceof Guerrier && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
-                ((Guerrier) c).combattre(joueur.perso);
-            }            
-            else if (c instanceof Archer && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= ((Archer) c).getDistAttMax()) {
-                ((Archer) c).combattre(joueur.perso);
-            }
-            else if (c instanceof Loup && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
-                ((Loup) c).combattre(joueur.perso);
-            }
-            // Si joueur trop loin, ou creature neutre, deplacement
-            else {
-                c.deplacementAleatoire(presences);
-            }   
+            // Si la créature est vivante            
+            if (c.getPtVie() > 0) {
+                // Si la creature peut attaqué : attaque selon la distance au joueur
+                if (c instanceof Guerrier && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
+                    ((Guerrier) c).combattre(joueur.perso);
+                }            
+                else if (c instanceof Archer && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= ((Archer) c).getDistAttMax()) {
+                    ((Archer) c).combattre(joueur.perso);
+                }
+                else if (c instanceof Loup && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
+                    ((Loup) c).combattre(joueur.perso);
+                }
+                // Si joueur trop loin, ou creature neutre, deplacement
+                else {
+                    c.deplacementAleatoire(presences);
+                } 
+            }  
         }
     }
     
