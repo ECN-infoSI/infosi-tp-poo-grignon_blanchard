@@ -67,6 +67,8 @@ public class TestWoE{
        burger.utilise(wolfie);
        wolfie.affiche();
        */
+       
+       /*
        //Test Epee
        Epee excalibur = new Epee(); 
        excalibur.affiche(); 
@@ -81,6 +83,30 @@ public class TestWoE{
        System.out.println("bill avec un champi 3");
        champi.utilise(bill); 
        bill.affiche();
+       */
+       
+       Guerrier bill = new Guerrier(); 
+       monde.afficheInventaire(); 
+       Epee excalibur = new Epee(); 
+       monde.ajouterInventaire(excalibur);
+       monde.afficheInventaire();
+       
+       
+       System.out.println(excalibur.getDureeEffet()); 
+       
+       bill.affiche(); 
+       monde.activerObjet(excalibur,bill); 
+       monde.afficheEffets();  
+       bill.affiche();
+
+       monde.userObjet(bill);
+       monde.afficheEffets();    
+       bill.affiche();
+
+       monde.userObjet(bill); 
+       monde.afficheEffets();
+       bill.affiche();
+       
    }
    
    /**

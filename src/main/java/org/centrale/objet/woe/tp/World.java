@@ -17,7 +17,7 @@ public class World {
     public Joueur joueur;
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
-    public ArrayList<Utilisable> listUtilisables; 
+    public ArrayList<Utilisable> effets; 
     public ArrayList<Objet> listInventaire; 
     
     private int nbCreatures;
@@ -42,7 +42,7 @@ public class World {
         
         presences = new boolean[dimension][dimension];
         
-        listUtilisables = new ArrayList(); //liste d'utilisable vide
+        effets= new ArrayList(); //liste d'utilisable vide
         listInventaire = new ArrayList(); //inventaire vide 
     }
     
@@ -105,7 +105,7 @@ public class World {
         
         presences = new boolean[dimension][dimension];
         
-        listUtilisables = new ArrayList(); //liste d'utilisable vide
+        effets = new ArrayList(); //liste d'utilisable vide
         listInventaire = new ArrayList(); //inventaire vide 
         
         this.creerMondeAlea();
@@ -255,7 +255,7 @@ public class World {
             System.out.println("\n\t+-+-+-+-+-+");
         }
     }
-    
+      
     /**
      * Pour afficher l'inventaire
      * @author grigm
@@ -273,6 +273,23 @@ public class World {
     }
     
     /**
+     * Pour afficher la liste des utilisables en cours
+     * @author grigm
+     */
+    public void afficheEffets() { 
+        // s'il n'y a rien dans l'iventaire on le récise au joueur 
+        if (this.effets.isEmpty()){
+            System.out.println("Aucun effet n'est actif"); 
+        } else {
+            for (int i=0; i < this.effets.size(); i++){
+               System.out.println("Objet " + i +":");
+               effets.get(i).affiche(); 
+               System.out.println("Durée restante : " +effets.get(i).getDureeEffet()); 
+            }
+        }
+    }
+    
+    /**
      * Ajouter un objet dans l'inventaire
      * @author grigm
      * @param o Objet à ajouter dans l'inventaire
@@ -280,6 +297,46 @@ public class World {
     public void ajouterInventaire(Objet o) { 
         this.listInventaire.add(o);        
     }
+    
+    /**
+     * Activer un objet à la position i dans l'inventaire, appliquer son effet et le placer dans la liste des effets
+     * @author grigm
+     * @param i indice de position de l'objet à activer dans l'inventaire 
+     * @param c la créature qui utilise l'objet (souvent le joueur)
+     */
+    public void activerObjet(int i , Creature c) { 
+        if (listInventaire.get(i) instanceof Utilisable){
+            ((Utilisable)listInventaire.get(i)).utilise(c);      
+            this.effets.add((Utilisable) listInventaire.get(i)); 
+        } else{ 
+            System.out.println("Cet objet n'est pas utilisable"); 
+        }
+    }
+    
+    /**
+     * Réduire la durée de vie d'un objet d'un, s'il est arrivé à 0 l'objet et supprimé et l'effet annulé
+     * @author grigm
+     * @param c Créature qui a utilisé les objets et qui a l'effet
+     */
+    public void userObjet(Creature c) { 
+        for (int i=0; i < this.effets.size(); i++){
+            effets.get(i).setDureeEffet(effets.get(i).getDureeEffet()-1); 
+        }
+        for (int i=0; i < this.effets.size(); i++){
+            if (effets.get(i).getDureeEffet()==0){
+                if (effets.get(i) instanceof Epee){
+                ((Epee)effets.get(i)).retireEffet(c);
+                
+                }else if (effets.get(i) instanceof Nourriture){ 
+                    ((Nourriture)effets.get(i)).retireEffet(c);
+                }
+                System.out.println("Votre objet a casé"); 
+                effets.get(i).affiche(); 
+                effets.remove(i);                
+            }
+        }
+    }
+
     
     /**
      * Procédure de création du personnage du joueur et placement sur une case libre
