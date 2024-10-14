@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.tp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -43,7 +44,7 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
      * @param presences représente le tableau du plateau de jeu avec des vrais quand la case est occupée
      */
     @Override
-    public void deplacer(Point2D newPos, boolean[][] presences) throws Exception {
+    public void deplacer(Point2D newPos, boolean[][] presences, boolean[][] presencesObjet, ArrayList<Objet> listObjets, ArrayList<Objet> inventaire) throws Exception {
         // Déplacement à l'intérieur du monde
         if (newPos.getX() < presences.length && newPos.getY() < presences[0].length && 0 <= newPos.getX() && 0 <= newPos.getY()) {
             // on considère que le nuage peut se déplacer vers n'importe quelle position dans le monde
