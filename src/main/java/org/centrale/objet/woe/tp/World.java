@@ -18,7 +18,7 @@ public class World {
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
     public ArrayList<Utilisable> listUtilisables; 
-    public ArrayList<Utilisable> listInventaire; 
+    public ArrayList<Objet> listInventaire; 
     
     private int nbCreatures;
     private int nbObjets;
@@ -256,30 +256,28 @@ public class World {
     }
     
     /**
-     * Pour que le personnage utilise une potion de soin sur sa case
+     * Pour afficher l'inventaire
      * @author grigm
-     * @param perso le Personnage qui vient de se déplacer
      */
-    public void utilisePotion(Personnage perso) { 
-        // si le tableau potion est vide 
-        if (this.listObjets.isEmpty()){
-            System.out.println("il n'y a pas de potion de soin dans ce monde");   
-        }
-        for(int i=0; i< this.listObjets.size(); i++){
-            // on vérifie si l'objet fait bien partie de la classe PotionSoin
-            if (this.listObjets.get(i) instanceof PotionSoin ){
-                if (perso.pos == this.listObjets.get(i).getPos()){
-                //ajout des points de vie au personnage 
-                // pour appeler la méthode getValeur de Potion Soin on utilise((PotionSoin)this.listObjets.get(i))
-                    perso.setPtVie(perso.getPtVie()+((PotionSoin)this.listObjets.get(i)).getValeurPV());
-                    System.out.println("vous consommez la potion de soin, vous gagnez " +((PotionSoin)this.listObjets.get(i)).getValeurPV() + "PV");
-                                        
-                // la potion de soin est utilisée, on la retire du tableau potion
-                this.listObjets.remove(i); 
-                this.nbObjets--; 
-                }
+    public void afficheInventaire() { 
+        // s'il n'y a rien dans l'iventaire on le récise au joueur 
+        if (this.listInventaire.isEmpty()){
+            System.out.println("L'inventaire est vide"); 
+        } else {
+            for (int i=0; i < this.listInventaire.size(); i++){
+               System.out.println("Objet " + i +":");
+               listInventaire.get(i).affiche(); 
             }
         }
+    }
+    
+    /**
+     * Ajouter un objet dans l'inventaire
+     * @author grigm
+     * @param o Objet à ajouter dans l'inventaire
+     */
+    public void ajouterInventaire(Objet o) { 
+        this.listInventaire.add(o);        
     }
     
     /**
