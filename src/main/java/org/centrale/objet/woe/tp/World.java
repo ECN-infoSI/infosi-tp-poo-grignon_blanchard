@@ -268,6 +268,9 @@ public class World {
                 else if (presences[pos.getX() + i][pos.getY() + j]) {
                     System.out.print("X|");
                 }
+                else if (presencesObjet[pos.getX() + i][pos.getY() + j]) {
+                    System.out.print("&|");
+                }
                 else {
                     System.out.print(" |");
                 }
