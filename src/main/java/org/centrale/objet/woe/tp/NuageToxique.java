@@ -78,17 +78,21 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     /**
      * Méthode pour permettre au nuage toxique d'attaquer les créatures (inflige autant de dégat que nivToxique)
      * @param c Créature à attaquer
+     * @returns Flag si la cible est tuée dans l'attaque
      */
     @Override
-    public void combattre(Creature c) {
+    public boolean combattre(Creature c) {
+        boolean isKilled = false;
                       
         // Vérification que la créature est en dessous du nuage
         if (this.pos.equals(c.pos)) {
-            c.prendreDegats(nivToxique); 
+            isKilled = c.prendreDegats(nivToxique); 
         }
         else {
             System.out.println("La créature n'est pas sous le nuage toxique");
         }
+        
+        return isKilled;
     }
 
     public int getNivToxique() {
