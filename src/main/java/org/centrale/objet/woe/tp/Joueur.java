@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.tp;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Classe représentant le joueur
@@ -102,5 +103,55 @@ public class Joueur {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    /**
+     * Affichage et choix de la cible à attaquer
+     * @param listCreature
+     * @return 
+     */
+    public int choixAttaque(ArrayList<Creature> listCreature) {
+        Scanner scan = new Scanner(System.in);
+        
+        // Affichage de l'ensemble des créatures adverses
+        
+        System.out.println("# Liste des Créatures dans le monde : ");
+        
+        for (int i = 0; i < listCreature.size(); i++) {
+            Creature tempCreature = listCreature.get(i);
+            
+            System.out.print("\t" + (i + 1) + ". " + tempCreature.getClass().getSimpleName() + " ");
+            
+            if (tempCreature instanceof Personnage) {
+                System.out.print(((Personnage) tempCreature).getNom());
+            }
+            else {
+                System.out.print("sauvage");
+            }
+            
+            System.out.println(" : " + tempCreature.getPtVie() + "pv" + " (" + tempCreature.getPos().getX() + ", " + tempCreature.getPos().getY() + ")");
+        }
+        
+        // Demande de la cible
+        
+        int indexCible = -1;
+        
+        while (indexCible == -1) {
+            System.out.println("# N° de la créature à attaquer ?");
+            
+            try {
+                indexCible = Integer.parseInt(scan.nextLine()) - 1;
+            }
+            catch (NumberFormatException e) {
+                indexCible = -1;
+            }
+            
+            // Vérification de la validité de l'indice
+            if (indexCible < 0 || indexCible >= listCreature.size()) {
+                indexCible = -1;
+            }
+        }
+        
+        return indexCible;
     }
 }
