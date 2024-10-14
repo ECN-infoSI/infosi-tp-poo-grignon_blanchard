@@ -14,6 +14,9 @@ import java.util.ArrayList;
 public class Joueur {
     public Personnage perso;
     
+    private ArrayList<Objet> inventaire;
+    private ArrayList<Objet> effets;
+    
     /**
      * Constructeur
      */
@@ -47,6 +50,8 @@ public class Joueur {
         System.out.println("# Nom du personnage : ");
         perso.setNom(scanner.nextLine());
         perso.setEstJoueur(true);
+        
+        inventaire = new ArrayList();
     }
     
     /**
@@ -55,6 +60,7 @@ public class Joueur {
      */
     public Joueur(Personnage p) {
         this.perso = p;
+        this.inventaire = new ArrayList();
     }
     
     /**
@@ -154,4 +160,38 @@ public class Joueur {
         
         return indexCible;
     }
+
+    public ArrayList<Objet> getInventaire() {
+        return inventaire;
+    }
+    
+    /**
+     * Ajout l'objet o à l'inventaire
+     * @param o Objet à ajouter
+     */
+    public void addToInventaire(Objet o) {
+        this.inventaire.add(o);
+    }
+
+    public void setInventaire(ArrayList<Objet> inventaire) {
+        this.inventaire = inventaire;
+    }
+
+    public ArrayList<Objet> getEffets() {
+        return effets;
+    }
+    
+    /**
+     * Ajouter un objet à la liste des objets en cours d'utilisation
+     * @param o Objet à utiliser
+     */
+    public void addToEffets(Objet o) {
+        this.effets.add(o);
+    }
+
+    public void setEffets(ArrayList<Objet> effets) {
+        this.effets = effets;
+    }
+    
+    
 }
