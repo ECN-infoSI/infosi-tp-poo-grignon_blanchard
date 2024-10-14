@@ -60,6 +60,8 @@ public class Joueur {
      */
     public Joueur(Personnage p) {
         this.perso = p;
+        this.perso.estJoueur = true;
+        
         this.inventaire = new ArrayList();
     }
     
