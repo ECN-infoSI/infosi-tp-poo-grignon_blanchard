@@ -15,8 +15,8 @@ import java.util.Scanner;
  */
 public class World {
     public Joueur joueur;
-    public ArrayList<Creature> listCreatures; 
-    public ArrayList<Objet> listObjets; 
+    private ArrayList<Creature> listCreatures; 
+    private ArrayList<Objet> listObjets; 
 
     
     private int nbCreatures;
@@ -24,6 +24,7 @@ public class World {
     
     private int dimension;
     private boolean[][] presences;
+    private boolean[][] presencesObjet;
     
     private String player = "";
 
@@ -40,6 +41,7 @@ public class World {
         nbObjets = 0;
         
         presences = new boolean[dimension][dimension];
+        presencesObjet = new boolean[dimension][dimension]; 
        
     }
     
@@ -101,6 +103,7 @@ public class World {
         }
         
         presences = new boolean[dimension][dimension];
+        presencesObjet = new boolean[dimension][dimension]; 
                
         this.creerMondeAlea();
     }
@@ -153,6 +156,7 @@ public class World {
             while (!flagAllUnique);
             
             listObjets.get(i - nbCreatures).setPos(listCoor[i]);
+            presencesObjet[listCoor[i].getX()][listCoor[i].getY()] = true;
         }
     }
     
@@ -188,7 +192,15 @@ public class World {
                     break;
                     
                 case "move":
-                    joueur.choixDeplacement(presences);
+                    Point2D newPos = new Point2D(joueur.choixDeplacement(presences, presencesObjet));
+                                        
+                    // Déplacement
+                    try {
+                        joueur.perso.deplacer(newPos, presences, presencesObjet, this.listObjets, joueur.getInventaire());
+                    }
+                    catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                     
                 case "object":

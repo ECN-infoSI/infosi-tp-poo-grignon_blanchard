@@ -66,8 +66,10 @@ public class Joueur {
     /**
      * Affichage du menu de déplacements
      * @param presences Présences des autres créatures
+     * @param presencesObjet Présences des objets 
+     * @return  la position choisie par le joueur
      */
-    public void choixDeplacement(boolean[][] presences) {
+    public Point2D choixDeplacement(boolean[][] presences, boolean[][] presencesObjet) {
         Scanner scanner = new Scanner(System.in);
         String direction;    
         boolean askFlag;
@@ -82,12 +84,12 @@ public class Joueur {
             switch (direction) {
                 case "north":
                     newPos.translate(-1, 0);
-                    break;
-                    
+                    break; 
+   
                 case "south":
                     newPos.translate(1, 0);
                     break;
-                    
+  
                 case "east":
                     newPos.translate(0, 1);
                     break;
@@ -101,14 +103,7 @@ public class Joueur {
             }
         }
         while (askFlag);
-        
-        // Déplacement
-        try {
-            perso.deplacer(newPos, presences);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return newPos;
     }
     
     /**
@@ -170,13 +165,7 @@ public class Joueur {
         
         // Affichage des objets dans l'inventaire
         
-        System.out.println("# Liste des Créatures dans le monde : ");
-        
-        for (int i = 0; i < inventaire.size(); i++) {
-            Objet o = inventaire.get(i);
-            
-            System.out.println("\t" + (i + 1) + ". " + o.getClass().getSimpleName());
-        }
+        this.afficheInventaire();
         
         // Demande de la cible
         
@@ -206,7 +195,7 @@ public class Joueur {
      * @author grigm
      */
     public void afficheEffets() { 
-        // s'il n'y a rien dans l'iventaire on le récise au joueur 
+        // s'il n'y a rien dans la liste des effets on le précise au joueur 
         if (this.effets.isEmpty()){
             System.out.println("Aucun effet n'est actif"); 
         } else {
@@ -214,6 +203,25 @@ public class Joueur {
                System.out.println("Objet " + i +":");
                effets.get(i).affiche(); 
                System.out.println("Durée restante : " +effets.get(i).getDureeEffet()); 
+            }
+        }
+    }
+    
+    /**
+     * Pour afficher l'inventaire du joueur
+     * @author grigm
+     */
+    public void afficheInventaire() { 
+        // s'il n'y a rien dans l'inventaire on le précise au joueur 
+        if (this.inventaire.isEmpty()){
+            System.out.println("Aucun objet ne se trouve dans l'inventaire"); 
+        } else {
+            System.out.println("# Liste des objets dans l'inventaire : ");
+        
+            for (int i = 0; i < inventaire.size(); i++) {
+                Objet o = inventaire.get(i);
+
+                System.out.println("\t" + (i + 1) + ". " + o.getClass().getSimpleName());
             }
         }
     }

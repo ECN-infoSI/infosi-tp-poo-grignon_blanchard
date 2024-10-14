@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.tp;
 
+import java.util.ArrayList;
+
 /**
  * Interface pour gérer les déplacements des créatures
  * @author simon
@@ -20,6 +22,9 @@ public interface Deplacable {
      * Déplacement manuel d'une créature
      * @param newPos    Nouvelle position (pas nécessairement licite)
      * @param presences Tableau recensant les positions des créatures
+     * @param presencesObjet Tableau recensant les positions des objets 
+     * @param listObjets    Liste des objets du monde
+     * @param inventaire    inventaire du joueur 
      */
-    public void deplacer(Point2D newPos, boolean[][] presences) throws Exception;
+    public void deplacer(Point2D newPos, boolean[][] presences, boolean[][] presencesObjet, ArrayList<Objet> listObjets, ArrayList<Objet> inventaire) throws Exception;
 }
