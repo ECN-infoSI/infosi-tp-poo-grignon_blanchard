@@ -17,8 +17,7 @@ public class World {
     public Joueur joueur;
     public ArrayList<Creature> listCreatures; 
     public ArrayList<Objet> listObjets; 
-    public ArrayList<Utilisable> effets; 
-    public ArrayList<Objet> listInventaire; 
+
     
     private int nbCreatures;
     private int nbObjets;
@@ -41,9 +40,7 @@ public class World {
         nbObjets = 0;
         
         presences = new boolean[dimension][dimension];
-        
-        effets= new ArrayList(); //liste d'utilisable vide
-        listInventaire = new ArrayList(); //inventaire vide 
+       
     }
     
     
@@ -104,10 +101,7 @@ public class World {
         }
         
         presences = new boolean[dimension][dimension];
-        
-        effets = new ArrayList(); //liste d'utilisable vide
-        listInventaire = new ArrayList(); //inventaire vide 
-        
+               
         this.creerMondeAlea();
     }
     
@@ -255,85 +249,32 @@ public class World {
             System.out.println("\n\t+-+-+-+-+-+");
         }
     }
-      
-    /**
-     * Pour afficher l'inventaire
-     * @author grigm
-     */
-    public void afficheInventaire() { 
-        // s'il n'y a rien dans l'iventaire on le récise au joueur 
-        if (this.listInventaire.isEmpty()){
-            System.out.println("L'inventaire est vide"); 
-        } else {
-            for (int i=0; i < this.listInventaire.size(); i++){
-               System.out.println("Objet " + i +":");
-               listInventaire.get(i).affiche(); 
-            }
-        }
-    }
-    
-    /**
-     * Pour afficher la liste des utilisables en cours
-     * @author grigm
-     */
-    public void afficheEffets() { 
-        // s'il n'y a rien dans l'iventaire on le récise au joueur 
-        if (this.effets.isEmpty()){
-            System.out.println("Aucun effet n'est actif"); 
-        } else {
-            for (int i=0; i < this.effets.size(); i++){
-               System.out.println("Objet " + i +":");
-               effets.get(i).affiche(); 
-               System.out.println("Durée restante : " +effets.get(i).getDureeEffet()); 
-            }
-        }
-    }
-    
-    /**
-     * Ajouter un objet dans l'inventaire
-     * @author grigm
-     * @param o Objet à ajouter dans l'inventaire
-     */
-    public void ajouterInventaire(Objet o) { 
-        this.listInventaire.add(o);        
-    }
-    
-    /**
-     * Activer un objet à la position i dans l'inventaire, appliquer son effet et le placer dans la liste des effets
-     * @author grigm
-     * @param i indice de position de l'objet à activer dans l'inventaire 
-     * @param c la créature qui utilise l'objet (souvent le joueur)
-     */
-    public void activerObjet(int i , Creature c) { 
-        if (listInventaire.get(i) instanceof Utilisable){
-            ((Utilisable)listInventaire.get(i)).utilise(c);      
-            this.effets.add((Utilisable) listInventaire.get(i)); 
-        } else{ 
-            System.out.println("Cet objet n'est pas utilisable"); 
-        }
-    }
+
     
     /**
      * Réduire la durée de vie d'un objet d'un, s'il est arrivé à 0 l'objet et supprimé et l'effet annulé
      * @author grigm
-     * @param c Créature qui a utilisé les objets et qui a l'effet
      */
-    public void userObjet(Creature c) { 
-        for (int i=0; i < this.effets.size(); i++){
-            effets.get(i).setDureeEffet(effets.get(i).getDureeEffet()-1); 
+    public void userObjet() { 
+        // pour chaque objet dans la liste des effets, on réduit leur durée de l'effet d'1 
+        for (int i=0; i < joueur.getEffets().size(); i++){
+            joueur.getEffets().get(i).setDureeEffet(joueur.getEffets().get(i).getDureeEffet()-1); 
         }
-        for (int i=0; i < this.effets.size(); i++){
-            if (effets.get(i).getDureeEffet()==0){
-                if (effets.get(i) instanceof Epee){
-                ((Epee)effets.get(i)).retireEffet(c);
+        // pour chaque objet, si la durée de l'effet est arrivée à 0 alors on retire l'effet et on supprime l'objet 
+        for (int i=0; i < joueur.getEffets().size(); i++){
+            if (joueur.getEffets().get(i).getDureeEffet()==0){
+                // si c'est une épée on retire son effet
+                if (joueur.getEffets().get(i) instanceof Epee){
+                ((Epee)joueur.getEffets().get(i)).retireEffet((Creature) joueur.perso);
                 
-                }else if (effets.get(i) instanceof Nourriture){ 
-                    ((Nourriture)effets.get(i)).retireEffet(c);
+                // si c'est de la nourriture on retire son effet 
+                }else if (joueur.getEffets().get(i) instanceof Nourriture){ 
+                    ((Nourriture)joueur.getEffets().get(i)).retireEffet((Creature) joueur.perso);
                 }
-                System.out.println("Votre objet a casé"); 
-                effets.get(i).affiche(); 
-                effets.remove(i);    
-                
+                // on annonce que l'objet a cassé et on le retire de la liste des effets en cours 
+                System.out.println("Votre objet a cassé"); 
+                joueur.getEffets().get(i).affiche(); 
+                joueur.getEffets().remove(i);      
             }
         }
     }
