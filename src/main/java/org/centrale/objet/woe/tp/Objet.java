@@ -8,16 +8,15 @@ package org.centrale.objet.woe.tp;
  * Super-classe représentant les objets
  * @author grigm
  */
-public class Objet {
+public class Objet extends ElementDeJeu{
 
-    private Point2D pos; 
-    
+        
     /**
      * Constructeur par défaut
      * @author grigm
      */
     public Objet(){
-        pos = new Point2D(); 
+        super(); 
     }
     
     
@@ -26,16 +25,10 @@ public class Objet {
      * @author grigm
      */
     public void affiche(){ 
-        System.out.println("Objet(" + pos.getX() +","+pos.getY()+")");
+        System.out.println(this.getClass().getSimpleName() + " Objet(" + this.pos.getX() +","+this.pos.getY()+")");
     }
 
-    public Point2D getPos() {
-        return pos;
-    }
-
-    public void setPos(Point2D pos) {
-        this.pos = pos;
-    }
+    
     
     
 }

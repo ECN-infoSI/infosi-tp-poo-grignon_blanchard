@@ -14,9 +14,11 @@ import java.util.Scanner;
  * @author grigm
  */
 public class World {
-    private Joueur joueur;
-    private ArrayList<Creature> listCreatures; 
-    private ArrayList<Objet> listObjets; 
+    public Joueur joueur;
+    public ArrayList<Creature> listCreatures; 
+    public ArrayList<Objet> listObjets; 
+    public ArrayList<Utilisable> listUtilisables; 
+    public ArrayList<Utilisable> listInventaire; 
     
     private int nbCreatures;
     private int nbObjets;
@@ -39,6 +41,9 @@ public class World {
         nbObjets = 0;
         
         presences = new boolean[dimension][dimension];
+        
+        listUtilisables = new ArrayList(); //liste d'utilisable vide
+        listInventaire = new ArrayList(); //inventaire vide 
     }
     
     
@@ -100,6 +105,9 @@ public class World {
         
         presences = new boolean[dimension][dimension];
         
+        listUtilisables = new ArrayList(); //liste d'utilisable vide
+        listInventaire = new ArrayList(); //inventaire vide 
+        
         this.creerMondeAlea();
     }
     
@@ -160,7 +168,92 @@ public class World {
      * @author simon
      */
     public void tourDeJeu() {
+        // Affichage des statistiques du joueur
+        System.out.println("\n# NOUVEAU TOUR DE JEU");
+        joueur.perso.affiche();
         
+        // Affichage de l'environnement à proximité du joueur
+        afficheEnvironnementJoueur();
+        
+        // Affichage des actions possibles 
+        Scanner scanner = new Scanner(System.in);
+        String action;    
+        boolean askFlag;
+        
+        do {
+            System.out.println("# Actions possibles (attack/move/nothing):");
+            action = scanner.nextLine();
+            
+            askFlag = false;  // Tant que action n'est pas validé, on suppose qu'il est valide
+            
+            switch (action) {
+                case "attack":
+                    break;
+                    
+                case "move":
+                    joueur.choixDeplacement(presences);
+                    break;
+                    
+                case "nothing":
+                    break;
+                    
+                default:
+                    askFlag = true;
+            }
+        }
+        while (askFlag);
+        
+        
+        // Action des créatures non-joueurs
+        
+        for (Creature c: listCreatures) {
+            // Si la creature peut attaqué : attaque selon la distance au joueur
+            if (c instanceof Guerrier && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
+                ((Guerrier) c).combattre(joueur.perso);
+            }            
+            else if (c instanceof Archer && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= ((Archer) c).getDistAttMax()) {
+                ((Archer) c).combattre(joueur.perso);
+            }
+            else if (c instanceof Loup && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
+                ((Loup) c).combattre(joueur.perso);
+            }
+            // Si joueur trop loin, ou creature neutre, deplacement
+            else {
+                c.deplacementAleatoire(presences);
+            }   
+        }
+    }
+    
+    /**
+     * Affiche l'environnement à proximité du joueur
+     * @author simon
+     */
+    public void afficheEnvironnementJoueur() {
+        Point2D pos = joueur.perso.getPos();
+        
+        System.out.println("\t+-+-+-+-+-+");
+        
+        for (int i = -2; i <= 2; i++) {
+            System.out.print("\t|");
+            
+            for (int j = -2; j <= 2; j++) {
+                if (i == 0 && j == 0) {
+                    System.out.print("O|");
+                }
+                // Hors du plateau
+                else if (pos.getX() + i < 0 || pos.getY() + j < 0 || pos.getX() + i >= dimension || pos.getY() + j >= dimension) {
+                    System.out.print("#|");
+                }
+                else if (presences[pos.getX() + i][pos.getY() + j]) {
+                    System.out.print("X|");
+                }
+                else {
+                    System.out.print(" |");
+                }
+            }
+            
+            System.out.println("\n\t+-+-+-+-+-+");
+        }
     }
     
     /**

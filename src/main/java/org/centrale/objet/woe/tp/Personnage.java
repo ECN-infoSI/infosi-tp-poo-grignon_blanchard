@@ -4,11 +4,16 @@
  */
 package org.centrale.objet.woe.tp; 
 
+import java.util.Date;
+import java.util.Random;
+
+import java.lang.Exception;
+
 /**
  * Super-classe représentant un Personnage
  * @author simon
  */
-public class Personnage extends Creature{
+public abstract class Personnage extends Creature{
     protected String nom;
     protected int distAttMax;
     protected int sexe; // 0 pour H, 1 pour F
@@ -23,6 +28,7 @@ public class Personnage extends Creature{
         nom = "John Doe";
         sexe = 0;
         distAttMax = 10;
+        distAttMax = 1;
     }
     
     /**
@@ -82,6 +88,32 @@ public class Personnage extends Creature{
         System.out.println("Pourcentage Par. : " + pagePar);
         System.out.println("Dist. Att. Max : " + distAttMax);
         
+    }
+    
+    public void deplacementAleatoire(boolean[][] presences) {
+        Date date = new Date();
+        Random rand = new Random(date.getTime());
+        
+        int dx, dy;
+        
+        // On génère un vecteur-déplacement jusqu'à qu'il soit valide
+        do {
+            dx = rand.nextInt(3) - 1;
+            dy = rand.nextInt(3) - 1;
+        }
+        while (dx * dy != 0  // Pas de déplacement en diagonale
+                || pos.getX() + dx >= presences.length || pos.getY() + dy >= presences[0].length // Déplacement à l'intérieur du monde (borne sup.)
+                || 0 > pos.getX() + dx || 0 > pos.getY() + dy  // Déplacement à l'intérieur du monde (borne inf.)
+                || presences[pos.getX() + dx][pos.getY() + dy]);  // Déplacement sur une cellule libre
+        
+        // La cellule associée à la position précedente est indiquée comme libre
+        presences[pos.getX()][pos.getY()] = false;
+        
+        // Déplacement de l'archer
+        pos.translate(dx, dy);
+        
+        // La cellule associée à la nouvelle position est indiquée comme libre
+        presences[pos.getX()][pos.getY()] = true;
     }
     
     /**

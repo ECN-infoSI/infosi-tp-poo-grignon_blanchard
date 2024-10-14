@@ -11,18 +11,24 @@ import java.util.Random;
  * @author grigm
  */
 public class TestWoE{
-   public static void main(String[] args) {
+   public static void main(String[] args) throws Exception {
+       
        
        //Tests générer un monde à la composition aléatoire (max 10 instances de chaque sous classe) 
        Date date = new Date();
        Random rand = new Random(date.getTime()); 
       
        World monde = new World(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 50);
-            
-       // Tests de la compostion du monde       
-       TestWoE.testCompositionCreatures(monde);
        
-       TestWoE.testCompositionObjets(monde);
+       
+       //monde.creationJoueur();
+       //monde.joueur.perso.getPos().affiche();
+       
+       // Tests de la compostion du monde       
+       //TestWoE.testCompositionCreatures(monde);
+       
+       //TestWoE.testCompositionObjets(monde);
+       
        
        /*
        // Test du nombre de points de vie
@@ -32,6 +38,49 @@ public class TestWoE{
            TestWoE.testSommePtVieIterateur(monde);
        }
        */
+       
+       /*
+       //Test Nuage Toxique déplacement + combat
+       NuageToxique nunu = new NuageToxique(); 
+       NuageToxique pluie = new NuageToxique(10); 
+       nunu.affiche(); 
+       pluie.affiche();
+       
+       Loup wolfie = new Loup();
+       wolfie.affiche(); 
+       System.out.println("Le loup est placé sous le nuage avec 100 pv"); 
+       
+       pluie.combattre((Creature)wolfie);
+       wolfie.affiche();
+       System.out.println("Le loup a perdu " + pluie.getNivToxique() + " pv"); 
+       
+       Point2D position = new Point2D(8,7); 
+       pluie.deplacer(position, monde.getPresences());
+       pluie.combattre((Creature)wolfie);
+       wolfie.affiche();
+       
+       //Test Nourriture 
+       Nourriture steak = new Nourriture(); 
+       Nourriture burger = new Nourriture("burger", 5, 5, 0, 0, -5); 
+       steak.affiche();
+       burger.affiche(); 
+       burger.utilise(wolfie);
+       wolfie.affiche();
+       */
+       //Test Epee
+       Epee excalibur = new Epee(); 
+       excalibur.affiche(); 
+       Guerrier bill = new Guerrier(); 
+       System.out.println("bill");
+       bill.affiche(); 
+       excalibur.utilise(bill); 
+       System.out.println("bill avec une épée");
+       bill.affiche(); 
+       PotionSoin champi = new PotionSoin(3); 
+       champi.affiche(); 
+       System.out.println("bill avec un champi 3");
+       champi.utilise(bill); 
+       bill.affiche();
    }
    
    /**

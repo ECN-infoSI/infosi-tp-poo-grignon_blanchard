@@ -11,7 +11,7 @@ import java.util.Random;
  * Monstre : Loup
  * @author simon
  */
-public class Loup extends Monstre {
+public class Loup extends Monstre implements Combattant {
     /**
      * Constructeur manuel de Loup  
      * @param pV    Points de vie
@@ -45,12 +45,23 @@ public class Loup extends Monstre {
     
     
     /**
-     * Attaque au corps à corps pour la classe Guerrier
+     * Attaque au corps à corps pour la classe Loup
      * @param c Créature à attaquer
      */
     public void combattre(Creature c) {
         Date date = new Date();
         Random rand = new Random(date.getTime());
+        String nomAdversaire;
+        
+        // Détermination du nom de la créature adverse
+        if (c instanceof Personnage) {
+            nomAdversaire = ((Personnage) c).getNom();
+        }
+        else {
+            nomAdversaire = c.getClass().getSimpleName() +  " sauvage";
+        }
+        
+        System.out.print("# Loup sauvage attaque " + nomAdversaire);
         
         // Vérification que l'adversaire est sur une case adhacente
         // Comme sqrt(2) = 1.414, dist <= 1.4 permet de prendre en compte les erreurs dans le codage des flottants
@@ -59,28 +70,28 @@ public class Loup extends Monstre {
             int tirrageAtt = rand.nextInt(100) + 1;
             
             if (tirrageAtt <= pageAtt) {
-                System.out.println(tirrageAtt + " : L'attaque réussi !");
+               System.out.print(" : L'attaque a réussi (" + tirrageAtt + ')');
                 
                 // Tirage pour savoir si la créature adverse pare le coup
                 int tirragePar = rand.nextInt(100) + 1;
                 
                 if (tirragePar <= c.pagePar) {
-                    System.out.println(tirragePar + " : L'adversaire pare le coup !");
+                    System.out.println(" mais l'adversaire pare le coup ! (" + tirragePar + ')');
                     
                     c.prendreDegats(degAtt - c.ptPar);
                 }
                 else {    
-                    System.out.println(tirragePar + " : L'adversaire ne pare pas le coup !");
+                    System.out.println(" et l'adversaire ne pare pas le coup ! (" + tirragePar + ')');
                     
                     c.prendreDegats(degAtt);
                 }
             } 
             else {
-                System.out.println(tirrageAtt + " : L'attaque a échoué");
+                System.out.println(" : L'attaque a échoué (" + tirrageAtt + ')');
             }
         }
         else {
-            System.out.println("La créature est hors de portée");
+            System.out.println(" : La créature est hors de portée");
         }
     }
 }
