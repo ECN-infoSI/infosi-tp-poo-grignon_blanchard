@@ -16,7 +16,7 @@ public class Epee extends Objet implements Utilisable{
      */
     public Epee(){
         super();
-        dureeEffet = 2; 
+        dureeEffet = 10; 
     }
     
     /**
@@ -52,5 +52,13 @@ public class Epee extends Objet implements Utilisable{
         this.dureeEffet = dureeEffet;
     }
     
+    
+    /**
+     * méthode pour afficher l'effet de l'objet au moment de son activation
+     * @author grigm
+     */
+    public void afficheEffet(){ 
+        System.out.println("Epee + 10 ptAtt pendant 10 tours");
+    }
     
 }

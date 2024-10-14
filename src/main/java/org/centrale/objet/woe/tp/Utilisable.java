@@ -22,5 +22,7 @@ public interface Utilisable {
     public int getDureeEffet();
 
     public void setDureeEffet(int duree);
+    
+    public void afficheEffet(); 
         
 }

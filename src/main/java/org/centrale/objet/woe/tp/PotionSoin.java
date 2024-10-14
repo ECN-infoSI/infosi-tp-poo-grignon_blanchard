@@ -70,5 +70,12 @@ public class PotionSoin extends Objet implements Utilisable {
         
     }
     
+     /**
+     * méthode pour afficher l'effet de l'objet au moment de son activation
+     * @author grigm
+     */
+    public void afficheEffet(){ 
+        System.out.println("Potion de Soin + " + this.valeurPV+ " ptVie");
+    }
     
 }

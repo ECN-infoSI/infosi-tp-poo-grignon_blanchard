@@ -92,6 +92,21 @@ public class Nourriture extends Objet implements Utilisable {
         c.setPagePar(c.pagePar-this.pagePar);             
     }
     
+    /**
+     * méthode pour afficher l'effet de l'objet au moment de son activation
+     * @author grigm
+     */
+    public void afficheEffet(){ 
+        System.out.println("Effet de la nourriture consommée : "); 
+        System.out.println(nom);
+        System.out.println("Effet Att. : " + degAtt);
+        System.out.println("Effet Par. : " + ptPar);
+        System.out.println("Effet Pourcentage Att. : " + pageAtt);
+        System.out.println("Effet Pourcentage Par. : " + pagePar);
+        System.out.println("Duree effet : " + dureeEffet + " tour(s)");
+        
+    }
+    
     public int getDegAtt() {
         return degAtt;
     }
