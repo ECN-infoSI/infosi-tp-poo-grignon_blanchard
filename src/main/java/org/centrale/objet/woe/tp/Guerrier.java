@@ -59,11 +59,13 @@ public class Guerrier extends Personnage implements Combattant {
     /**
      * Attaque au corps à corps pour la classe Guerrier
      * @param c Créature à attaquer
+     * @returns Flag si la cible est tuée dans l'attaque
      */
-    public void combattre(Creature c) {
+    public boolean combattre(Creature c) {
         Date date = new Date();
         Random rand = new Random(date.getTime());
         String nomAdversaire;
+        boolean isKilled = false;
         
         // Détermination du nom de la créature adverse
         if (c instanceof Personnage) {
@@ -90,12 +92,12 @@ public class Guerrier extends Personnage implements Combattant {
                 if (tirragePar <= c.pagePar) {
                     System.out.println(" mais l'adversaire pare le coup ! (" + tirragePar + ')');
                     
-                    c.prendreDegats(degAtt - c.ptPar);
+                    isKilled = c.prendreDegats(degAtt - c.ptPar);
                 }
                 else {    
                     System.out.println(" et l'adversaire ne pare pas le coup ! (" + tirragePar + ')');
                     
-                    c.prendreDegats(degAtt);
+                    isKilled = c.prendreDegats(degAtt);
                 }
             } 
             else {
@@ -105,5 +107,7 @@ public class Guerrier extends Personnage implements Combattant {
         else {
             System.out.println(" : La créature est hors de portée");
         }
+        
+        return isKilled;
     }
 }
