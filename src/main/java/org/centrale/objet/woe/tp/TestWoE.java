@@ -5,6 +5,8 @@
 package org.centrale.objet.woe.tp;
 import java.util.Date;
 import java.util.Random; 
+import java.util.Scanner;
+import org.centrale.bdonn.woe.tp.DatabaseTools;
 
 /**
  *
@@ -12,214 +14,111 @@ import java.util.Random;
  */
 public class TestWoE{
    public static void main(String[] args) throws Exception {
-       
-       
-       //Tests générer un monde à la composition aléatoire (max 10 instances de chaque sous classe) 
-       Date date = new Date();
-       Random rand = new Random(date.getTime()); 
-      
-       World monde = new World(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 50);
-       
-       
-       //monde.creationJoueur();
-       //monde.joueur.perso.getPos().affiche();
-       
-       // Tests de la compostion du monde       
-       //TestWoE.testCompositionCreatures(monde);
-       
-       //TestWoE.testCompositionObjets(monde);
-       
-       
-       /*
-       // Test du nombre de points de vie
-       for (int n = 1; n <= 10000; n*=10){
-           monde = new World(20*n, 20*n, 20*n, 20*n, 20*n, 0, 0, 50);
-           
-           TestWoE.testSommePtVieIterateur(monde);
-       }
-       */
-       
-       /*
-       //Test Nuage Toxique déplacement + combat
-       NuageToxique nunu = new NuageToxique(); 
-       NuageToxique pluie = new NuageToxique(10); 
-       nunu.affiche(); 
-       pluie.affiche();
-       
-       Loup wolfie = new Loup();
-       wolfie.affiche(); 
-       System.out.println("Le loup est placé sous le nuage avec 100 pv"); 
-       
-       pluie.combattre((Creature)wolfie);
-       wolfie.affiche();
-       System.out.println("Le loup a perdu " + pluie.getNivToxique() + " pv"); 
-       
-       Point2D position = new Point2D(8,7); 
-       pluie.deplacer(position, monde.getPresences());
-       pluie.combattre((Creature)wolfie);
-       wolfie.affiche();
-       
-       //Test Nourriture 
-       Nourriture steak = new Nourriture(); 
-       Nourriture burger = new Nourriture("burger", 5, 5, 0, 0, -5); 
-       steak.affiche();
-       burger.affiche(); 
-       burger.utilise(wolfie);
-       wolfie.affiche();
-       */
-       
-       /*
-       //Test Epee
-       Epee excalibur = new Epee(); 
-       excalibur.affiche(); 
-       Guerrier bill = new Guerrier(); 
-       System.out.println("bill");
-       bill.affiche(); 
-       excalibur.utilise(bill); 
-       System.out.println("bill avec une épée");
-       bill.affiche(); 
-       PotionSoin champi = new PotionSoin(3); 
-       champi.affiche(); 
-       System.out.println("bill avec un champi 3");
-       champi.utilise(bill); 
-       bill.affiche();
-       */
-       
-       Guerrier bill = new Guerrier(); 
-       monde.afficheInventaire(); 
-       Epee excalibur = new Epee(); 
-       monde.ajouterInventaire(excalibur);
-       monde.afficheInventaire();
-       
-       
-       System.out.println(excalibur.getDureeEffet()); 
-       
-       bill.affiche(); 
-       monde.activerObjet(0,bill); 
-       monde.afficheEffets();  
-       bill.affiche();
+       Scanner scan = new Scanner(System.in);
+        DatabaseTools database = new DatabaseTools();
+        
+        database.connect();
+        
+        // Authentification du Joueur
+        
+        System.out.println("# Nom du joueur ?");
+        String nomJoueur = scan.nextLine();
+        
+        System.out.println("# Mot de Passe ?");
+        String motDePasse = scan.nextLine();
+        
+        int playerId = -1;
+        
+        try {
+            playerId = database.getPlayerID(nomJoueur, motDePasse);
+        }
+        catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        
+        if (playerId == -1) {
+            throw new Exception("Le couple nom/mot de passe n'est pas reconnu !");
+        }
+        
+        // Choix de l'action pour commencer, continuer ou supprimer une partie
+        
+        String choix = "";
+        boolean continueFlag = true;
 
-       monde.userObjet(bill);
-       monde.afficheEffets();    
-       bill.affiche();
-
-       monde.userObjet(bill); 
-       monde.afficheEffets();
-       bill.affiche();
-       
-   }
-   
-   /**
-    * Test la compostion d'un monde en affichange le nombre de créatures en fonction de leur type
-    * @param monde Monde à tester
-    * @author simon
-    */
-   private static void testCompositionCreatures(World monde) {
-       int nbArcher = 0;
-       int nbGuerrier = 0;
-       int nbPaysan = 0;
-       int nbLapin = 0;
-       int nbLoup = 0;
-       
-       for (Creature c : monde.getListCreatures()) {
-           if (c instanceof Archer) {
-               nbArcher++;
-           }
-           
-           if (c instanceof Guerrier) {
-               nbGuerrier++;
-           }
-           
-           if (c instanceof Paysan) {
-               nbPaysan++;
-           }
-           
-           if (c instanceof Lapin) {
-               nbLapin++;
-           }
-           
-           if (c instanceof Loup) {
-               nbLoup++;
-           }
-       }
-       
-       System.out.println("\n# TEST DE LA RÉPARTITION DES CRÉATURES");
-       
-       System.out.println("Le monde est composé de :");
-       System.out.println("\t" + nbArcher + " archers");
-       System.out.println("\t" + nbGuerrier + " guerriers");
-       System.out.println("\t" + nbPaysan + " paysans");
-       System.out.println("\t" + nbLapin + " lapins");
-       System.out.println("\t" + nbLoup + " loups");
-   }
-   
-   /**
-    * Test la compostion d'un monde en affichange le nombre d'objets en fonction de leur type
-    * @param monde Monde à tester
-    * @author simon
-    */
-   private static void testCompositionObjets(World monde) {
-       int nbPotionSoin = 0;
-       int nbEpee = 0;
-       
-       for (Objet o : monde.getListObjets()) {
-           if (o instanceof PotionSoin) {
-               nbPotionSoin++;
-           }
-           
-           if (o instanceof Epee) {
-               nbEpee++;
-           }
-       }
-       
-       System.out.println("\n# TEST DE LA RÉPARITION DES OBJETS");
-       
-       System.out.println("Le monde est composé de :");
-       System.out.println("\t" + nbPotionSoin + " potions de soin");
-       System.out.println("\t" + nbEpee + " épées");
-   }
-   
-   /**
-    * Calcule de la somme des points vies avec une boucle basée sur la taille
-    * @param monde Monde des personnages à tester
-    */
-   private static void testSommePtVieIterateur(World monde) {
-       int sommePV = 0;
-       long tempsDeb, tempsFin;
-       
-       System.out.println("\n# TEST DU NOMBRE DE POINTS DE VIE TOTAL (" + monde.getNbCreatures() + ")");
-       
-       tempsDeb = System.nanoTime();   
-       
-       for (Creature c : monde.getListCreatures()) {
-           sommePV += c.getPtVie();
-       }
-       
-       tempsFin = System.nanoTime();
-               
-       System.out.println("Nombre totale des points de vie : " + sommePV);
-       System.out.println("Execution en " + (tempsFin - tempsDeb) + " ns");
-   }
-   
-   /**
-    * Calcule de la somme des points vies avec une boucle basée sur la taille
-    * @param monde Monde des personnages à tester
-    */
-   private static void testSommePtVieTaille(World monde) {
-       int sommePV = 0;
-       long tempsDeb, tempsFin;
-       
-       System.out.println("\n# TEST DU NOMBRE DE POINTS DE VIE TOTAL (" + monde.getNbCreatures() + ")");
-       
-       tempsDeb = System.nanoTime();
-       
-       for (int i = 0; i < monde.getNbCreatures(); i++) {
-           sommePV += monde.getListCreatures().get(i).getPtVie();
-       }
-       
-       tempsFin = System.nanoTime();
-               
-       System.out.println("Nombre totale des points de vie : " + sommePV);
-       System.out.println("Execution en " + (tempsFin - tempsDeb) + " ns");
+        while (continueFlag) {
+            System.out.println("# Créer ou Charger une partie, Supprimer un sauvegarde ? (create / load / delete)");
+            choix = scan.nextLine();
+            continueFlag = !"create".equals(choix) && !choix.equals("load") && !choix.equals("delete");
+        }
+        
+        // Récupération des informations relatives à la sauvegarde
+        
+        System.out.println("# Nom de la partie ?");
+        String nomPartie = scan.nextLine();
+        
+        int dimension = 5;
+        String nomSauvegarde;
+        World monde = new World();
+        
+        if (choix.equals("create")) {         
+            nomSauvegarde = "Start";
+        }
+        else {
+            System.out.println("# Nom de la sauvegarde ?");
+            nomSauvegarde = scan.nextLine();
+        }
+        
+        // Chargement de la partie
+        
+        boolean play = true;
+        
+        try {
+            switch(choix) {
+                case "load":
+                    monde = database.readWorld(playerId, nomPartie, nomSauvegarde);
+                    break;
+                    
+                case "create":
+                    monde = new World(0, 0, 1, 1, 1, 1, 1, dimension);
+                    monde.creationJoueur();
+                    
+                    database.createPartie(playerId, nomPartie, dimension);
+                    database.saveWorld(playerId, nomPartie, nomSauvegarde, monde);
+                    break;
+                    
+                case "delete":
+                    database.removeWorld(playerId, nomPartie, nomSauvegarde);
+                    play = false;
+                    break;
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+            play = false;
+        }
+        
+        // Phase de jeu
+        String answer;
+        
+        while (play && monde.joueur.perso.getPtVie() > 0) {
+            monde.tourDeJeu();
+            
+            System.out.println("# SAUVEGARDER ? (y/N)");
+            answer = scan.nextLine();
+            
+            if (answer.equals("y") || answer.equals("yes") || answer.equals("Y")) {
+                System.out.println("# NOM DE LA SAUVEGARDE ?");
+                nomSauvegarde = scan.nextLine();
+                
+                database.saveWorld(playerId, nomPartie, nomSauvegarde, monde);
+                
+                System.out.println("# QUITTER ? (y/N)");   
+                answer = scan.nextLine();
+                
+                play = !answer.equals("y") && !answer.equals("yes") && !answer.equals("Y");
+            }
+        }
+        
+        database.disconnect();
    }
 }
