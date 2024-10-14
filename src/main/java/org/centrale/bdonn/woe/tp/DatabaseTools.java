@@ -91,13 +91,12 @@ public class DatabaseTools {
     }
 
     /**
-     * get Player ID
+     * get Player ID (if unknown, returns -1)
      * @param nomJoueur  Pseudo
      * @param password   Mot de Passe
      * @return           Indice du Joueur
-     * @throws Exception Si les identifiants de connexion ne fonctionne pas
      */
-    public Integer getPlayerID(String nomJoueur, String password) throws Exception {
+    public Integer getPlayerID(String nomJoueur, String password) {
         int playerId = -1;
         
         try {
@@ -118,10 +117,6 @@ public class DatabaseTools {
             
         } catch(SQLException ex) {
             System.err.println("SQLException : " + ex.getMessage()) ;
-        }
-        
-        if (playerId == -1) {
-            throw new Exception("Le couple nom / mot de passe n'existe pas !");
         }
         
         return playerId;
@@ -602,15 +597,8 @@ public class DatabaseTools {
         // Obtention de l'identifiant de la partie
         int idPartie = this.getIdPartie(idJoueur, nomPartie);
         
-        
-        
-    //Supprimer les éléments de la table positionobjet
-        String query1 = """
-                        Begin; 
-                        DELETE FROM positionobjet WHERE idpartie = ? AND nomsauvegarde =?; 
-                        DELETE FROM instancecreature WHERE idpartie = ? AND nomsauvegarde =?; 
-                        DELETE FROM sauvegarde WHERE idpartie = ? AND nom =?;
-                        COMMIT;"""; 
+        //Supprimer les éléments de la sauvegarde
+        String query1 = "Begin;  DELETE FROM positionobjet WHERE idpartie = ? AND nomsauvegarde =?;  DELETE FROM instancecreature WHERE idpartie = ? AND nomsauvegarde =?;  DELETE FROM sauvegarde WHERE idpartie = ? AND nom =?; COMMIT;"; 
 
         try {
             PreparedStatement stmt = connection.prepareStatement(query1);

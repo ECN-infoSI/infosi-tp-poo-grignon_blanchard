@@ -8,16 +8,8 @@
 
 package org.centrale.bdonn.woe.tp;
 
-import org.centrale.objet.woe.tp.Archer;
-import org.centrale.objet.woe.tp.Creature;
-import org.centrale.objet.woe.tp.Epee;
-import org.centrale.objet.woe.tp.Guerrier;
-import org.centrale.objet.woe.tp.Lapin;
-import org.centrale.objet.woe.tp.Loup;
-import org.centrale.objet.woe.tp.Objet;
-import org.centrale.objet.woe.tp.Paysan;
-import org.centrale.objet.woe.tp.PotionSoin;
 import org.centrale.objet.woe.tp.World;
+import java.util.Scanner;
 
 /**
  *
@@ -29,32 +21,73 @@ public class WorldOfECN {
      * main program
      * @param args
      */
-    public static void main(String[] args) {
-        String nomJoueur = "Saegusa";
-        String motDePasse = "Mayumi";
-        String nomPartie = "Test Game 1";
-        String nomSauvegarde = "INIT";
-        int dimension = 10;
-        
-        // #########
-        World world = new World(2, 2, 2, 2, 2, 1, 1, dimension);
-        world.setPlayer(nomJoueur);
-        world.creationJoueur();
-        
-        // Test phase
+    public static void main(String[] args) throws Exception {
+        Scanner scan = new Scanner(System.in);
         DatabaseTools database = new DatabaseTools();
-
+        
         database.connect();
         
+        System.out.println("# Nom du joueur ?");
+        String nomJoueur = scan.nextLine();
+        
+        System.out.println("# Mot de Passe ?");
+        String motDePasse = scan.nextLine();
+        
+        int playerId = -1;
         
         try {
-            // Save world
-            int playerId = database.getPlayerID(nomJoueur, motDePasse);
-            database.createPartie(playerId, nomPartie, dimension);
-            database.saveWorld(playerId, nomPartie, nomSauvegarde, world);
-            
-            // Retreive World
-            World newMonde = database.readWorld(3, nomPartie, nomSauvegarde);
+            playerId = database.getPlayerID(nomJoueur, motDePasse);
+        }
+        catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        
+        if (playerId == -1) {
+            throw new Exception("Le couple nom/mot de passe n'est pas reconnu !");
+        }
+        
+        String choix = "";
+        boolean continueFlag = true;
+
+        while (continueFlag) {
+            System.out.println("# Créer ou Charger une partie, Supprimer un sauvegarde ? (create / load / delete)");
+            choix = scan.nextLine();
+            continueFlag = !"create".equals(choix) && !choix.equals("load") && !choix.equals("delete");
+        }
+        
+        System.out.println("# Nom de la partie ?");
+        String nomPartie = scan.nextLine();
+        
+        int dimension = 10;
+        String nomSauvegarde;
+        World monde;
+        
+        if (choix.equals("create")) {         
+            nomSauvegarde = "Start";
+        }
+        else {
+            System.out.println("# Nom de la sauvegarde ?");
+            nomSauvegarde = scan.nextLine();
+        }
+        
+        try {
+            switch(choix) {
+                case "load":
+                    monde = database.readWorld(playerId, nomPartie, nomSauvegarde);
+                    break;
+                    
+                case "create":
+                    monde = new World(2, 2, 2, 2, 2, 1, 1, dimension);
+                    monde.creationJoueur();
+                    
+                    database.createPartie(playerId, nomPartie, dimension);
+                    database.saveWorld(playerId, nomPartie, nomSauvegarde, monde);
+                    break;
+                    
+                case "delete":
+                    database.removeWorld(playerId, nomPartie, nomSauvegarde);
+                    break;
+            }
         }
         catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
