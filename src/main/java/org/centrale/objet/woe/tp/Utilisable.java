@@ -13,7 +13,7 @@ public interface Utilisable {
     /**
      * Utilise l'objet en activant son effet
      * @author grigm
-     * @param c représentant l'instance de Creature qui active l'objet
+     * @param c représentant a créature qui active l'objet
      */
     public void utilise(Creature c);
     
