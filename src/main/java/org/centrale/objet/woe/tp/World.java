@@ -332,7 +332,8 @@ public class World {
                 }
                 System.out.println("Votre objet a casé"); 
                 effets.get(i).affiche(); 
-                effets.remove(i);                
+                effets.remove(i);    
+                
             }
         }
     }
