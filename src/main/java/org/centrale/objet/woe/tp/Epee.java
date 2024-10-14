@@ -31,6 +31,18 @@ public class Epee extends Objet implements Utilisable{
         c.setDegAtt(c.degAtt+10); 
         
     }
+    
+    /**
+     * méthode pour retirer l'effet au personnage
+     * on suppose que l'épée augmente l'attaque de 10 points
+     * @author grigm
+     * @param c représentant l'instance de Creature qui active l'objet
+     */
+    public void retireEffet(Creature c) {
+        // on retire 10 points d'attaque à la créature
+        c.setDegAtt(c.degAtt-10); 
+        
+    }
 
     public int getDureeEffet() {
         return dureeEffet;

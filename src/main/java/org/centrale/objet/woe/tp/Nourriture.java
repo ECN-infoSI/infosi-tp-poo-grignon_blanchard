@@ -77,9 +77,19 @@ public class Nourriture extends Objet implements Utilisable {
         c.setPtPar(c.ptPar+this.ptPar);
         c.setPageAtt(c.pageAtt+this.pageAtt);
         c.setPagePar(c.pagePar+this.pagePar);     
-        
-        //on réduit la durée de l'effet d'un 
-        this.dureeEffet--; 
+    }
+    
+     /**
+     * méthode pour retirer l'effet au personnage
+     * @author grigm
+     * @param c représentant l'instance de Creature qui active l'objet
+     */
+    public void retireEffet(Creature c) {
+        //on met à jour les capacités de la créature 
+        c.setDegAtt(c.degAtt-this.degAtt);
+        c.setPtPar(c.ptPar-this.ptPar);
+        c.setPageAtt(c.pageAtt-this.pageAtt);
+        c.setPagePar(c.pagePar-this.pagePar);             
     }
     
     public int getDegAtt() {
