@@ -186,8 +186,12 @@ public class World {
             
             switch (action) {
                 case "attack":
-                    if (joueur.perso instanceof Combattant) {    
-                        ((Combattant) joueur.perso).combattre(listCreatures.get(joueur.choixAttaque(listCreatures)));
+                    if (joueur.perso instanceof Combattant) { 
+                        int indiceCible = joueur.choixAttaque(listCreatures);
+                        // Attaque et test si la cible est tuée pendant le combat : si oui, retirer la liste
+                        if (((Combattant) joueur.perso).combattre(listCreatures.get(indiceCible))) {
+                            listCreatures.remove(indiceCible);
+                        }
                     }
                     break;
                     
