@@ -215,7 +215,7 @@ public class World {
                 if (c instanceof Guerrier && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
                     ((Guerrier) c).combattre(joueur.perso);
                 }            
-                else if (c instanceof Archer && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= ((Archer) c).getDistAttMax()) {
+                else if (c instanceof Archer && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= ((Archer) c).getDistAttMax() && ((Archer) c).getNbFleches() > 0) {
                     ((Archer) c).combattre(joueur.perso);
                 }
                 else if (c instanceof Loup && Point2D.distance(joueur.perso.getPos(), c.getPos()) <= 1.4) {
