@@ -590,4 +590,41 @@ public class DatabaseTools {
         }
         return null; 
     }
+    
+    /**
+     * Supprimer une partie de la base de données
+     * @author grigm
+     * @param idJoueur
+     * @param nomPartie
+     * @param nomSauvegarde
+     */
+    public void removeWorld(Integer idJoueur, String nomPartie, String nomSauvegarde) throws Exception {
+        // Obtention de l'identifiant de la partie
+        int idPartie = this.getIdPartie(idJoueur, nomPartie);
+        
+        
+        
+    //Supprimer les éléments de la table positionobjet
+        String query1 = """
+                        Begin; 
+                        DELETE FROM positionobjet WHERE idpartie = ? AND nomsauvegarde =?; 
+                        DELETE FROM instancecreature WHERE idpartie = ? AND nomsauvegarde =?; 
+                        DELETE FROM sauvegarde WHERE idpartie = ? AND nom =?;
+                        COMMIT;"""; 
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query1);
+            stmt.setInt(1, idPartie);
+            stmt.setString(2,nomSauvegarde);
+            stmt.setInt(3, idPartie);
+            stmt.setString(4,nomSauvegarde);
+            stmt.setInt(5, idPartie);
+            stmt.setString(6,nomSauvegarde);
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+    }
 }
