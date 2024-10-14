@@ -250,5 +250,24 @@ public class Joueur {
         this.effets = effets;
     }
     
-    
+     /**
+     * Activer un objet à la position i dans l'inventaire, appliquer son effet et le placer dans la liste des effets
+     * puis on le retire de l'inventaire
+     * @author grigm
+     * @param i indice de position de l'objet à activer dans l'inventaire 
+     */
+    public void activerObjet(int i) { 
+        // on vérifie que l'objet implémente utilisable 
+        if (this.inventaire.get(i) instanceof Utilisable){
+            // on utilise l'objet sur le personnage joueur 
+            ((Utilisable)inventaire.get(i)).utilise(this.perso);     
+            //on ajoute l'objet dans la liste des effets en cours effets 
+            this.addToEffets((Utilisable) inventaire.get(i)); 
+            //on retire l'objet de l'inventaire 
+            this.inventaire.remove(i); 
+        } else{ 
+            // si l'objet n'est pas utilisable
+            System.out.println("Cet objet n'est pas utilisable"); 
+        }
+    }
 }
