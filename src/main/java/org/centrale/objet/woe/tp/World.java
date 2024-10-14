@@ -192,7 +192,8 @@ public class World {
                     break;
                     
                 case "object":
-                    joueur.choixObjet();
+                    //on active l'objet choisi (ce qui l'utilise,le met dans la liste effets, affiche son effet et le retire de l'inventaire)
+                    joueur.activerObjet(joueur.choixObjet());
                     break;
                     
                 case "nothing":

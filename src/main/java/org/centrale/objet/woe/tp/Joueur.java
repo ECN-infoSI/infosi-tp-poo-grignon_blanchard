@@ -252,7 +252,7 @@ public class Joueur {
     
      /**
      * Activer un objet à la position i dans l'inventaire, appliquer son effet et le placer dans la liste des effets
-     * puis on le retire de l'inventaire
+     * On affiche l'effet qui est affecté au joueur puis on retire l'objet de l'inventaire
      * @author grigm
      * @param i indice de position de l'objet à activer dans l'inventaire 
      */
@@ -263,6 +263,8 @@ public class Joueur {
             ((Utilisable)inventaire.get(i)).utilise(this.perso);     
             //on ajoute l'objet dans la liste des effets en cours effets 
             this.addToEffets((Utilisable) inventaire.get(i)); 
+            //on affiche l'effet de l'objet qu'on vient d'activer
+            ((Utilisable)inventaire.get(i)).afficheEffet(); 
             //on retire l'objet de l'inventaire 
             this.inventaire.remove(i); 
         } else{ 
