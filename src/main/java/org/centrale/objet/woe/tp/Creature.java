@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.tp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -108,7 +109,14 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
         return true;
     }
     
-    public void deplacer(Point2D newPos, boolean[][] presences) throws Exception {
+    /**
+     * Méthode permettant de déplacer une créature
+     * @param newPos la position cible 
+     * @param presences Tableau des présences des créatures 
+     * @param presencesObjet Tableau des présences des Objets 
+     * @param inventaire l'inventaire du joueur
+     */
+    public void deplacer(Point2D newPos, boolean[][] presences, boolean[][] presencesObjet, ArrayList<Objet> listObjets ,  ArrayList<Objet> inventaire) throws Exception {
         // Déplacement à l'intérieur du monde
         if (newPos.getX() < presences.length && newPos.getY() < presences[0].length && 0 <= newPos.getX() && 0 <= newPos.getY()) {
             // Déplacement sur une case libre
@@ -121,6 +129,29 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
 
                 // La cellule associée à la nouvelle position est indiquée comme libre
                 presences[pos.getX()][pos.getY()] = true;
+                
+                // Si le personnage est un joueur et qu'il se trouve sur une case d'un objet alors il le ramasse et le met dans son inventaire
+                if (((Personnage)this).isEstJoueur()){ 
+                   if (presencesObjet[pos.getX()][pos.getY()]){
+                       for (int i =0 ; i < listObjets.size(); i++){
+                           //on cherche l'objet qui a la même position que le joueur
+                           if (pos.getX()==listObjets.get(i).getPos().getX() && pos.getY()==listObjets.get(i).getPos().getY()){
+                               //ajouter l'objet dans l'inventaire
+                               inventaire.add(listObjets.get(i)); 
+                                
+                                //afficher le nouvel objet
+                                System.out.println(listObjets.get(i).getClass().getSimpleName());
+                                listObjets.get(i).affiche();
+                                
+                               //retirer l'objet de la liste des objets du monde 
+                               listObjets.remove(i); 
+                               
+                               //retirer l'objet du tableau des presences Objet
+                               presencesObjet[pos.getX()][pos.getY()]= false; 
+                           }
+                       }
+                    } 
+                }      
             }
             else {
                 throw new Exception("Mouvement vers une case occupée !");
