@@ -52,6 +52,7 @@ public class Joueur {
         perso.setEstJoueur(true);
         
         inventaire = new ArrayList();
+        effets = new ArrayList(); 
     }
     
     /**
@@ -63,6 +64,7 @@ public class Joueur {
         this.perso.estJoueur = true;
         
         this.inventaire = new ArrayList();
+        this.effets = new ArrayList(); 
     }
     
     /**

@@ -190,6 +190,9 @@ public class World {
                         int indiceCible = joueur.choixAttaque(listCreatures);
                         // Attaque et test si la cible est tuée pendant le combat : si oui, retirer la liste
                         if (((Combattant) joueur.perso).combattre(listCreatures.get(indiceCible))) {
+                            Point2D pos = listCreatures.get(indiceCible).getPos();
+                            
+                            presencesObjet[pos.getX()][pos.getY()] = false;
                             listCreatures.remove(indiceCible);
                         }
                     }
@@ -357,6 +360,7 @@ public class World {
      */
     public void addObjets(Objet o) {
         listObjets.add(o);
+        presencesObjet[o.getPos().getX()][o.getPos().getY()] = true;
         nbObjets ++;
     }
     

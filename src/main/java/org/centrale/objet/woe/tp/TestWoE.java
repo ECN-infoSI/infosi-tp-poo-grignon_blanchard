@@ -118,7 +118,7 @@ public class TestWoE{
                 play = !answer.equals("y") && !answer.equals("yes") && !answer.equals("Y");
             }
         }
-        
+        System.out.println("GAME OVER");
         database.disconnect();
    }
 }

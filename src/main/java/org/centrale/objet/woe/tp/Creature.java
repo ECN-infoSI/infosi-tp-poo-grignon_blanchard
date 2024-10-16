@@ -106,7 +106,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
             }
         }
         
-        return true;
+        return killed;
     }
     
     /**
@@ -140,6 +140,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
                                inventaire.add(listObjets.get(i)); 
                                 
                                 //afficher le nouvel objet
+                                System.out.println("Vous avez ramassé un objet :"); 
                                 listObjets.get(i).affiche();
                                 
                                //retirer l'objet de la liste des objets du monde 
