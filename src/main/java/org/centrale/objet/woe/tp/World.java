@@ -251,6 +251,9 @@ public class World {
                 } 
             }  
         }
+        
+        //on use les objets de la liste des effets 
+        this.userObjet(); 
     }
     
     /**
