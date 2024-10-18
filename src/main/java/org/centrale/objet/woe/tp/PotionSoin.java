@@ -18,7 +18,7 @@ public class PotionSoin extends Objet implements Utilisable {
      */
     public PotionSoin(){
         super();
-        this.valeurPV = 3; 
+        this.valeurPV = 30; //par défaut +30 PV
         this.dureeEffet=1; 
     }
     
