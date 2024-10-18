@@ -224,8 +224,14 @@ public class Joueur {
         
             for (int i = 0; i < inventaire.size(); i++) {
                 Objet o = inventaire.get(i);
-
-                System.out.println("\t" + (i + 1) + ". " + o.getClass().getSimpleName());
+                
+                if (o instanceof Nourriture){
+                    System.out.println("\t" + (i + 1) + ". " + ((Nourriture)o).getNom());
+                } else {
+                    System.out.println("\t" + (i + 1) + ". " + o.getClass().getSimpleName());
+                }
+               
+                
             }
         }
     }
