@@ -77,7 +77,7 @@ public class WorldOfECN {
                     break;
                     
                 case "create":
-                    monde = new World(2, 2, 2, 2, 2, 1, 1, dimension);
+                    monde = new World(2, 2, 2, 2, 2, 1, 1, 2, dimension);
                     monde.creationJoueur();
                     
                     database.createPartie(playerId, nomPartie, dimension);
