@@ -115,48 +115,32 @@ public class World {
     public void creerMondeAlea() {
         Date date = new Date();
         Random rand = new Random(date.getTime()); 
-        
-        boolean flagAllUnique;  // Utiliser pour verifier que le couple de coordonées n'existe pas déjà
-        Point2D[] listCoor = new Point2D[nbCreatures + nbObjets];
+        Point2D tempPos;
         
         // Placement des créatures
-        for (int i = 0; i < nbCreatures; i++) {                      
-            do {
-                flagAllUnique = true;
-                
+        for (int i = 0; i < nbCreatures; i++) {                
+            do {                
                 // Tirage d'un nouveau couple de coordonnées
-                listCoor[i] = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
-                
-                // Vérification que la paire n'existe pas déjà parmi les couples générés precedemment
-                for (int j = 0; j < i && flagAllUnique; j++) {                    
-                    flagAllUnique = listCoor[i] != listCoor[j];
-                }
+                tempPos = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
             }
-            // On recommence l'opération tant que le couple existait déjà
-            while (!flagAllUnique);
+            // On recommence l'opération tant que la case n'est pas occupée
+            while (presences[tempPos.getX()][tempPos.getY()]);
             
-            listCreatures.get(i).setPos(listCoor[i]);
-            presences[listCoor[i].getX()][listCoor[i].getY()] = true;
+            listCreatures.get(i).setPos(tempPos);
+            presences[tempPos.getX()][tempPos.getY()] = true;
         }
         
         // Placement des objets en prenant en compte le placement des créatures
         for (int i = nbCreatures; i < nbCreatures + nbObjets; i++) {                      
-            do {
-                flagAllUnique = true;
-                
+            do {                
                 // Tirage d'un nouveau couple de coordonnées
-                listCoor[i] = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
-                
-                // Vérification que la paire n'existe pas déjà parmi les couples générés precedemment
-                for (int j = 0; j < i && flagAllUnique; j++) {                                   
-                    flagAllUnique = listCoor[i] != listCoor[j];
-                }
+                tempPos = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
             }
             // On recommence l'opération tant que le couple existait déjà
-            while (!flagAllUnique);
+            while (presences[tempPos.getX()][tempPos.getY()] || presencesObjet[tempPos.getX()][tempPos.getY()]);
             
-            listObjets.get(i - nbCreatures).setPos(listCoor[i]);
-            presencesObjet[listCoor[i].getX()][listCoor[i].getY()] = true;
+            listObjets.get(i - nbCreatures).setPos(tempPos);
+            presencesObjet[tempPos.getX()][tempPos.getY()] = true;
         }
     }
     
@@ -332,19 +316,15 @@ public class World {
         // Placement du joueur sur une case libre
         Date date = new Date();
         Random rand = new Random(date.getTime()); 
-        boolean freePositionFlag = false;
+        Point2D tempPos;
         
-        while (!freePositionFlag) {
-            freePositionFlag = true;
-            
-            joueur.perso.setPos(new Point2D(rand.nextInt(dimension), rand.nextInt(dimension)));
-            
-            for (int i = 0; i < nbCreatures - 1 && freePositionFlag; i++) {
-                freePositionFlag = joueur.perso.getPos() != listCreatures.get(i).getPos();
-            }
+        do {            
+            tempPos = new Point2D(rand.nextInt(dimension), rand.nextInt(dimension));
         }
+        while (presences[tempPos.getX()][tempPos.getY()]);
         
-        presences[joueur.perso.getPos().getX()][joueur.perso.getPos().getY()] = true;
+        joueur.perso.setPos(tempPos);
+        presences[tempPos.getX()][tempPos.getY()] = true;
     }
     
     /**
