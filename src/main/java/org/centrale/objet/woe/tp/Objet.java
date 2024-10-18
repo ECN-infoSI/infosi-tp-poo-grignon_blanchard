@@ -9,7 +9,8 @@ package org.centrale.objet.woe.tp;
  * @author grigm
  */
 public class Objet extends ElementDeJeu{
-
+    private boolean estdansinventaire; 
+           
         
     /**
      * Constructeur par défaut
@@ -17,6 +18,7 @@ public class Objet extends ElementDeJeu{
      */
     public Objet(){
         super(); 
+        estdansinventaire =false; 
     }
     
     
@@ -26,6 +28,14 @@ public class Objet extends ElementDeJeu{
      */
     public void affiche(){ 
         System.out.println(this.getClass().getSimpleName() + " Objet(" + this.pos.getX() +","+this.pos.getY()+")");
+    }
+
+    public boolean isEstdansinventaire() {
+        return estdansinventaire;
+    }
+
+    public void setEstdansinventaire(boolean estdansinventaire) {
+        this.estdansinventaire = estdansinventaire;
     }
 
     

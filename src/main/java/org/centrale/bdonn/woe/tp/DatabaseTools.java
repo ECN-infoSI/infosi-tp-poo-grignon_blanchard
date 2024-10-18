@@ -232,6 +232,11 @@ public class DatabaseTools {
         for (Objet o: monde.getListObjets()) {
             saveObjet(o, idPartie, nomSauvegarde);
         }
+        
+        // Sauvegarde de l'inventaire
+        for (Objet o: monde.joueur.getInventaire()) {
+            saveInventaire(o, idPartie, nomSauvegarde);
+        }
     }
     
     /**
@@ -322,6 +327,47 @@ public class DatabaseTools {
             stmt.setString(2, nomSauvegarde);
             stmt.setInt(3, idPartie);
             stmt.setBoolean(4, false);
+            stmt.setInt(5,o.getPos().getX()); 
+            stmt.setInt(6,o.getPos().getY()); 
+            stmt.execute();
+            
+        } catch(SQLException ex) {
+            System.err.println("SQLException : " + ex.getMessage()) ;
+        }
+    }
+    
+    /**
+     * Processus de sauvegarde de l'inventaire 
+     * @author grigm
+     * @param o             Instance d'objet à sauvergarder
+     * @param idPartie      Identifiant de la partie en cours
+     * @param nomSauvegarde Nom de la sauvegarde
+     */
+    private void saveInventaire(Objet o, int idPartie, String nomSauvegarde){ 
+        try {
+            String query = "INSERT INTO positionobjet(idobjet, nomsauvegarde, idpartie, dansinventaire, x, y) VALUES (?,?,?,?,?,?)";
+            PreparedStatement stmt = connection.prepareStatement(query);
+
+
+            String nomClasse = o.getClass().getSimpleName(); 
+
+            try {
+                String queryIdObjet = "SELECT id from objet Where type =?";
+                PreparedStatement stmtIdObjet = connection.prepareStatement(queryIdObjet); 
+                stmtIdObjet.setString(1,nomClasse);
+                ResultSet resIdObjet = stmtIdObjet.executeQuery();
+                if (resIdObjet.next()) {
+                    int idJoueur =resIdObjet.getInt("id");
+                    stmt.setInt(1,idJoueur);
+                }
+                stmtIdObjet.close(); 
+            } catch(SQLException ex) {
+                System.err.println("SQLException : " + ex.getMessage()) ;
+            }
+
+            stmt.setString(2, nomSauvegarde);
+            stmt.setInt(3, idPartie);
+            stmt.setBoolean(4, true);
             stmt.setInt(5,o.getPos().getX()); 
             stmt.setInt(6,o.getPos().getY()); 
             stmt.execute();
@@ -456,10 +502,16 @@ public class DatabaseTools {
         }
         
         // Ajout des objets
-        Objet tempObjet;
+        
         
         for (int idObjet: getObjetsIndexes(idPartie, nomSauvegarde)) {
-            monde.addObjets(readObjet(idObjet));
+            Objet objetStocké = readObjet(idObjet); 
+            if(((Objet)objetStocké).isEstdansinventaire()){
+                monde.joueur.addToInventaire(objetStocké);
+            }
+            else {
+                monde.addObjets(readObjet(idObjet));
+            }
         }
         
         return monde;
@@ -553,6 +605,7 @@ public class DatabaseTools {
                 String typeClass= res.getString("type");
                 int x= res.getInt("x");
                 int y= res.getInt("y"); 
+                boolean dansinventaire = res.getBoolean("dansinventaire"); 
             
                 try {
                  
@@ -568,6 +621,9 @@ public class DatabaseTools {
                     //on crée un objet position 
                     Point2D position = new Point2D(x,y); 
                     ((Objet)o).setPos(position); 
+                    
+                    //on met à jour s'il l'objet est dans l'inventaire ou non
+                    ((Objet)o).setEstdansinventaire(dansinventaire); 
                     
                     return (Objet)o; 
                     

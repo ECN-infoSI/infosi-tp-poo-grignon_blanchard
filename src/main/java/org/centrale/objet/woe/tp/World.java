@@ -445,7 +445,7 @@ public class World {
     public ArrayList<Objet> getListObjets() {
         return listObjets;
     }
-
+    
     public void setListObjets(ArrayList<Objet> listObjets) {
         this.listObjets = listObjets;
     }
