@@ -122,6 +122,13 @@ public class TestWoE{
         
         String answer;
         
+        // afficher la légende d'affichage
+        System.out.println("Légende d'affichage de l'environnement :");
+        System.out.println("# limite du monde");
+        System.out.println("O joueur");
+        System.out.println("X monstre");
+        System.out.println("& object");
+        
         while (play && monde.joueur.perso.getPtVie() > 0) {
             monde.tourDeJeu();
             
