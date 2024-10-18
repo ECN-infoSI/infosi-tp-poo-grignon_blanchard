@@ -22,11 +22,11 @@ public class Nourriture extends Objet implements Utilisable {
      */
     public Nourriture(){ 
         super(); 
-        nom = "steak"; 
+        nom = "café"; 
         dureeEffet = 10; 
-        degAtt=1; 
+        degAtt=10; 
         ptPar=0; 
-        pageAtt=0; 
+        pageAtt=10; 
         pagePar = 0; 
     }
     
