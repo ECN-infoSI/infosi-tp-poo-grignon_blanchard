@@ -23,7 +23,7 @@ public class World {
     private int nbObjets;
     
     private int dimension;
-    private boolean[][] presences;
+    public boolean[][] presences;
     private boolean[][] presencesObjet;
     
     private String player = "";
@@ -33,6 +33,24 @@ public class World {
      */
     public World() { 
         dimension = 50;
+        
+        listCreatures = new ArrayList(); //notre liste de créature vide
+        listObjets = new ArrayList(); //notre liste d'objet vide
+        
+        nbCreatures = 0;
+        nbObjets = 0;
+        
+        presences = new boolean[dimension][dimension];
+        presencesObjet = new boolean[dimension][dimension]; 
+       
+    }
+    
+    /**
+     * Constructeur d'un monde uniquement avec la taille
+     * @param d Dimension
+     */
+    public World(int d) { 
+        dimension = d;
         
         listCreatures = new ArrayList(); //notre liste de créature vide
         listObjets = new ArrayList(); //notre liste d'objet vide
@@ -382,10 +400,6 @@ public class World {
 
     public int getDimension() {
         return dimension;
-    }
-
-    public void setDimension(int dimension) {
-        this.dimension = dimension;
     }
 
     public boolean[][] getPresences() {

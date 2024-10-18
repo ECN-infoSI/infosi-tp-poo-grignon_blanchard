@@ -438,8 +438,7 @@ public class DatabaseTools {
         int idPartie = getIdPartie(idJoueur, nomPartie);
         
         // Creation d'une instance de World
-        World monde = new World();
-        monde.setDimension(getWorldDimension(idJoueur, nomPartie));
+        World monde = new World(getWorldDimension(idJoueur, nomPartie));
         
         // Ajout des créatures
         Creature tempCreature;
