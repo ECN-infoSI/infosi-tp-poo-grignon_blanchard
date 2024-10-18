@@ -18,14 +18,16 @@ public class TestWoE{
         DatabaseTools database = new DatabaseTools();
         
         // on demande si le joueur veut se connecter à la base de données 
-        System.out.println("#Voulez-vous vous connecter à la base de données ? (y/N)");
+        System.out.println("# Voulez-vous vous connecter à la base de données ? (y/N)");
         String choixconnection = scan.nextLine();
         
         //paramètres pour stocker les réponses 
         boolean connection = false; 
         boolean play = true;
+        
         World monde = new World();
         int dimension = 5;
+        
         //si on se connecte
         String nomSauvegarde;
         int playerId = -1;
@@ -79,9 +81,6 @@ public class TestWoE{
             }
 
             // Chargement de la partie
-
-            
-
             try {
                 switch(choix) {
                     case "load":
@@ -119,7 +118,6 @@ public class TestWoE{
         }
 
         // Phase de jeu
-        
         String answer;
         
         // afficher la légende d'affichage
@@ -132,11 +130,12 @@ public class TestWoE{
         while (play && monde.joueur.perso.getPtVie() > 0) {
             monde.tourDeJeu();
             
-            System.out.println("# QUITTER ? (y/N)");   
+            System.out.println("\n\n# QUITTER ? (y/N)");   
             answer = scan.nextLine();
              
             if (connection){
                 database.connect();
+                
                 System.out.println("# SAUVEGARDER ? (y/N)");
                 String answerSauve = scan.nextLine();
 
@@ -146,11 +145,11 @@ public class TestWoE{
 
                     database.saveWorld(playerId, nomPartie, nomSauvegarde, monde);
                 }
+                
                 database.disconnect();
             }
             
             play = !answer.equals("y") && !answer.equals("yes") && !answer.equals("Y");
-            
         }
         
         //afficher GAME OVER si le personnage joueur est mort
