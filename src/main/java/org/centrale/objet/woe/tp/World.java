@@ -73,9 +73,11 @@ public class World {
      * @param nbLoup        Nombre de loups à placer
      * @param nbEpee        Nombre d'épées à placer
      * @param nbPotionSoin  Nombre de potions de soin à placer
+     * @param nbNourriture  Nombre de nourriture disponible sur le terrain
      * @param dimension     Taille du monde carré
+     * 
      */
-    public World(int nbArcher, int nbPaysan, int nbGuerrier,int nbLapin, int nbLoup, int nbEpee, int nbPotionSoin, int dimension) { 
+    public World(int nbArcher, int nbPaysan, int nbGuerrier,int nbLapin, int nbLoup, int nbEpee, int nbPotionSoin, int nbNourriture, int dimension) { 
         this.dimension = dimension;
         
         listCreatures = new ArrayList(); //notre liste de créature
@@ -107,8 +109,9 @@ public class World {
             listCreatures.add(new Loup()); 
         }
         
+        
         listObjets = new ArrayList(); //notre liste d'objet
-        nbObjets = nbEpee + nbPotionSoin;
+        nbObjets = nbEpee + nbPotionSoin + nbNourriture;
         
         //On ajoute les Epees
         for (int i = 0; i < nbEpee; i++) {  
@@ -118,6 +121,11 @@ public class World {
         //On ajoute les Potions de Soin
         for (int i = 0; i < nbPotionSoin; i++) {  
             listObjets.add(new PotionSoin()); 
+        }
+        
+        //On ajoute les Nourritures
+        for (int i = 0; i < nbNourriture; i++) {  
+            listObjets.add(new Nourriture()); //par défaut on créé des cafés
         }
         
         presences = new boolean[dimension][dimension];

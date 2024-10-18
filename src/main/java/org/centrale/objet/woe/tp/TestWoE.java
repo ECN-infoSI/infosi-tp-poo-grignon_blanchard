@@ -89,7 +89,7 @@ public class TestWoE{
                         break;
 
                     case "create":
-                        monde = new World(0, 0, 1, 1, 1, 1, 1, dimension);
+                        monde = new World(0, 0, 1, 1, 1, 1, 1, 2, dimension);
                         monde.creationJoueur();
 
                         database.createPartie(playerId, nomPartie, dimension);
@@ -109,11 +109,11 @@ public class TestWoE{
         }else {
             
             //on joue sans être connecté à la base de données et le monde est généré aléatoirement
-            System.out.println("Le monde est créé aléatoirement");
-            System.out.println("Il comprend 1 guerrier, 1 loup, 1 lapin, 1 épée et 1 potion de soin");
+            System.out.println("\n # Le monde est créé aléatoirement");
+            System.out.println("Il comprend 1 guerrier, 1 loup, 1 lapin, 1 épée, 1 potion de soin et 2 cafés");
             System.out.println("Dans un monde 5*5");
             play = true; 
-            monde = new World(0, 0, 1, 1, 1, 1, 1, dimension);
+            monde = new World(0, 0, 1, 1, 1, 1, 1, 2, dimension);
             monde.creationJoueur();
             
         }
