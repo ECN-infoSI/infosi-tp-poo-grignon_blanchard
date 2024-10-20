@@ -92,6 +92,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
     /**
      * Méthode permettant la gestion de la prise de dégats
      * @param degats Nombre de dégats à infliger (si négatif, rien n'est fait)
+     * @return Flag si mort
      */
     public boolean prendreDegats(int degats) {
         boolean killed = false;
@@ -115,6 +116,7 @@ public abstract class Creature extends ElementDeJeu implements Deplacable {
      * @param presences Tableau des présences des créatures 
      * @param presencesObjet Tableau des présences des Objets 
      * @param inventaire l'inventaire du joueur
+     * @throws java.lang.Exception Erreur si mouvement illicite
      */
     public void deplacer(Point2D newPos, boolean[][] presences, boolean[][] presencesObjet, ArrayList<Objet> listObjets ,  ArrayList<Objet> inventaire) throws Exception {
         // Déplacement à l'intérieur du monde

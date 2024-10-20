@@ -208,10 +208,11 @@ public class DatabaseTools {
 
     /**
      * save world to database
-     * @param idJoueur
-     * @param nomPartie
-     * @param nomSauvegarde
-     * @param monde
+     * @param idJoueur      Identifiant du joueur
+     * @param nomPartie     Nom de la partie
+     * @param nomSauvegarde Nom de la sauvegarde
+     * @param monde         Instance du monde à sauvegarder
+     * @throws java.lang.Exception Erreur si couple idJoueur, nomPartie inconnu
      */
     public void saveWorld(Integer idJoueur, String nomPartie, String nomSauvegarde, World monde) throws Exception {
         // Obtention de l'identifiant de la partie
@@ -477,7 +478,8 @@ public class DatabaseTools {
      * @param idJoueur      Identifiant du joueur
      * @param nomPartie     Nom de la partie
      * @param nomSauvegarde Nom de la sauvegarde
-     * @returns             Monde créé à partir de la sauvegarde
+     * @return              Monde créé à partir de la sauvegarde
+     * @throws java.lang.Exception Erreur si le couple idJoueur, nomPartie n'existe pas
      */
     public World readWorld(Integer idJoueur, String nomPartie, String nomSauvegarde) throws Exception {
         // Recuperation de l'identifant de la partie
@@ -644,9 +646,10 @@ public class DatabaseTools {
     /**
      * Supprimer une partie de la base de données
      * @author grigm
-     * @param idJoueur
-     * @param nomPartie
-     * @param nomSauvegarde
+     * @param idJoueur      Indentifiant du joueur
+     * @param nomPartie     Nom de la partie
+     * @param nomSauvegarde Nom de la sauvegarde
+     * @throws java.lang.Exception Erreur si le couple idJoueur, nomPartie n'existe pas
      */
     public void removeWorld(Integer idJoueur, String nomPartie, String nomSauvegarde) throws Exception {
         // Obtention de l'identifiant de la partie

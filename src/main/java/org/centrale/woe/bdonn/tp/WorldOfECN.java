@@ -19,7 +19,8 @@ public class WorldOfECN {
 
     /**
      * main program
-     * @param args
+     * @param args  Paramètres
+     * @throws java.lang.Exception Erreur si l'authentificaion echoue
      */
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);

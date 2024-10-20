@@ -25,6 +25,7 @@ public interface Deplacable {
      * @param presencesObjet Tableau recensant les positions des objets 
      * @param listObjets    Liste des objets du monde
      * @param inventaire    inventaire du joueur 
+     * @throws java.lang.Exception Erreur si deplacement illicite
      */
     public void deplacer(Point2D newPos, boolean[][] presences, boolean[][] presencesObjet, ArrayList<Objet> listObjets, ArrayList<Objet> inventaire) throws Exception;
 }

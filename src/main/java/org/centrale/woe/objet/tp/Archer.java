@@ -46,7 +46,7 @@ public class Archer extends Personnage implements Combattant {
     /**
      * Attaque à distance pour la classe Archer
      * @param c Créature à attaquer (peut être hors de portée)
-     * @returns Flag si la cible est tuée dans l'attaque
+     * @return Flag si la cible est tuée dans l'attaque
      */
     public boolean combattre(Creature c) {
         Date date = new Date();

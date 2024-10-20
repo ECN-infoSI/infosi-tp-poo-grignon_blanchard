@@ -59,7 +59,7 @@ public class Guerrier extends Personnage implements Combattant {
     /**
      * Attaque au corps à corps pour la classe Guerrier
      * @param c Créature à attaquer
-     * @returns Flag si la cible est tuée dans l'attaque
+     * @return Flag si la cible est tuée dans l'attaque
      */
     public boolean combattre(Creature c) {
         Date date = new Date();

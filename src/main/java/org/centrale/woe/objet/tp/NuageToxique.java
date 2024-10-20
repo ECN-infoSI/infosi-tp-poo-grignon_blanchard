@@ -39,7 +39,7 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     /**
      * méthode pour déplacer le nuage toxique sur une position définie 
      * @author grigm
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Erreur si mouvement illicite
      * @param newPos la position qu'on veut atteindre
      * @param presences représente le tableau du plateau de jeu avec des vrais quand la case est occupée
      */
@@ -59,7 +59,7 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     /**
      * méthode pour déplacer le nuage toxique aléatoirement sur une case adjacente (diagonale possible)
      * @author grigm
-     * @paramn presences représente le tableau du plateau de jeu avec des vrais quand la case est occupée
+     * @param presences représente le tableau du plateau de jeu avec des vrais quand la case est occupée
      */
     @Override
     public void deplacementAleatoire(boolean[][] presences) {
@@ -79,7 +79,7 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     /**
      * Méthode pour permettre au nuage toxique d'attaquer les créatures (inflige autant de dégat que nivToxique)
      * @param c Créature à attaquer
-     * @returns Flag si la cible est tuée dans l'attaque
+     * @return Flag si la cible est tuée dans l'attaque
      */
     @Override
     public boolean combattre(Creature c) {
